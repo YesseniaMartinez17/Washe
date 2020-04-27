@@ -1,0 +1,1360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbPersonas">
+          <Key>
+            <PropertyRef Name="per_Id" />
+          </Key>
+          <Property Name="per_Id" Type="int" Nullable="false" />
+          <Property Name="per_Identidad" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="per_Nombres" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="per_Apellidos" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="per_FechaNacimiento" Type="date" />
+          <Property Name="per_Sexo" Type="char" MaxLength="1" />
+          <Property Name="per_Telefono" Type="nvarchar" MaxLength="20" />
+          <Property Name="per_CorreoElectronico" Type="nvarchar" MaxLength="50" />
+          <Property Name="per_EstadoCivil" Type="char" MaxLength="1" />
+          <Property Name="per_Estado" Type="bit" Nullable="false" />
+          <Property Name="per_RazonInactivo" Type="nvarchar" MaxLength="100" />
+          <Property Name="per_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="per_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="per_UsuarioModifica" Type="int" />
+          <Property Name="per_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbCatalogoProductos">
+          <Key>
+            <PropertyRef Name="cprod_Id" />
+          </Key>
+          <Property Name="cprod_Id" Type="int" Nullable="false" />
+          <Property Name="cprod_Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="cprod_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="cprod_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="cprod_UsuarioModifica" Type="int" />
+          <Property Name="cprod_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbPrecios">
+          <Key>
+            <PropertyRef Name="prc_Id" />
+          </Key>
+          <Property Name="prc_Id" Type="int" Nullable="false" />
+          <Property Name="prod_Id" Type="int" />
+          <Property Name="prc_Precio" Type="money" Nullable="false" />
+          <Property Name="prc_PrecioAnterior" Type="int" />
+          <Property Name="prc_Estado" Type="bit" Nullable="false" />
+          <Property Name="prc_RazonInactivo" Type="nvarchar" MaxLength="30" />
+          <Property Name="prc_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="prc_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="prc_UsuarioModifica" Type="int" />
+          <Property Name="prc_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbProductos">
+          <Key>
+            <PropertyRef Name="prod_Id" />
+          </Key>
+          <Property Name="prod_Id" Type="int" Nullable="false" />
+          <Property Name="cprod_Id" Type="int" Nullable="false" />
+          <Property Name="prod_Descripcion" Type="nvarchar" MaxLength="100" />
+          <Property Name="prod_Codigo" Type="nvarchar" MaxLength="50" />
+          <Property Name="prod_Estado" Type="bit" Nullable="false" />
+          <Property Name="prod_RazonInactivo" Type="nvarchar" MaxLength="30" />
+          <Property Name="prod_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="prod_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="prod_UsuarioModifica" Type="int" />
+          <Property Name="prod_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbServicios">
+          <Key>
+            <PropertyRef Name="serv_Id" />
+          </Key>
+          <Property Name="serv_Id" Type="int" Nullable="false" />
+          <Property Name="serv_Precio" Type="money" Nullable="false" />
+          <Property Name="serv_Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="serv_Estado" Type="bit" Nullable="false" />
+          <Property Name="serv_RazonInactivo" Type="nvarchar" MaxLength="30" />
+          <Property Name="serv_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="serv_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="serv_UsuarioModifica" Type="int" />
+          <Property Name="serv_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbTipoVehiculo">
+          <Key>
+            <PropertyRef Name="tvh_Id" />
+          </Key>
+          <Property Name="tvh_Id" Type="int" Nullable="false" />
+          <Property Name="tvh_Descripcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="tvh_Precio" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbAcciones">
+          <Key>
+            <PropertyRef Name="accion_Id" />
+          </Key>
+          <Property Name="accion_Id" Type="int" Nullable="false" />
+          <Property Name="accion_descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbAccionRol">
+          <Key>
+            <PropertyRef Name="acrol_Id" />
+          </Key>
+          <Property Name="acrol_Id" Type="int" Nullable="false" />
+          <Property Name="accion_Id" Type="int" Nullable="false" />
+          <Property Name="rol_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbRoles">
+          <Key>
+            <PropertyRef Name="rol_Id" />
+          </Key>
+          <Property Name="rol_Id" Type="int" Nullable="false" />
+          <Property Name="rol_Descripcion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tbUsuarios">
+          <Key>
+            <PropertyRef Name="usu_Id" />
+          </Key>
+          <Property Name="usu_Id" Type="int" Nullable="false" />
+          <Property Name="usu_NombreDeUsuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="usu_Contrasenia" Type="nvarchar(max)" />
+          <Property Name="usu_BloqueoActivo" Type="bit" Nullable="false" />
+          <Property Name="rol_id" Type="int" />
+        </EntityType>
+        <Association Name="FK__tbAccionR__accio__1BC821DD">
+          <End Role="tbAcciones" Type="Self.tbAcciones" Multiplicity="1" />
+          <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAcciones">
+              <PropertyRef Name="accion_Id" />
+            </Principal>
+            <Dependent Role="tbAccionRol">
+              <PropertyRef Name="accion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbAccionR__rol_I__1CBC4616">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
+          <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="rol_Id" />
+            </Principal>
+            <Dependent Role="tbAccionRol">
+              <PropertyRef Name="rol_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbCatalog__cprod__70DDC3D8">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbCatalog__cprod__71D1E811">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_P__01142BA1">
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="0..1" />
+          <End Role="tbPrecios1" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrecios">
+              <PropertyRef Name="prc_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios1">
+              <PropertyRef Name="prc_PrecioAnterior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_U__02084FDA">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prc_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_U__02FC7413">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prc_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prod___00200768">
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="0..1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProductos">
+              <PropertyRef Name="prod_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__cprod__76969D2E">
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="cprod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__prod___778AC167">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="prod_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__prod___787EE5A0">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="prod_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbServici__serv___7C4F7684">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbServici__serv___7D439ABD">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbUsuario__rol_i__05D8E0BE">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="0..1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="rol_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="UDP_Persona_tbPersonas_Habilitar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Persona">
+          <Parameter Name="per_Id" Type="int" Mode="In" />
+          <Parameter Name="per_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="per_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Persona_tbPersonas_Inactivar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Persona">
+          <Parameter Name="per_Id" Type="int" Mode="In" />
+          <Parameter Name="per_RazonInactivo" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="per_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Persona_tbPersonas_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Persona">
+          <Parameter Name="per_Identidad" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_Nombres" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_Apellidos" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="per_Sexo" Type="char" Mode="In" />
+          <Parameter Name="per_Telefono" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_CorreoElectronico" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_EstadoCivil" Type="char" Mode="In" />
+          <Parameter Name="per_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="per_FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Persona_tbPersonas_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Persona">
+          <Parameter Name="per_Id" Type="int" Mode="In" />
+          <Parameter Name="per_Identidad" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_Nombres" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_Apellidos" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_FechaNacimiento" Type="date" Mode="In" />
+          <Parameter Name="per_Sexo" Type="char" Mode="In" />
+          <Parameter Name="per_Telefono" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_CorreoElectronico" Type="nvarchar" Mode="In" />
+          <Parameter Name="per_EstadoCivil" Type="char" Mode="In" />
+          <Parameter Name="per_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="per_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="SDP_Seg_GetObjetos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg" />
+        <Function Name="SDP_Seg_GetObjetosAsignados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SDP_Seg_GetObjetosDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SDP_Seg_GetReportes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg" />
+        <Function Name="SDP_Seg_GetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg" />
+        <Function Name="SDP_Seg_GetRolesAsignados" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SDP_Seg_GetRolesDisponibles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SDP_Seg_GetUserRols" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Pantalla" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="UsuarioId" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbAccesoRol_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbAccesoRol_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Id" Type="int" Mode="In" />
+          <Parameter Name="UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbAccesoRol_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="acrol_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Id" Type="int" Mode="In" />
+          <Parameter Name="acrol_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="acrol_FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbBitacoraErrores_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="bite_Pantalla" Type="nvarchar" Mode="In" />
+          <Parameter Name="bite_Usuario" Type="nvarchar" Mode="In" />
+          <Parameter Name="bite_Fecha" Type="datetime" Mode="In" />
+          <Parameter Name="bite_MensajeError" Type="varchar(max)" Mode="In" />
+          <Parameter Name="bite_Accion" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbObjeto_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="obj_Pantalla" Type="nvarchar" Mode="In" />
+          <Parameter Name="obj_Referencia" Type="varchar" Mode="In" />
+          <Parameter Name="obj_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="obj_FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbObjeto_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="obj_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Pantalla" Type="nvarchar" Mode="In" />
+          <Parameter Name="obj_Referencia" Type="varchar" Mode="In" />
+          <Parameter Name="obj_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="obj_FechaCrea" Type="datetime" Mode="In" />
+          <Parameter Name="obj_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="obj_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbObjeto_Update_Estado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="obj_Id" Type="int" Mode="In" />
+          <Parameter Name="obj_Estado" Type="bit" Mode="In" />
+          <Parameter Name="obj_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="obj_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRol_Inactivar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="IDRol" Type="int" Mode="In" />
+          <Parameter Name="rol_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="rol_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRol_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="rol_Estado" Type="bit" Mode="In" />
+          <Parameter Name="rol_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="rol_FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRol_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="rol_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="rol_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRolEstado_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Estado" Type="bit" Mode="In" />
+          <Parameter Name="rol_UsuarioModifica" Type="int" Mode="In" />
+          <Parameter Name="rol_FechaModifica" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRolesUsuario_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRolesUsuario_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="rolu_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="rolu_FechaCrea" Type="date" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbRolesUsuario_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="rolu_Id" Type="int" Mode="In" />
+          <Parameter Name="rol_Id" Type="int" Mode="In" />
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="rolu_UsuarioCrea" Type="int" Mode="In" />
+          <Parameter Name="rolu_FechaCrea" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbUsuario_Estado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="usu_EsActivo" Type="bit" Mode="In" />
+          <Parameter Name="usu_RazonInactivo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbUsuario_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_NombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Password" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Correo" Type="varchar" Mode="In" />
+          <Parameter Name="usu_EsActivo" Type="bit" Mode="In" />
+          <Parameter Name="usu_EsAdministrador" Type="bit" Mode="In" />
+          <Parameter Name="suc_Id" Type="int" Mode="In" />
+          <Parameter Name="emp_Id" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbUsuario_PasswordRestore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="usu_Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbUsuario_PasswordUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="usu_Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_Seg_tbUsuario_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg" />
+        <Function Name="UDP_Seg_tbUsuario_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
+          <Parameter Name="usu_Id" Type="int" Mode="In" />
+          <Parameter Name="usu_NombreUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Nombres" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Apellidos" Type="varchar" Mode="In" />
+          <Parameter Name="usu_Correo" Type="varchar" Mode="In" />
+          <Parameter Name="usu_EsActivo" Type="bit" Mode="In" />
+          <Parameter Name="usu_RazonInactivo" Type="varchar" Mode="In" />
+          <Parameter Name="usu_EsAdministrador" Type="bit" Mode="In" />
+          <Parameter Name="suc_Id" Type="int" Mode="In" />
+          <Parameter Name="emp_Id" Type="smallint" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelsStoreContainer">
+          <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" Schema="Persona" store:Type="Tables" />
+          <EntitySet Name="tbCatalogoProductos" EntityType="Self.tbCatalogoProductos" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbPrecios" EntityType="Self.tbPrecios" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbProductos" EntityType="Self.tbProductos" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbServicios" EntityType="Self.tbServicios" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbTipoVehiculo" EntityType="Self.tbTipoVehiculo" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbAcciones" EntityType="Self.tbAcciones" Schema="Seg" store:Type="Tables" />
+          <EntitySet Name="tbAccionRol" EntityType="Self.tbAccionRol" Schema="Seg" store:Type="Tables" />
+          <EntitySet Name="tbRoles" EntityType="Self.tbRoles" Schema="Seg" store:Type="Tables" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" Schema="Seg" store:Type="Tables" />
+          <AssociationSet Name="FK__tbAccionR__accio__1BC821DD" Association="Self.FK__tbAccionR__accio__1BC821DD">
+            <End Role="tbAcciones" EntitySet="tbAcciones" />
+            <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbAccionR__rol_I__1CBC4616" Association="Self.FK__tbAccionR__rol_I__1CBC4616">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbCatalog__cprod__70DDC3D8" Association="Self.FK__tbCatalog__cprod__70DDC3D8">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbCatalog__cprod__71D1E811" Association="Self.FK__tbCatalog__cprod__71D1E811">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_P__01142BA1" Association="Self.FK__tbPrecios__prc_P__01142BA1">
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+            <End Role="tbPrecios1" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_U__02084FDA" Association="Self.FK__tbPrecios__prc_U__02084FDA">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_U__02FC7413" Association="Self.FK__tbPrecios__prc_U__02FC7413">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prod___00200768" Association="Self.FK__tbPrecios__prod___00200768">
+            <End Role="tbProductos" EntitySet="tbProductos" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__cprod__76969D2E" Association="Self.FK__tbProduct__cprod__76969D2E">
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__prod___778AC167" Association="Self.FK__tbProduct__prod___778AC167">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__prod___787EE5A0" Association="Self.FK__tbProduct__prod___787EE5A0">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbServici__serv___7C4F7684" Association="Self.FK__tbServici__serv___7C4F7684">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbServici__serv___7D439ABD" Association="Self.FK__tbServici__serv___7D439ABD">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbUsuario__rol_i__05D8E0BE" Association="Self.FK__tbUsuario__rol_i__05D8E0BE">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbPersonas">
+          <Key>
+            <PropertyRef Name="per_Id" />
+          </Key>
+          <Property Name="per_Id" Type="Int32" Nullable="false" />
+          <Property Name="per_Identidad" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="per_Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="per_Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="per_FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="per_Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="per_CorreoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="per_EstadoCivil" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="per_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="per_RazonInactivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="per_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="per_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="per_UsuarioModifica" Type="Int32" />
+          <Property Name="per_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbPersonas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbPersonas" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbCatalogoProductos">
+          <Key>
+            <PropertyRef Name="cprod_Id" />
+          </Key>
+          <Property Name="cprod_Id" Type="Int32" Nullable="false" />
+          <Property Name="cprod_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cprod_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="cprod_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cprod_UsuarioModifica" Type="Int32" />
+          <Property Name="cprod_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK__tbCatalog__cprod__70DDC3D8" FromRole="tbCatalogoProductos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK__tbCatalog__cprod__71D1E811" FromRole="tbCatalogoProductos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbProductos" Relationship="Self.FK__tbProduct__cprod__76969D2E" FromRole="tbCatalogoProductos" ToRole="tbProductos" />
+        </EntityType>
+        <EntityType Name="tbPrecios">
+          <Key>
+            <PropertyRef Name="prc_Id" />
+          </Key>
+          <Property Name="prc_Id" Type="Int32" Nullable="false" />
+          <Property Name="prod_Id" Type="Int32" />
+          <Property Name="prc_Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="prc_PrecioAnterior" Type="Int32" />
+          <Property Name="prc_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="prc_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="prc_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="prc_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="prc_UsuarioModifica" Type="Int32" />
+          <Property Name="prc_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbPrecios1" Relationship="Self.FK__tbPrecios__prc_P__01142BA1" FromRole="tbPrecios" ToRole="tbPrecios1" />
+          <NavigationProperty Name="tbPrecios2" Relationship="Self.FK__tbPrecios__prc_P__01142BA1" FromRole="tbPrecios1" ToRole="tbPrecios" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK__tbPrecios__prc_U__02084FDA" FromRole="tbPrecios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK__tbPrecios__prc_U__02FC7413" FromRole="tbPrecios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbProductos" Relationship="Self.FK__tbPrecios__prod___00200768" FromRole="tbPrecios" ToRole="tbProductos" />
+        </EntityType>
+        <EntityType Name="tbProductos">
+          <Key>
+            <PropertyRef Name="prod_Id" />
+          </Key>
+          <Property Name="prod_Id" Type="Int32" Nullable="false" />
+          <Property Name="cprod_Id" Type="Int32" Nullable="false" />
+          <Property Name="prod_Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="prod_Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prod_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="prod_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="prod_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="prod_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="prod_UsuarioModifica" Type="Int32" />
+          <Property Name="prod_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbCatalogoProductos" Relationship="Self.FK__tbProduct__cprod__76969D2E" FromRole="tbProductos" ToRole="tbCatalogoProductos" />
+          <NavigationProperty Name="tbPrecios" Relationship="Self.FK__tbPrecios__prod___00200768" FromRole="tbProductos" ToRole="tbPrecios" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK__tbProduct__prod___778AC167" FromRole="tbProductos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK__tbProduct__prod___787EE5A0" FromRole="tbProductos" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbServicios">
+          <Key>
+            <PropertyRef Name="serv_Id" />
+          </Key>
+          <Property Name="serv_Id" Type="Int32" Nullable="false" />
+          <Property Name="serv_Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="serv_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="serv_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="serv_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="serv_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="serv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="serv_UsuarioModifica" Type="Int32" />
+          <Property Name="serv_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK__tbServici__serv___7C4F7684" FromRole="tbServicios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK__tbServici__serv___7D439ABD" FromRole="tbServicios" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbTipoVehiculo">
+          <Key>
+            <PropertyRef Name="tvh_Id" />
+          </Key>
+          <Property Name="tvh_Id" Type="Int32" Nullable="false" />
+          <Property Name="tvh_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="tvh_Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbAcciones">
+          <Key>
+            <PropertyRef Name="accion_Id" />
+          </Key>
+          <Property Name="accion_Id" Type="Int32" Nullable="false" />
+          <Property Name="accion_descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbAccionRol" Relationship="Self.FK__tbAccionR__accio__1BC821DD" FromRole="tbAcciones" ToRole="tbAccionRol" />
+        </EntityType>
+        <EntityType Name="tbAccionRol">
+          <Key>
+            <PropertyRef Name="acrol_Id" />
+          </Key>
+          <Property Name="acrol_Id" Type="Int32" Nullable="false" />
+          <Property Name="accion_Id" Type="Int32" Nullable="false" />
+          <Property Name="rol_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbAcciones" Relationship="Self.FK__tbAccionR__accio__1BC821DD" FromRole="tbAccionRol" ToRole="tbAcciones" />
+          <NavigationProperty Name="tbRoles" Relationship="Self.FK__tbAccionR__rol_I__1CBC4616" FromRole="tbAccionRol" ToRole="tbRoles" />
+        </EntityType>
+        <EntityType Name="tbRoles">
+          <Key>
+            <PropertyRef Name="rol_Id" />
+          </Key>
+          <Property Name="rol_Id" Type="Int32" Nullable="false" />
+          <Property Name="rol_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbAccionRol" Relationship="Self.FK__tbAccionR__rol_I__1CBC4616" FromRole="tbRoles" ToRole="tbAccionRol" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK__tbUsuario__rol_i__05D8E0BE" FromRole="tbRoles" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="tbUsuarios">
+          <Key>
+            <PropertyRef Name="usu_Id" />
+          </Key>
+          <Property Name="usu_Id" Type="Int32" Nullable="false" />
+          <Property Name="usu_NombreDeUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usu_Contrasenia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="usu_BloqueoActivo" Type="Boolean" Nullable="false" />
+          <Property Name="rol_id" Type="Int32" />
+          <NavigationProperty Name="tbPersonas" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbPersonas1" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbCatalogoProductos" Relationship="Self.FK__tbCatalog__cprod__70DDC3D8" FromRole="tbUsuarios" ToRole="tbCatalogoProductos" />
+          <NavigationProperty Name="tbCatalogoProductos1" Relationship="Self.FK__tbCatalog__cprod__71D1E811" FromRole="tbUsuarios" ToRole="tbCatalogoProductos" />
+          <NavigationProperty Name="tbPrecios" Relationship="Self.FK__tbPrecios__prc_U__02084FDA" FromRole="tbUsuarios" ToRole="tbPrecios" />
+          <NavigationProperty Name="tbPrecios1" Relationship="Self.FK__tbPrecios__prc_U__02FC7413" FromRole="tbUsuarios" ToRole="tbPrecios" />
+          <NavigationProperty Name="tbProductos" Relationship="Self.FK__tbProduct__prod___778AC167" FromRole="tbUsuarios" ToRole="tbProductos" />
+          <NavigationProperty Name="tbProductos1" Relationship="Self.FK__tbProduct__prod___787EE5A0" FromRole="tbUsuarios" ToRole="tbProductos" />
+          <NavigationProperty Name="tbServicios" Relationship="Self.FK__tbServici__serv___7C4F7684" FromRole="tbUsuarios" ToRole="tbServicios" />
+          <NavigationProperty Name="tbServicios1" Relationship="Self.FK__tbServici__serv___7D439ABD" FromRole="tbUsuarios" ToRole="tbServicios" />
+          <NavigationProperty Name="tbRoles" Relationship="Self.FK__tbUsuario__rol_i__05D8E0BE" FromRole="tbUsuarios" ToRole="tbRoles" />
+        </EntityType>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbCatalog__cprod__70DDC3D8">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbCatalog__cprod__71D1E811">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__cprod__76969D2E">
+          <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCatalogoProductos">
+              <PropertyRef Name="cprod_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="cprod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_P__01142BA1">
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="0..1" />
+          <End Role="tbPrecios1" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrecios">
+              <PropertyRef Name="prc_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios1">
+              <PropertyRef Name="prc_PrecioAnterior" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_U__02084FDA">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prc_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prc_U__02FC7413">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prc_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbPrecios__prod___00200768">
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="0..1" />
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbProductos">
+              <PropertyRef Name="prod_Id" />
+            </Principal>
+            <Dependent Role="tbPrecios">
+              <PropertyRef Name="prod_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__prod___778AC167">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="prod_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbProduct__prod___787EE5A0">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbProductos" Type="Self.tbProductos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbProductos">
+              <PropertyRef Name="prod_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbServici__serv___7C4F7684">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbServici__serv___7D439ABD">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbAccionR__accio__1BC821DD">
+          <End Role="tbAcciones" Type="Self.tbAcciones" Multiplicity="1" />
+          <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAcciones">
+              <PropertyRef Name="accion_Id" />
+            </Principal>
+            <Dependent Role="tbAccionRol">
+              <PropertyRef Name="accion_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbAccionR__rol_I__1CBC4616">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
+          <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="rol_Id" />
+            </Principal>
+            <Dependent Role="tbAccionRol">
+              <PropertyRef Name="rol_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbUsuario__rol_i__05D8E0BE">
+          <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="0..1" />
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbRoles">
+              <PropertyRef Name="rol_Id" />
+            </Principal>
+            <Dependent Role="tbUsuarios">
+              <PropertyRef Name="rol_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WashEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" />
+          <EntitySet Name="tbCatalogoProductos" EntityType="Self.tbCatalogoProductos" />
+          <EntitySet Name="tbPrecios" EntityType="Self.tbPrecios" />
+          <EntitySet Name="tbProductos" EntityType="Self.tbProductos" />
+          <EntitySet Name="tbServicios" EntityType="Self.tbServicios" />
+          <EntitySet Name="tbTipoVehiculo" EntityType="Self.tbTipoVehiculo" />
+          <EntitySet Name="tbAcciones" EntityType="Self.tbAcciones" />
+          <EntitySet Name="tbAccionRol" EntityType="Self.tbAccionRol" />
+          <EntitySet Name="tbRoles" EntityType="Self.tbRoles" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" />
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbCatalog__cprod__70DDC3D8" Association="Self.FK__tbCatalog__cprod__70DDC3D8">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbCatalog__cprod__71D1E811" Association="Self.FK__tbCatalog__cprod__71D1E811">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__cprod__76969D2E" Association="Self.FK__tbProduct__cprod__76969D2E">
+            <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_P__01142BA1" Association="Self.FK__tbPrecios__prc_P__01142BA1">
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+            <End Role="tbPrecios1" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_U__02084FDA" Association="Self.FK__tbPrecios__prc_U__02084FDA">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prc_U__02FC7413" Association="Self.FK__tbPrecios__prc_U__02FC7413">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbPrecios__prod___00200768" Association="Self.FK__tbPrecios__prod___00200768">
+            <End Role="tbProductos" EntitySet="tbProductos" />
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__prod___778AC167" Association="Self.FK__tbProduct__prod___778AC167">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbProduct__prod___787EE5A0" Association="Self.FK__tbProduct__prod___787EE5A0">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbProductos" EntitySet="tbProductos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbServici__serv___7C4F7684" Association="Self.FK__tbServici__serv___7C4F7684">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbServici__serv___7D439ABD" Association="Self.FK__tbServici__serv___7D439ABD">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbAccionR__accio__1BC821DD" Association="Self.FK__tbAccionR__accio__1BC821DD">
+            <End Role="tbAcciones" EntitySet="tbAcciones" />
+            <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbAccionR__rol_I__1CBC4616" Association="Self.FK__tbAccionR__rol_I__1CBC4616">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbUsuario__rol_i__05D8E0BE" Association="Self.FK__tbUsuario__rol_i__05D8E0BE">
+            <End Role="tbRoles" EntitySet="tbRoles" />
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+          </AssociationSet>
+          <FunctionImport Name="UDP_Persona_tbPersonas_Habilitar" ReturnType="Collection(String)">
+            <Parameter Name="per_Id" Mode="In" Type="Int32" />
+            <Parameter Name="per_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="per_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Persona_tbPersonas_Inactivar" ReturnType="Collection(String)">
+            <Parameter Name="per_Id" Mode="In" Type="Int32" />
+            <Parameter Name="per_RazonInactivo" Mode="In" Type="String" />
+            <Parameter Name="per_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="per_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Persona_tbPersonas_Insert" ReturnType="Collection(String)">
+            <Parameter Name="per_Identidad" Mode="In" Type="String" />
+            <Parameter Name="per_Nombres" Mode="In" Type="String" />
+            <Parameter Name="per_Apellidos" Mode="In" Type="String" />
+            <Parameter Name="per_FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="per_Sexo" Mode="In" Type="String" />
+            <Parameter Name="per_Telefono" Mode="In" Type="String" />
+            <Parameter Name="per_CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="per_EstadoCivil" Mode="In" Type="String" />
+            <Parameter Name="per_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="per_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Persona_tbPersonas_Update" ReturnType="Collection(String)">
+            <Parameter Name="per_Id" Mode="In" Type="Int32" />
+            <Parameter Name="per_Identidad" Mode="In" Type="String" />
+            <Parameter Name="per_Nombres" Mode="In" Type="String" />
+            <Parameter Name="per_Apellidos" Mode="In" Type="String" />
+            <Parameter Name="per_FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="per_Sexo" Mode="In" Type="String" />
+            <Parameter Name="per_Telefono" Mode="In" Type="String" />
+            <Parameter Name="per_CorreoElectronico" Mode="In" Type="String" />
+            <Parameter Name="per_EstadoCivil" Mode="In" Type="String" />
+            <Parameter Name="per_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="per_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SDP_Seg_GetObjetos" />
+          <FunctionImport Name="SDP_Seg_GetObjetosAsignados">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SDP_Seg_GetObjetosDisponibles">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SDP_Seg_GetReportes" />
+          <FunctionImport Name="SDP_Seg_GetRoles" />
+          <FunctionImport Name="SDP_Seg_GetRolesAsignados">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SDP_Seg_GetRolesDisponibles">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SDP_Seg_GetUserRols">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Pantalla" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_Login">
+            <Parameter Name="UsuarioId" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbAccesoRol_Delete">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbAccesoRol_Insert">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Id" Mode="In" Type="Int32" />
+            <Parameter Name="UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbAccesoRol_Update">
+            <Parameter Name="acrol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Id" Mode="In" Type="Int32" />
+            <Parameter Name="acrol_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="acrol_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbBitacoraErrores_Insert">
+            <Parameter Name="bite_Pantalla" Mode="In" Type="String" />
+            <Parameter Name="bite_Usuario" Mode="In" Type="String" />
+            <Parameter Name="bite_Fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="bite_MensajeError" Mode="In" Type="String" />
+            <Parameter Name="bite_Accion" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbObjeto_Insert">
+            <Parameter Name="obj_Pantalla" Mode="In" Type="String" />
+            <Parameter Name="obj_Referencia" Mode="In" Type="String" />
+            <Parameter Name="obj_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="obj_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbObjeto_Update">
+            <Parameter Name="obj_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Pantalla" Mode="In" Type="String" />
+            <Parameter Name="obj_Referencia" Mode="In" Type="String" />
+            <Parameter Name="obj_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="obj_FechaCrea" Mode="In" Type="DateTime" />
+            <Parameter Name="obj_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="obj_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbObjeto_Update_Estado">
+            <Parameter Name="obj_Id" Mode="In" Type="Int32" />
+            <Parameter Name="obj_Estado" Mode="In" Type="Boolean" />
+            <Parameter Name="obj_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="obj_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRol_Inactivar">
+            <Parameter Name="IDRol" Mode="In" Type="Int32" />
+            <Parameter Name="rol_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="rol_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRol_Insert">
+            <Parameter Name="rol_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="rol_Estado" Mode="In" Type="Boolean" />
+            <Parameter Name="rol_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="rol_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRol_Update">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="rol_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="rol_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRolEstado_Update">
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Estado" Mode="In" Type="Boolean" />
+            <Parameter Name="rol_UsuarioModifica" Mode="In" Type="Int32" />
+            <Parameter Name="rol_FechaModifica" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRolesUsuario_Delete">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRolesUsuario_Insert">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rolu_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="rolu_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbRolesUsuario_Update">
+            <Parameter Name="rolu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="rolu_UsuarioCrea" Mode="In" Type="Int32" />
+            <Parameter Name="rolu_FechaCrea" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbUsuario_Estado">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usu_EsActivo" Mode="In" Type="Boolean" />
+            <Parameter Name="usu_RazonInactivo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbUsuario_Insert">
+            <Parameter Name="usu_NombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="usu_Password" Mode="In" Type="String" />
+            <Parameter Name="usu_Nombres" Mode="In" Type="String" />
+            <Parameter Name="usu_Apellidos" Mode="In" Type="String" />
+            <Parameter Name="usu_Correo" Mode="In" Type="String" />
+            <Parameter Name="usu_EsActivo" Mode="In" Type="Boolean" />
+            <Parameter Name="usu_EsAdministrador" Mode="In" Type="Boolean" />
+            <Parameter Name="suc_Id" Mode="In" Type="Int32" />
+            <Parameter Name="emp_Id" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbUsuario_PasswordRestore">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usu_Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbUsuario_PasswordUpdate">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usu_Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_Seg_tbUsuario_Select" />
+          <FunctionImport Name="UDP_Seg_tbUsuario_Update">
+            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usu_NombreUsuario" Mode="In" Type="String" />
+            <Parameter Name="usu_Nombres" Mode="In" Type="String" />
+            <Parameter Name="usu_Apellidos" Mode="In" Type="String" />
+            <Parameter Name="usu_Correo" Mode="In" Type="String" />
+            <Parameter Name="usu_EsActivo" Mode="In" Type="Boolean" />
+            <Parameter Name="usu_RazonInactivo" Mode="In" Type="String" />
+            <Parameter Name="usu_EsAdministrador" Mode="In" Type="Boolean" />
+            <Parameter Name="suc_Id" Mode="In" Type="Int32" />
+            <Parameter Name="emp_Id" Mode="In" Type="Int16" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WashEEntities">
+          <EntitySetMapping Name="tbPersonas">
+            <EntityTypeMapping TypeName="Models.tbPersonas">
+              <MappingFragment StoreEntitySet="tbPersonas">
+                <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+                <ScalarProperty Name="per_Identidad" ColumnName="per_Identidad" />
+                <ScalarProperty Name="per_Nombres" ColumnName="per_Nombres" />
+                <ScalarProperty Name="per_Apellidos" ColumnName="per_Apellidos" />
+                <ScalarProperty Name="per_FechaNacimiento" ColumnName="per_FechaNacimiento" />
+                <ScalarProperty Name="per_Sexo" ColumnName="per_Sexo" />
+                <ScalarProperty Name="per_Telefono" ColumnName="per_Telefono" />
+                <ScalarProperty Name="per_CorreoElectronico" ColumnName="per_CorreoElectronico" />
+                <ScalarProperty Name="per_EstadoCivil" ColumnName="per_EstadoCivil" />
+                <ScalarProperty Name="per_Estado" ColumnName="per_Estado" />
+                <ScalarProperty Name="per_RazonInactivo" ColumnName="per_RazonInactivo" />
+                <ScalarProperty Name="per_UsuarioCrea" ColumnName="per_UsuarioCrea" />
+                <ScalarProperty Name="per_FechaCrea" ColumnName="per_FechaCrea" />
+                <ScalarProperty Name="per_UsuarioModifica" ColumnName="per_UsuarioModifica" />
+                <ScalarProperty Name="per_FechaModifica" ColumnName="per_FechaModifica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbCatalogoProductos">
+            <EntityTypeMapping TypeName="Models.tbCatalogoProductos">
+              <MappingFragment StoreEntitySet="tbCatalogoProductos">
+                <ScalarProperty Name="cprod_Id" ColumnName="cprod_Id" />
+                <ScalarProperty Name="cprod_Descripcion" ColumnName="cprod_Descripcion" />
+                <ScalarProperty Name="cprod_UsuarioCrea" ColumnName="cprod_UsuarioCrea" />
+                <ScalarProperty Name="cprod_FechaCrea" ColumnName="cprod_FechaCrea" />
+                <ScalarProperty Name="cprod_UsuarioModifica" ColumnName="cprod_UsuarioModifica" />
+                <ScalarProperty Name="cprod_FechaModifica" ColumnName="cprod_FechaModifica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPrecios">
+            <EntityTypeMapping TypeName="Models.tbPrecios">
+              <MappingFragment StoreEntitySet="tbPrecios">
+                <ScalarProperty Name="prc_Id" ColumnName="prc_Id" />
+                <ScalarProperty Name="prod_Id" ColumnName="prod_Id" />
+                <ScalarProperty Name="prc_Precio" ColumnName="prc_Precio" />
+                <ScalarProperty Name="prc_PrecioAnterior" ColumnName="prc_PrecioAnterior" />
+                <ScalarProperty Name="prc_Estado" ColumnName="prc_Estado" />
+                <ScalarProperty Name="prc_RazonInactivo" ColumnName="prc_RazonInactivo" />
+                <ScalarProperty Name="prc_UsuarioCrea" ColumnName="prc_UsuarioCrea" />
+                <ScalarProperty Name="prc_FechaCrea" ColumnName="prc_FechaCrea" />
+                <ScalarProperty Name="prc_UsuarioModifica" ColumnName="prc_UsuarioModifica" />
+                <ScalarProperty Name="prc_FechaModifica" ColumnName="prc_FechaModifica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbProductos">
+            <EntityTypeMapping TypeName="Models.tbProductos">
+              <MappingFragment StoreEntitySet="tbProductos">
+                <ScalarProperty Name="prod_Id" ColumnName="prod_Id" />
+                <ScalarProperty Name="cprod_Id" ColumnName="cprod_Id" />
+                <ScalarProperty Name="prod_Descripcion" ColumnName="prod_Descripcion" />
+                <ScalarProperty Name="prod_Codigo" ColumnName="prod_Codigo" />
+                <ScalarProperty Name="prod_Estado" ColumnName="prod_Estado" />
+                <ScalarProperty Name="prod_RazonInactivo" ColumnName="prod_RazonInactivo" />
+                <ScalarProperty Name="prod_UsuarioCrea" ColumnName="prod_UsuarioCrea" />
+                <ScalarProperty Name="prod_FechaCrea" ColumnName="prod_FechaCrea" />
+                <ScalarProperty Name="prod_UsuarioModifica" ColumnName="prod_UsuarioModifica" />
+                <ScalarProperty Name="prod_FechaModifica" ColumnName="prod_FechaModifica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbServicios">
+            <EntityTypeMapping TypeName="Models.tbServicios">
+              <MappingFragment StoreEntitySet="tbServicios">
+                <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+                <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
+                <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
+                <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
+                <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
+                <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
+                <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
+                <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
+                <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbTipoVehiculo">
+            <EntityTypeMapping TypeName="Models.tbTipoVehiculo">
+              <MappingFragment StoreEntitySet="tbTipoVehiculo">
+                <ScalarProperty Name="tvh_Id" ColumnName="tvh_Id" />
+                <ScalarProperty Name="tvh_Descripcion" ColumnName="tvh_Descripcion" />
+                <ScalarProperty Name="tvh_Precio" ColumnName="tvh_Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbAcciones">
+            <EntityTypeMapping TypeName="Models.tbAcciones">
+              <MappingFragment StoreEntitySet="tbAcciones">
+                <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
+                <ScalarProperty Name="accion_descripcion" ColumnName="accion_descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbAccionRol">
+            <EntityTypeMapping TypeName="Models.tbAccionRol">
+              <MappingFragment StoreEntitySet="tbAccionRol">
+                <ScalarProperty Name="acrol_Id" ColumnName="acrol_Id" />
+                <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
+                <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbRoles">
+            <EntityTypeMapping TypeName="Models.tbRoles">
+              <MappingFragment StoreEntitySet="tbRoles">
+                <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
+                <ScalarProperty Name="rol_Descripcion" ColumnName="rol_Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUsuarios">
+            <EntityTypeMapping TypeName="Models.tbUsuarios">
+              <MappingFragment StoreEntitySet="tbUsuarios">
+                <ScalarProperty Name="usu_Id" ColumnName="usu_Id" />
+                <ScalarProperty Name="usu_NombreDeUsuario" ColumnName="usu_NombreDeUsuario" />
+                <ScalarProperty Name="usu_Contrasenia" ColumnName="usu_Contrasenia" />
+                <ScalarProperty Name="usu_BloqueoActivo" ColumnName="usu_BloqueoActivo" />
+                <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Habilitar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Habilitar" />
+          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Inactivar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Inactivar" />
+          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Insert" FunctionName="Models.Store.UDP_Persona_tbPersonas_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Update" FunctionName="Models.Store.UDP_Persona_tbPersonas_Update" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetos" FunctionName="Models.Store.SDP_Seg_GetObjetos" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetosAsignados" FunctionName="Models.Store.SDP_Seg_GetObjetosAsignados" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetosDisponibles" FunctionName="Models.Store.SDP_Seg_GetObjetosDisponibles" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetReportes" FunctionName="Models.Store.SDP_Seg_GetReportes" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetRoles" FunctionName="Models.Store.SDP_Seg_GetRoles" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetRolesAsignados" FunctionName="Models.Store.SDP_Seg_GetRolesAsignados" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetRolesDisponibles" FunctionName="Models.Store.SDP_Seg_GetRolesDisponibles" />
+          <FunctionImportMapping FunctionImportName="SDP_Seg_GetUserRols" FunctionName="Models.Store.SDP_Seg_GetUserRols" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_Login" FunctionName="Models.Store.UDP_Seg_Login" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Delete" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Delete" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Insert" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Update" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Update" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbBitacoraErrores_Insert" FunctionName="Models.Store.UDP_Seg_tbBitacoraErrores_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Insert" FunctionName="Models.Store.UDP_Seg_tbObjeto_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Update" FunctionName="Models.Store.UDP_Seg_tbObjeto_Update" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Update_Estado" FunctionName="Models.Store.UDP_Seg_tbObjeto_Update_Estado" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Inactivar" FunctionName="Models.Store.UDP_Seg_tbRol_Inactivar" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Insert" FunctionName="Models.Store.UDP_Seg_tbRol_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Update" FunctionName="Models.Store.UDP_Seg_tbRol_Update" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolEstado_Update" FunctionName="Models.Store.UDP_Seg_tbRolEstado_Update" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Delete" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Delete" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Update" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Update" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Estado" FunctionName="Models.Store.UDP_Seg_tbUsuario_Estado" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbUsuario_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_PasswordRestore" FunctionName="Models.Store.UDP_Seg_tbUsuario_PasswordRestore" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_PasswordUpdate" FunctionName="Models.Store.UDP_Seg_tbUsuario_PasswordUpdate" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Select" FunctionName="Models.Store.UDP_Seg_tbUsuario_Select" />
+          <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Update" FunctionName="Models.Store.UDP_Seg_tbUsuario_Update" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

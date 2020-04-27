@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body {
+            background-image: url('../../Images/Papers/6.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            height:100%;
+            padding-top:6em;
+            /*filter: blur(1.5rem);*/
+        }
+        div.blanco {
+            background: rgba(255, 255, 255, 0.8);
+            padding-bottom: 1em;
+            width:100%;
+            filter: blur(0px) !important;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>eSmartDelivery</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="~/Content/animate.css" rel="stylesheet">
+    <link href="~/Content/style.css" rel="stylesheet">
+</head>
+<body class="gray-bg ">
+    <div class="container">
+        <div class="row h-50">
+            <div class="col-sm-12 h-100 d-table">
+                <div class="col-md-6 col-md-offset-3 loginscreen  animated fadeInDown card card-block d-table-cell align-middle" style="padding:0.5em">
+                    <div class=" blanco shadow-sm bg-white rounded mx-auto" style="padding:0.5em">
+                        <div class="col-md-8 col-md-offset-2" style="margin-bottom:1em">
+                            <img src="~/Images/Papers/2.jpeg" style="width:97%;margin:0.5em" />
+                        </div>
+                        <div class="middle-box text-center ">
+                            <div>
+
+                                <form action="@Url.Content("~/Acceso/Login")" method="post" class="m-t" role="form">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="Usuario" placeholder="Usuario" required=required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="clave" placeholder="Contraseña" required="">
+                                    </div>
+
+                                    <div class="danger">
+                                        <p class="text-danger">
+                                            @ViewBag.Error
+                                        </p>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-success block full-width m-b">Login</button>
+
+                                    <a href="#"><small>No recuerdo mi contraseña</small></a>
+                                    <p class="text-muted text-center"><small>No tienes una cuenta?, cree una!</small></p>
+                                    <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Pages")">Crear una cuenta.</a>
+                                    <hr />
+                                </form>
+
+                                @*<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small> </p>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>
+
+

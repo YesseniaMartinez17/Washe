@@ -15,9 +15,9 @@
         div.blanco {
             margin-top:2em;
             background: rgba(255, 255, 255, 0.8);
-            height: 50%;
+            height: 100%;
             width:25%;
-            margin-bottom:200px;
+            margin-bottom:2em;
         }
     </style>
     <meta charset="utf-8">
@@ -31,7 +31,6 @@
     <link href="~/Content/animate.css" rel="stylesheet">
     <link href="~/Content/style.css" rel="stylesheet">
 </head>
-<center>
     <body class="gray-bg">
         <div class="blanco">
             <div class="middle-box text-center loginscreen  animated fadeInDown">
@@ -44,6 +43,9 @@
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" placeholder="Contraseña" required="">
+                        </div>
+                        <div class="danger">
+                            @ViewBag.Error
                         </div>
                         <button type="submit" class="btn btn-success block full-width m-b">Login</button>
 
@@ -60,7 +62,6 @@
 
 
     </body>
-</center>
 </html>
 
 
