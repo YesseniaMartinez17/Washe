@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -331,6 +332,13 @@
     <Content Include="Content\plugins\slick\fonts\slick.ttf" />
     <Content Include="Content\plugins\slick\fonts\slick.woff" />
     <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Images\Papers\1.jpeg" />
+    <Content Include="Images\Papers\2.jpeg" />
+    <Content Include="Images\Papers\3.jpeg" />
+    <Content Include="Images\Papers\4.jpeg" />
+    <Content Include="Images\Papers\5.jpeg" />
+    <Content Include="Images\Papers\6.jpeg" />
+    <Content Include="Images\Papers\WhatsApp Image 2020-04-26 at 12.06.01 PM.jpeg" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
     <Content Include="pdf\example.pdf" />

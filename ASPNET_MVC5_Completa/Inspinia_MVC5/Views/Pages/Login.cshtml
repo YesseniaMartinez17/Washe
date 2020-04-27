@@ -5,53 +5,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <style type="text/css">
+        body {
+            background-image: url('../../Images/Papers/6.jpeg');
+            background-size:cover;
+            background-repeat:no-repeat;
+            overflow:hidden;
+        }
+        div.blanco {
+            margin-top:2em;
+            background: rgba(255, 255, 255, 0.8);
+            height: 50%;
+            width:25%;
+            margin-bottom:200px;
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>INSPINIA | Login</title>
+    <title>eSmartDelivery</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link href="~/Fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="~/Content/animate.css" rel="stylesheet">
     <link href="~/Content/style.css" rel="stylesheet">
-
 </head>
+<center>
+    <body class="gray-bg">
+        <div class="blanco">
+            <div class="middle-box text-center loginscreen  animated fadeInDown">
+                <div>
+                    <img src="~/Images/Papers/2.jpeg" width="300 em" />
 
-<body class="gray-bg">
+                    <form class="m-t" role="form" action="#">
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Usuario" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Contraseña" required="">
+                        </div>
+                        <button type="submit" class="btn btn-success block full-width m-b">Login</button>
 
-    <div class="middle-box text-center loginscreen  animated fadeInDown">
-        <div>
-            <div>
-
-                <h1 class="logo-name">IN+</h1>
-
+                        <a href="#"><small>No recuerdo mi contraseña</small></a>
+                        <p class="text-muted text-center"><small>No tienes una cuenta?, cree una!</small></p>
+                        <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Pages")">Crear una cuenta.</a>
+                        <hr />
+                    </form>
+                    @*<p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small> </p>*@
+                </div>
             </div>
-            <h3>Welcome to IN+</h3>
-            <p>
-                Perfectly designed and precisely prepared admin theme with over 50 pages with extra new web app views.
-            </p>
-            <p>Login in. To see it in action.</p>
-            <form class="m-t" role="form" action="#">
-                <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
-                </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-
-                <a href="#"><small>Forgot password?</small></a>
-                <p class="text-muted text-center"><small>Do not have an account?</small></p>
-                <a class="btn btn-sm btn-white btn-block" href="@Url.Action("Register", "Pages")">Create an account</a>
-            </form>
-            <p class="m-t"> <small>Inspinia we app framework base on Bootstrap 3 &copy; 2015</small> </p>
         </div>
-    </div>
 
-</body>
 
+    </body>
+</center>
 </html>
 
 
