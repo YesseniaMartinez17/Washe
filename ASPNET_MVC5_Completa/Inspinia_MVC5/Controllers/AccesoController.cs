@@ -14,6 +14,11 @@ namespace Inspinia_MVC5.Controllers
         {
             return View();
         }
+        // GET: Acceso
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         [HttpPost]
         public ActionResult Login(string Usuario, string clave)
@@ -32,7 +37,7 @@ namespace Inspinia_MVC5.Controllers
                     }
                     Session["tbUsuarios"] = vtbUsuarios;
                 }
-                return RedirectToAction("Index", "Layouts");
+                return RedirectToAction("Index", "Acceso");
             }
             catch (Exception ex)
             {
