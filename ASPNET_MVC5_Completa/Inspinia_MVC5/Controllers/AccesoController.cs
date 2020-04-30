@@ -19,6 +19,12 @@ namespace Inspinia_MVC5.Controllers
         {
             return View();
         }
+        // GET: Acceso
+        public ActionResult Exit()
+        {
+            Session["tbUsuarios"] = null;
+            return RedirectToAction("Login", "Acceso");
+        }
 
         [HttpPost]
         public ActionResult Login(string Usuario, string clave)
@@ -35,6 +41,7 @@ namespace Inspinia_MVC5.Controllers
                         ViewBag.Error = "Nombre de usuario o constraseña incorrecta";
                         return View();
                     }
+                    Session["name"] = vtbUsuarios.usu_NombreDeUsuario.ToString();
                     Session["tbUsuarios"] = vtbUsuarios;
                 }
                 return RedirectToAction("Index", "Acceso");
