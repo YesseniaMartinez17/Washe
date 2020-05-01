@@ -155,6 +155,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\Helpers.cs" />
     <Compile Include="Models\Models.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -201,6 +202,9 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbUsuarios.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_Persona_tbPersonas_Insert_Result.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1278,6 +1282,7 @@
     <Content Include="Images\p_big3.jpg" />
     <Content Include="Images\zender_logo.png" />
     <Content Include="Scripts\app\inspinia.js" />
+    <Content Include="Scripts\app\Mascara.js" />
     <Content Include="Scripts\app\skin.config.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

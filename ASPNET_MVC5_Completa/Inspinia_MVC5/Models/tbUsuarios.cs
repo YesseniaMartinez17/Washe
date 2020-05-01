@@ -17,8 +17,6 @@ namespace Inspinia_MVC5.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbUsuarios()
         {
-            this.tbPersonas = new HashSet<tbPersonas>();
-            this.tbPersonas1 = new HashSet<tbPersonas>();
             this.tbCatalogoProductos = new HashSet<tbCatalogoProductos>();
             this.tbCatalogoProductos1 = new HashSet<tbCatalogoProductos>();
             this.tbPrecios = new HashSet<tbPrecios>();
@@ -27,6 +25,8 @@ namespace Inspinia_MVC5.Models
             this.tbProductos1 = new HashSet<tbProductos>();
             this.tbServicios = new HashSet<tbServicios>();
             this.tbServicios1 = new HashSet<tbServicios>();
+            this.tbPersonas = new HashSet<tbPersonas>();
+            this.tbPersonas1 = new HashSet<tbPersonas>();
         }
     
         public int usu_Id { get; set; }
@@ -35,10 +35,6 @@ namespace Inspinia_MVC5.Models
         public bool usu_BloqueoActivo { get; set; }
         public Nullable<int> rol_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersonas> tbPersonas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbPersonas> tbPersonas1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbCatalogoProductos> tbCatalogoProductos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -56,5 +52,9 @@ namespace Inspinia_MVC5.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbServicios> tbServicios1 { get; set; }
         public virtual tbRoles tbRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPersonas> tbPersonas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPersonas> tbPersonas1 { get; set; }
     }
 }

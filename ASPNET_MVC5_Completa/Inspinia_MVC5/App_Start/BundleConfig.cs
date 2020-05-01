@@ -8,6 +8,9 @@ namespace Inspinia_MVC5
 
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/Scripts/app/Mascara").Include(
+                "~/Scripts/app/Mascara.js"
+                ));
 
             // CSS style (bootstrap/inspinia)
             bundles.Add(new StyleBundle("~/Content/css").Include(

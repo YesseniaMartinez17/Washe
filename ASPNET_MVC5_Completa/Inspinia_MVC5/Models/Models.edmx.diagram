@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7872d00f024e46cf82b03f784ca12b37" Name="Diagram1">
-        <EntityTypeShape EntityType="Models.tbPersonas" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.tbCatalogoProductos" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.tbPrecios" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.tbProductos" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
@@ -15,8 +14,6 @@
         <EntityTypeShape EntityType="Models.tbAccionRol" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.tbRoles" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Models.tbUsuarios" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
-        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" ManuallyRouted="false" />
-        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tbCatalog__cprod__70DDC3D8" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tbCatalog__cprod__71D1E811" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tbProduct__cprod__76969D2E" ManuallyRouted="false" />
@@ -31,6 +28,9 @@
         <AssociationConnector Association="Models.FK__tbAccionR__accio__1BC821DD" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tbAccionR__rol_I__1CBC4616" ManuallyRouted="false" />
         <AssociationConnector Association="Models.FK__tbUsuario__rol_i__05D8E0BE" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Models.tbPersonas" Width="1.5" PointX="5.25" PointY="6" />
+        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" />
+        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

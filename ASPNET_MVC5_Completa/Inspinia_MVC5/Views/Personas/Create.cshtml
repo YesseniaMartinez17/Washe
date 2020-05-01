@@ -7,19 +7,11 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Create</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Create</strong>
-            </li>
-        </ol>
+        <h2>Registrar persona</h2>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-			@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary"})
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
@@ -30,150 +22,123 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Create tbPersonas</h5>
+                    <h5>Registrar persona</h5>
+                </div>
+                <div class="ibox-title">
+                    <p>Por medio de deste formuario se pueden egistrar clientes de forma directa sin que su cuenta requiera de aprobación.</p>
                 </div>
                 <div class="ibox-content">
 
-				@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true)
+                    @using (Html.BeginForm())
+                    {
+                        @*@Html.AntiForgeryToken()*@
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Id, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Id)
-                @Html.ValidationMessageFor(model => model.per_Id)
-            </div>
-        </div>
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Identidad, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Identidad)
-                @Html.ValidationMessageFor(model => model.per_Identidad)
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Nombres, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Nombres)
-                @Html.ValidationMessageFor(model => model.per_Nombres)
-            </div>
-        </div>
+                        <div class="form-group ">
+                            @Html.LabelFor(model => model.per_Nombres, new { @class = "control-label col-md-1 col-md-offset-1" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.per_Nombres)
+                                @Html.ValidationMessageFor(model => model.per_Nombres)
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Apellidos, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Apellidos)
-                @Html.ValidationMessageFor(model => model.per_Apellidos)
-            </div>
-        </div>
+                            @Html.LabelFor(model => model.per_Apellidos, new { @class = "control-label col-md-1" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.per_Apellidos)
+                                @Html.ValidationMessageFor(model => model.per_Apellidos)
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_FechaNacimiento, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_FechaNacimiento)
-                @Html.ValidationMessageFor(model => model.per_FechaNacimiento)
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.per_Identidad, new { @class = "control-label col-md-1  col-md-offset-1" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.per_Identidad, new { htmlAttributes = new { @class = "mascaraIdentidad" } })
+                                @Html.ValidationMessageFor(model => model.per_Identidad)
+                            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Sexo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Sexo)
-                @Html.ValidationMessageFor(model => model.per_Sexo)
-            </div>
-        </div>
+                            @Html.LabelFor(model => model.per_Telefono, new { @class = "control-label col-md-1" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.per_Telefono, new { htmlAttributes = new { @class = "mascaratelefono", @data_mask = "+999 9999 9999" } })
+                                @Html.ValidationMessageFor(model => model.per_Telefono)
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Telefono, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Telefono)
-                @Html.ValidationMessageFor(model => model.per_Telefono)
-            </div>
-        </div>
+                        <div class="form-group" id="data_3">
+                            @Html.LabelFor(model => model.per_FechaNacimiento, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                <div class="input-group date">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    @Html.EditorFor(model => model.per_FechaNacimiento)
+                                    @Html.ValidationMessageFor(model => model.per_FechaNacimiento)
+                                </div>
+                            </div>
+                            @Html.LabelFor(model => model.per_Sexo, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownList("per_Sexo", null,htmlAttributes: new { @class = "required form-control" })
+                                @Html.ValidationMessageFor(model => model.per_Sexo)
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_CorreoElectronico, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_CorreoElectronico)
-                @Html.ValidationMessageFor(model => model.per_CorreoElectronico)
-            </div>
-        </div>
+                        <div class="form-group">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_EstadoCivil, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_EstadoCivil)
-                @Html.ValidationMessageFor(model => model.per_EstadoCivil)
-            </div>
-        </div>
+                            @Html.LabelFor(model => model.per_EstadoCivil, new { @class = "control-label col-md-1" })
+                            <div class="col-md-4">
+                                @Html.DropDownList("Id", (IEnumerable<SelectListItem>)ViewBag.per_EstadoCivil, htmlAttributes: new { @class = "required form-control" })
+                                @Html.ValidationMessageFor(model => model.per_EstadoCivil)
+                            </div>
+                            @Html.LabelFor(model => model.per_CorreoElectronico, new { @class = "control-label col-md-1" })
+                            <div class="col-md-4">
+                                @Html.EditorFor(model => model.per_CorreoElectronico)
+                                @Html.ValidationMessageFor(model => model.per_CorreoElectronico)
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_Estado, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_Estado)
-                @Html.ValidationMessageFor(model => model.per_Estado)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_RazonInactivo, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_RazonInactivo)
-                @Html.ValidationMessageFor(model => model.per_RazonInactivo)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_UsuarioCrea, "per_UsuarioCrea", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("per_UsuarioCrea", String.Empty)
-                @Html.ValidationMessageFor(model => model.per_UsuarioCrea)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_FechaCrea, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_FechaCrea)
-                @Html.ValidationMessageFor(model => model.per_FechaCrea)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_UsuarioModifica, "per_UsuarioModifica", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("per_UsuarioModifica", String.Empty)
-                @Html.ValidationMessageFor(model => model.per_UsuarioModifica)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.per_FechaModifica, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.per_FechaModifica)
-                @Html.ValidationMessageFor(model => model.per_FechaModifica)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-				@Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-white"})
-            </div>
-        </div>
-    </div>
-}
+                        @*ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.per_EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("per_EstadoCivil", null, htmlAttributes: new { @class = "required form-control" })
+                                @Html.ValidationMessageFor(model => model.per_EstadoCivil, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo*@
+                        <hr />
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <input type="submit" value="Registrar" class="btn btn-primary" />
+                                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
+                            </div>
+                        </div>
+                    </div>
+                    }
 
                 </div>
             </div>
         </div>
     </div>
- </div>
+</div>
 
- 
+
+@section Styles {
+    @Styles.Render("~/plugins/jasnyBootstrapStyles")
+    @Styles.Render("~/plugins/dataPickerStyles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Scripts.Render("~/Scripts/app/Mascara")
+    @Scripts.Render("~/plugins/dataPicker")
+
+    <script type="text/javascript">
+        $('#data_3 .input-group.date').datepicker({
+            startView: 2,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+    </script>
+}

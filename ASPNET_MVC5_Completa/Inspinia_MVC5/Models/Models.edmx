@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbPersonas">
           <Key>
             <PropertyRef Name="per_Id" />
@@ -569,33 +569,10 @@
             <End Role="tbPersonas" EntitySet="tbPersonas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tbPersonas">
-          <Key>
-            <PropertyRef Name="per_Id" />
-          </Key>
-          <Property Name="per_Id" Type="Int32" Nullable="false" />
-          <Property Name="per_Identidad" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="per_Nombres" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="per_Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="per_FechaNacimiento" Type="DateTime" Precision="0" />
-          <Property Name="per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="per_Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="per_CorreoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="per_EstadoCivil" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="per_Estado" Type="Boolean" Nullable="false" />
-          <Property Name="per_RazonInactivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="per_UsuarioCrea" Type="Int32" Nullable="false" />
-          <Property Name="per_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="per_UsuarioModifica" Type="Int32" />
-          <Property Name="per_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbUsuarios" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbPersonas" ToRole="tbUsuarios" />
-          <NavigationProperty Name="tbUsuarios1" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbPersonas" ToRole="tbUsuarios" />
-        </EntityType>
         <EntityType Name="tbCatalogoProductos">
           <Key>
             <PropertyRef Name="cprod_Id" />
@@ -709,8 +686,6 @@
           <Property Name="usu_Contrasenia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="usu_BloqueoActivo" Type="Boolean" Nullable="false" />
           <Property Name="rol_id" Type="Int32" />
-          <NavigationProperty Name="tbPersonas" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbPersonas" />
-          <NavigationProperty Name="tbPersonas1" Relationship="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbPersonas" />
           <NavigationProperty Name="tbCatalogoProductos" Relationship="Self.FK__tbCatalog__cprod__70DDC3D8" FromRole="tbUsuarios" ToRole="tbCatalogoProductos" />
           <NavigationProperty Name="tbCatalogoProductos1" Relationship="Self.FK__tbCatalog__cprod__71D1E811" FromRole="tbUsuarios" ToRole="tbCatalogoProductos" />
           <NavigationProperty Name="tbPrecios" Relationship="Self.FK__tbPrecios__prc_U__02084FDA" FromRole="tbUsuarios" ToRole="tbPrecios" />
@@ -720,31 +695,9 @@
           <NavigationProperty Name="tbServicios" Relationship="Self.FK__tbServici__serv___7C4F7684" FromRole="tbUsuarios" ToRole="tbServicios" />
           <NavigationProperty Name="tbServicios1" Relationship="Self.FK__tbServici__serv___7D439ABD" FromRole="tbUsuarios" ToRole="tbServicios" />
           <NavigationProperty Name="tbRoles" Relationship="Self.FK__tbUsuario__rol_i__05D8E0BE" FromRole="tbUsuarios" ToRole="tbRoles" />
+          <NavigationProperty Name="tbPersonas" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbPersonas" />
+          <NavigationProperty Name="tbPersonas1" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbPersonas" />
         </EntityType>
-        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
-          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUsuarios">
-              <PropertyRef Name="usu_Id" />
-            </Principal>
-            <Dependent Role="tbPersonas">
-              <PropertyRef Name="per_UsuarioCrea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
-          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-          <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUsuarios">
-              <PropertyRef Name="usu_Id" />
-            </Principal>
-            <Dependent Role="tbPersonas">
-              <PropertyRef Name="per_UsuarioModifica" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tbCatalog__cprod__70DDC3D8">
           <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
           <End Role="tbCatalogoProductos" Type="Self.tbCatalogoProductos" Multiplicity="*" />
@@ -914,7 +867,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="WashEEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" />
           <EntitySet Name="tbCatalogoProductos" EntityType="Self.tbCatalogoProductos" />
           <EntitySet Name="tbPrecios" EntityType="Self.tbPrecios" />
           <EntitySet Name="tbProductos" EntityType="Self.tbProductos" />
@@ -924,14 +876,6 @@
           <EntitySet Name="tbAccionRol" EntityType="Self.tbAccionRol" />
           <EntitySet Name="tbRoles" EntityType="Self.tbRoles" />
           <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" />
-          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
-            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-            <End Role="tbPersonas" EntitySet="tbPersonas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
-            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-            <End Role="tbPersonas" EntitySet="tbPersonas" />
-          </AssociationSet>
           <AssociationSet Name="FK__tbCatalog__cprod__70DDC3D8" Association="Self.FK__tbCatalog__cprod__70DDC3D8">
             <End Role="tbUsuarios" EntitySet="tbUsuarios" />
             <End Role="tbCatalogoProductos" EntitySet="tbCatalogoProductos" />
@@ -999,7 +943,7 @@
             <Parameter Name="per_UsuarioModifica" Mode="In" Type="Int32" />
             <Parameter Name="per_FechaModifica" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="UDP_Persona_tbPersonas_Insert" ReturnType="Collection(String)">
+          <FunctionImport Name="UDP_Persona_tbPersonas_Insert" ReturnType="Collection(Models.UDP_Persona_tbPersonas_Insert_Result)">
             <Parameter Name="per_Identidad" Mode="In" Type="String" />
             <Parameter Name="per_Nombres" Mode="In" Type="String" />
             <Parameter Name="per_Apellidos" Mode="In" Type="String" />
@@ -1026,18 +970,18 @@
           </FunctionImport>
           <FunctionImport Name="SDP_Seg_GetObjetos" />
           <FunctionImport Name="SDP_Seg_GetObjetosAsignados">
-            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+          <Parameter Name="rol_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDP_Seg_GetObjetosDisponibles">
-            <Parameter Name="rol_Id" Mode="In" Type="Int32" />
+          <Parameter Name="rol_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDP_Seg_GetReportes" />
           <FunctionImport Name="SDP_Seg_GetRoles" />
           <FunctionImport Name="SDP_Seg_GetRolesAsignados">
-            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+          <Parameter Name="usu_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDP_Seg_GetRolesDisponibles">
-            <Parameter Name="usu_Id" Mode="In" Type="Int32" />
+          <Parameter Name="usu_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SDP_Seg_GetUserRols">
             <Parameter Name="usu_Id" Mode="In" Type="Int32" />
@@ -1169,34 +1113,71 @@
             <Parameter Name="suc_Id" Mode="In" Type="Int32" />
             <Parameter Name="emp_Id" Mode="In" Type="Int16" />
           </FunctionImport>
+          <EntitySet Name="tbPersonas" EntityType="Models.tbPersonas" />
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPersonas" EntitySet="tbPersonas" />
+          </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="UDP_Persona_tbPersonas_Insert_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="tbPersonas">
+          <Key>
+            <PropertyRef Name="per_Id" />
+          </Key>
+          <Property Name="per_Id" Type="Int32" Nullable="false" />
+          <Property Name="per_Identidad" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="per_Nombres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="per_Apellidos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="per_FechaNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="per_Sexo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="per_Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="per_CorreoElectronico" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="per_EstadoCivil" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="per_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="per_RazonInactivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="per_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="per_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="per_UsuarioModifica" Type="Int32" />
+          <Property Name="per_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbPersonas" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbPersonas" ToRole="tbUsuarios" />
+        </EntityType>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+          <End Type="Models.tbPersonas" Role="tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+          <End Type="Models.tbPersonas" Role="tbPersonas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbPersonas">
+              <PropertyRef Name="per_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WashEEntities">
-          <EntitySetMapping Name="tbPersonas">
-            <EntityTypeMapping TypeName="Models.tbPersonas">
-              <MappingFragment StoreEntitySet="tbPersonas">
-                <ScalarProperty Name="per_Id" ColumnName="per_Id" />
-                <ScalarProperty Name="per_Identidad" ColumnName="per_Identidad" />
-                <ScalarProperty Name="per_Nombres" ColumnName="per_Nombres" />
-                <ScalarProperty Name="per_Apellidos" ColumnName="per_Apellidos" />
-                <ScalarProperty Name="per_FechaNacimiento" ColumnName="per_FechaNacimiento" />
-                <ScalarProperty Name="per_Sexo" ColumnName="per_Sexo" />
-                <ScalarProperty Name="per_Telefono" ColumnName="per_Telefono" />
-                <ScalarProperty Name="per_CorreoElectronico" ColumnName="per_CorreoElectronico" />
-                <ScalarProperty Name="per_EstadoCivil" ColumnName="per_EstadoCivil" />
-                <ScalarProperty Name="per_Estado" ColumnName="per_Estado" />
-                <ScalarProperty Name="per_RazonInactivo" ColumnName="per_RazonInactivo" />
-                <ScalarProperty Name="per_UsuarioCrea" ColumnName="per_UsuarioCrea" />
-                <ScalarProperty Name="per_FechaCrea" ColumnName="per_FechaCrea" />
-                <ScalarProperty Name="per_UsuarioModifica" ColumnName="per_UsuarioModifica" />
-                <ScalarProperty Name="per_FechaModifica" ColumnName="per_FechaModifica" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbCatalogoProductos">
             <EntityTypeMapping TypeName="Models.tbCatalogoProductos">
               <MappingFragment StoreEntitySet="tbCatalogoProductos">
@@ -1303,7 +1284,13 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Habilitar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Habilitar" />
           <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Inactivar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Inactivar" />
-          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Insert" FunctionName="Models.Store.UDP_Persona_tbPersonas_Insert" />
+          <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Insert" FunctionName="Models.Store.UDP_Persona_tbPersonas_Insert" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_Persona_tbPersonas_Insert_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Update" FunctionName="Models.Store.UDP_Persona_tbPersonas_Update" />
           <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetos" FunctionName="Models.Store.SDP_Seg_GetObjetos" />
           <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetosAsignados" FunctionName="Models.Store.SDP_Seg_GetObjetosAsignados" />
@@ -1334,6 +1321,27 @@
           <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_PasswordUpdate" FunctionName="Models.Store.UDP_Seg_tbUsuario_PasswordUpdate" />
           <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Select" FunctionName="Models.Store.UDP_Seg_tbUsuario_Select" />
           <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Update" FunctionName="Models.Store.UDP_Seg_tbUsuario_Update" />
+          <EntitySetMapping Name="tbPersonas">
+            <EntityTypeMapping TypeName="Models.tbPersonas">
+              <MappingFragment StoreEntitySet="tbPersonas">
+                <ScalarProperty Name="per_FechaModifica" ColumnName="per_FechaModifica" />
+                <ScalarProperty Name="per_UsuarioModifica" ColumnName="per_UsuarioModifica" />
+                <ScalarProperty Name="per_FechaCrea" ColumnName="per_FechaCrea" />
+                <ScalarProperty Name="per_UsuarioCrea" ColumnName="per_UsuarioCrea" />
+                <ScalarProperty Name="per_RazonInactivo" ColumnName="per_RazonInactivo" />
+                <ScalarProperty Name="per_Estado" ColumnName="per_Estado" />
+                <ScalarProperty Name="per_EstadoCivil" ColumnName="per_EstadoCivil" />
+                <ScalarProperty Name="per_CorreoElectronico" ColumnName="per_CorreoElectronico" />
+                <ScalarProperty Name="per_Telefono" ColumnName="per_Telefono" />
+                <ScalarProperty Name="per_Sexo" ColumnName="per_Sexo" />
+                <ScalarProperty Name="per_FechaNacimiento" ColumnName="per_FechaNacimiento" />
+                <ScalarProperty Name="per_Apellidos" ColumnName="per_Apellidos" />
+                <ScalarProperty Name="per_Nombres" ColumnName="per_Nombres" />
+                <ScalarProperty Name="per_Identidad" ColumnName="per_Identidad" />
+                <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

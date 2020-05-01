@@ -42,6 +42,7 @@ namespace Inspinia_MVC5.Controllers
                         return View();
                     }
                     Session["name"] = vtbUsuarios.usu_NombreDeUsuario.ToString();
+                    Session["Id"] = vtbUsuarios.usu_Id;
                     Session["tbUsuarios"] = vtbUsuarios;
                 }
                 return RedirectToAction("Index", "Acceso");

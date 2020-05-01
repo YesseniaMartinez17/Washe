@@ -27,7 +27,6 @@ namespace Inspinia_MVC5.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
         public virtual DbSet<tbCatalogoProductos> tbCatalogoProductos { get; set; }
         public virtual DbSet<tbPrecios> tbPrecios { get; set; }
         public virtual DbSet<tbProductos> tbProductos { get; set; }
@@ -37,6 +36,7 @@ namespace Inspinia_MVC5.Models
         public virtual DbSet<tbAccionRol> tbAccionRol { get; set; }
         public virtual DbSet<tbRoles> tbRoles { get; set; }
         public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
+        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
     
         public virtual ObjectResult<string> UDP_Persona_tbPersonas_Habilitar(Nullable<int> per_Id, Nullable<int> per_UsuarioModifica, Nullable<System.DateTime> per_FechaModifica)
         {
@@ -76,7 +76,7 @@ namespace Inspinia_MVC5.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UDP_Persona_tbPersonas_Inactivar", per_IdParameter, per_RazonInactivoParameter, per_UsuarioModificaParameter, per_FechaModificaParameter);
         }
     
-        public virtual ObjectResult<string> UDP_Persona_tbPersonas_Insert(string per_Identidad, string per_Nombres, string per_Apellidos, Nullable<System.DateTime> per_FechaNacimiento, string per_Sexo, string per_Telefono, string per_CorreoElectronico, string per_EstadoCivil, Nullable<int> per_UsuarioCrea, Nullable<System.DateTime> per_FechaCrea)
+        public virtual ObjectResult<UDP_Persona_tbPersonas_Insert_Result> UDP_Persona_tbPersonas_Insert(string per_Identidad, string per_Nombres, string per_Apellidos, Nullable<System.DateTime> per_FechaNacimiento, string per_Sexo, string per_Telefono, string per_CorreoElectronico, string per_EstadoCivil, Nullable<int> per_UsuarioCrea, Nullable<System.DateTime> per_FechaCrea)
         {
             var per_IdentidadParameter = per_Identidad != null ?
                 new ObjectParameter("per_Identidad", per_Identidad) :
@@ -118,7 +118,7 @@ namespace Inspinia_MVC5.Models
                 new ObjectParameter("per_FechaCrea", per_FechaCrea) :
                 new ObjectParameter("per_FechaCrea", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("UDP_Persona_tbPersonas_Insert", per_IdentidadParameter, per_NombresParameter, per_ApellidosParameter, per_FechaNacimientoParameter, per_SexoParameter, per_TelefonoParameter, per_CorreoElectronicoParameter, per_EstadoCivilParameter, per_UsuarioCreaParameter, per_FechaCreaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Persona_tbPersonas_Insert_Result>("UDP_Persona_tbPersonas_Insert", per_IdentidadParameter, per_NombresParameter, per_ApellidosParameter, per_FechaNacimientoParameter, per_SexoParameter, per_TelefonoParameter, per_CorreoElectronicoParameter, per_EstadoCivilParameter, per_UsuarioCreaParameter, per_FechaCreaParameter);
         }
     
         public virtual ObjectResult<string> UDP_Persona_tbPersonas_Update(Nullable<int> per_Id, string per_Identidad, string per_Nombres, string per_Apellidos, Nullable<System.DateTime> per_FechaNacimiento, string per_Sexo, string per_Telefono, string per_CorreoElectronico, string per_EstadoCivil, Nullable<int> per_UsuarioModifica, Nullable<System.DateTime> per_FechaModifica)
