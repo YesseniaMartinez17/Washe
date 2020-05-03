@@ -15,14 +15,20 @@ namespace Inspinia_MVC5.Controllers
         private WashEEntities db = new WashEEntities();
         Models.Helpers Function = new Models.Helpers();
 
-        // GET: /Personas/
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Index()
         {
             var tbpersonas = db.tbPersonas.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+            List<tbPersonas> lst;
+            lst = (
+                            from p in db.tbPersonas
+                            select p
+                        ).ToList();
+            
             return View(tbpersonas.ToList());
         }
 
-        // GET: /Personas/Details/5
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,10 +40,9 @@ namespace Inspinia_MVC5.Controllers
             {
                 return HttpNotFound();
             }
-            return View(tbPersonas);
+            return PartialView(tbPersonas);
         }
-
-        // GET: /Personas/Create
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Create()
         {
             //Ddl Sexo
@@ -58,14 +63,11 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.per_EstadoCivil = new SelectList(EstadoCivil, "Id", "Descripcion");
             ViewBag.per_Sexo = new SelectList(Sexo, "Id", "Descripcion");
 
-            ViewBag.per_EstadoCivil = new SelectList(EstadoCivil, "Id", "Descripcion");
-
-
             ViewBag.per_UsuarioCrea = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario");
             ViewBag.per_UsuarioModifica = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario");
             return View();
         }
-
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         [HttpPost]
         public ActionResult Create(tbPersonas tbPersonas)
         {
@@ -97,25 +99,7 @@ namespace Inspinia_MVC5.Controllers
                 }
             return RedirectToAction("Index");
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include="per_Id,per_Identidad,per_Nombres,per_Apellidos,per_FechaNacimiento,per_Sexo,per_Telefono,per_CorreoElectronico,per_EstadoCivil,per_Estado,per_RazonInactivo,per_UsuarioCrea,per_FechaCrea,per_UsuarioModifica,per_FechaModifica")] tbPersonas tbPersonas)
-        //{
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.tbPersonas.Add(tbPersonas);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.per_UsuarioCrea = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario", tbPersonas.per_UsuarioCrea);
-        //    ViewBag.per_UsuarioModifica = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario", tbPersonas.per_UsuarioModifica);
-        //    return View(tbPersonas);
-        //}
-
-        // GET: /Personas/Edit/5
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -131,10 +115,7 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.per_UsuarioModifica = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario", tbPersonas.per_UsuarioModifica);
             return View(tbPersonas);
         }
-
-        // POST: /Personas/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="per_Id,per_Identidad,per_Nombres,per_Apellidos,per_FechaNacimiento,per_Sexo,per_Telefono,per_CorreoElectronico,per_EstadoCivil,per_Estado,per_RazonInactivo,per_UsuarioCrea,per_FechaCrea,per_UsuarioModifica,per_FechaModifica")] tbPersonas tbPersonas)
@@ -149,8 +130,7 @@ namespace Inspinia_MVC5.Controllers
             ViewBag.per_UsuarioModifica = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario", tbPersonas.per_UsuarioModifica);
             return View(tbPersonas);
         }
-
-        // GET: /Personas/Delete/5
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -164,8 +144,7 @@ namespace Inspinia_MVC5.Controllers
             }
             return View(tbPersonas);
         }
-
-        // POST: /Personas/Delete/5
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -175,7 +154,7 @@ namespace Inspinia_MVC5.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         protected override void Dispose(bool disposing)
         {
             if (disposing)

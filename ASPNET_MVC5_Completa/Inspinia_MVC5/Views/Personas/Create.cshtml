@@ -70,28 +70,30 @@
                             <div class="col-md-4">
                                 <div class="input-group date">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    @Html.EditorFor(model => model.per_FechaNacimiento)
+                                    @*@Html.EditorFor(model => model.per_FechaNacimiento)*@
+                                    <input type="text" id="per_FechaNacimiento" class="text-box single-line" disabled />
                                     @Html.ValidationMessageFor(model => model.per_FechaNacimiento)
                                 </div>
-                            </div>
-                            @Html.LabelFor(model => model.per_Sexo, new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownList("per_Sexo", null,htmlAttributes: new { @class = "required form-control" })
-                                @Html.ValidationMessageFor(model => model.per_Sexo)
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            @Html.LabelFor(model => model.per_EstadoCivil, new { @class = "control-label col-md-1" })
-                            <div class="col-md-4">
-                                @Html.DropDownList("Id", (IEnumerable<SelectListItem>)ViewBag.per_EstadoCivil, htmlAttributes: new { @class = "required form-control" })
-                                @Html.ValidationMessageFor(model => model.per_EstadoCivil)
+                                <input type="date" name="per_FechaNacimiento" id="per_Enviar" class="text-box single-line" />
                             </div>
                             @Html.LabelFor(model => model.per_CorreoElectronico, new { @class = "control-label col-md-1" })
                             <div class="col-md-4">
                                 @Html.EditorFor(model => model.per_CorreoElectronico)
                                 @Html.ValidationMessageFor(model => model.per_CorreoElectronico)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(model => model.per_EstadoCivil, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownList("per_EstadoCivil",null, htmlAttributes: new { @class = " required form-control" })
+                                @Html.ValidationMessageFor(model => model.per_EstadoCivil)
+                            </div>
+                            @Html.LabelFor(model => model.per_Sexo, new { @class = "control-label col-md-1" })
+                            <div class="col-md-4">
+                                @Html.DropDownList("per_Sexo", null, htmlAttributes: new { @class = "required form-control" })
+                                @Html.ValidationMessageFor(model => model.per_Sexo)
                             </div>
                         </div>
 
@@ -120,7 +122,6 @@
     </div>
 </div>
 
-
 @section Styles {
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
     @Styles.Render("~/plugins/dataPickerStyles")
@@ -133,12 +134,37 @@
     @Scripts.Render("~/plugins/dataPicker")
 
     <script type="text/javascript">
+        $(document).ready(function () {
+            $('#per_Enviar').hide();
+        });
+
+        var fecha = new Date;
+        var anio = fecha.getFullYear() - 21;
+
         $('#data_3 .input-group.date').datepicker({
             startView: 2,
             todayBtn: "linked",
+            endDate: "01/01/" + anio,
             keyboardNavigation: false,
             forceParse: false,
             autoclose: true
+        });
+
+        //$('#per_FechaNacimiento').change(function () {
+        //    var a = $('#per_FechaNacimiento').val().toString();
+        //    var b = a.replace("/", "-");
+        //    var c = b.replace("/", "-");
+
+        //    $('#per_Enviar').val("1995-07-05");
+        //    alert(c);
+        //});$("#id").css("display", "none");
+
+
+        $('#per_FechaNacimiento').change(function () {
+            var a = $('#per_FechaNacimiento').val();
+            var fecha = $('#per_FechaNacimiento').val().split("/");
+            var c = fecha[2] + '-' + fecha[0] + '-' + fecha[1];
+            $('#per_Enviar').val(c);
         });
     </script>
 }

@@ -8,6 +8,10 @@ namespace Inspinia_MVC5
 
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Personas").Include(
+                "~/Scripts/app/General/Personas/Personas.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/Scripts/app/Mascara").Include(
                 "~/Scripts/app/Mascara.js"
                 ));

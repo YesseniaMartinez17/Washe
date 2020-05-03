@@ -71,8 +71,8 @@ C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.resources.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.Razor.resources.dll
-C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csprojAssemblyReference.cache
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csproj.CoreCompileInputs.cache
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csproj.CopyComplete
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.pdb
+C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csprojAssemblyReference.cache
