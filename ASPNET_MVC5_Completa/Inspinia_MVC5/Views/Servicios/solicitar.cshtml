@@ -1,0 +1,237 @@
+﻿@{
+    ViewBag.Title = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //variable donde se va calcular el total a pagar inicialmente, cuando se modifiquen las cantidades de producto solicitado
+    //se va a recalcular con jQuery
+    decimal totalAPagar = 0;
+}
+<style type="text/css">
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 100%;
+        z-index: 1 !important;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        z-index: 0 !important;
+    }
+
+    #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    #infowindow-content {
+        display: none;
+    }
+
+    #map #infowindow-content {
+        display: inline;
+    }
+
+    .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+    }
+
+    #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+    }
+
+    .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+    }
+
+        .pac-controls label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+    }
+
+        #pac-input:focus {
+            border-color: #4d90fe;
+        }
+
+    #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+</style>
+<title>Simple Map</title>
+<meta name="viewport" content="initial-scale=1.0">
+<meta charset="utf-8">
+<h2>Servicios solicitados.</h2>
+<div class="row">
+    <div class="col-md-9">
+        <div class="ibox">
+            <div class="ibox-title">
+                <span class="pull-right">(<strong>@ViewBag.CantS</strong>) Cant.</span>
+                <h5>Servicios de limpieza solicitados:</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <table id="tblProductosSeleccionados" class="table shoping-cart-table">
+                        <tbody>
+                            @for (int x = 0; x <= ViewBag.CantS - 1; x++)
+                            {
+                                //aqui sumamos el precio de todos los productos seleccionados, teniendo en cuenta que inicialmente
+                                //solo se haya seleccionado 1 vez el producto, no sé si realmente será asi, de lo contrario, lo multiplicas por la cantidad
+                                //de veces que se seleccionó el producto
+                                totalAPagar += Convert.ToDecimal(ViewBag.Precios[x]);
+                                <tr>
+                                    <td class="desc">
+                                        <h3>
+                                            <a href="#" class="text-navy">
+                                                @Html.Raw(ViewBag.descripcionesS[x])
+                                            </a>
+                                        </h3>
+                                    </td>
+                                    <td>
+                                        @Html.Raw(ViewBag.Precios[x])
+                                    </td>
+                                    <td width="65">
+                                        <input data-precioproducto="@ViewBag.Precios[x]"
+                                               data-id="@x"
+                                               id="@x"
+                                               value="1"
+                                               onclick="preformatear(@x)"
+                                               class="numco form-control"
+                                               oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                               type="number"
+                                               maxlength="1" />
+                                    </td>
+                                    <td>
+                                        <h4>
+                                            <p>@Html.Raw(ViewBag.Precios[x])</p>
+                                        </h4>
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                    <div class="ibox-content">
+                        <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Cart Summary</h5>
+            </div>
+            <div class="ibox-content">
+                <span>
+                    Total
+                </span>
+                <h2 class="font-bold">
+                    @*@aqui mostramos el total a pagar inicialmente@*@
+                    Lps. <p id="lblTotalPagar">@totalAPagar</p>
+                </h2>
+                <hr />
+                <span class="text-muted small">
+                    *For United States, France and Germany applicable sales tax will be applied
+                </span>
+                <div class="m-t-sm">
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                        <a href="#" class="btn btn-white btn-sm"> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox">
+        <div class="ibox-title">
+            <p>
+                Ahora para finalizar su pedido sera nesesario que nos brinde su ubicacion actual
+            </p>
+
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="pac-card" id="pac-card">
+                        <div>
+
+                            <div id="title">
+                                <img style="background-color:white;width:10%;height:10%;" src="~/Images/WashE/6.png" />
+                                Busqueda inteligente
+                            </div>
+                        </div>
+                        <div id="pac-container">
+                            <br />
+                            <input id="pac-input" type="text"
+                                   placeholder="Digite el nombre de su ciudad, barrio o colonia">
+                        </div>
+                    </div>
+
+                    <div class="google-map" id="map1">
+                    </div>
+                </div>
+                <div id="infowindow-content">
+                    <img src="" width="16" height="16" id="place-icon">
+                    <span id="place-name" class="title"></span><br>
+                    <span id="place-address"></span>
+                </div>
+            </div>
+            Lat: <p id="lattt"></p>
+            Long: <p id="longgg"></p>
+        </div>
+        <p></p>
+    </div>
+</div>
+
+@*<input type="text" id="prueba" />
+    <p id="kpress"></p>
+    <p id="kup"></p>
+    <p id="kdown"></p>*@
+
+@section Scripts {
+
+    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyBwwVhTQqn6u7ByzzFT82hU-7hbMq4oWpo")
+    @Scripts.Render("~/Scripts/app/General/Servicios")
+}

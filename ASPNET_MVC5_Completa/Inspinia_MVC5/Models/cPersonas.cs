@@ -28,18 +28,12 @@ namespace Inspinia_MVC5.Models
         [Display(Name = "Fecha de nacimiento")]
         public Nullable<System.DateTime> per_FechaNacimiento { get; set; }
 
-        [Display(Name = "Sexo")]
-        public string per_Sexo { get; set; }
-
         [Display(Name = "Telefono")]
         public string per_Telefono { get; set; }
 
         [Display(Name = "Email")]
         public string per_CorreoElectronico { get; set; }
-
-        [Display(Name = "Estado civil")]
-        public string per_EstadoCivil { get; set; }
-
+        
         [Display(Name = "Estado")]
         public bool per_Estado { get; set; }
 
@@ -57,7 +51,6 @@ namespace Inspinia_MVC5.Models
 
         [Display(Name = "Fecha modificación")]
         public Nullable<System.DateTime> per_FechaModifica { get; set; }
-
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
     }

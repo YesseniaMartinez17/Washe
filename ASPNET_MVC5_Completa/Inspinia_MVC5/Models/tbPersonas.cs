@@ -14,15 +14,19 @@ namespace Inspinia_MVC5.Models
     
     public partial class tbPersonas
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbPersonas()
+        {
+            this.tbUsuarios = new HashSet<tbUsuarios>();
+        }
+    
         public int per_Id { get; set; }
         public string per_Identidad { get; set; }
         public string per_Nombres { get; set; }
         public string per_Apellidos { get; set; }
         public Nullable<System.DateTime> per_FechaNacimiento { get; set; }
-        public string per_Sexo { get; set; }
         public string per_Telefono { get; set; }
         public string per_CorreoElectronico { get; set; }
-        public string per_EstadoCivil { get; set; }
         public bool per_Estado { get; set; }
         public string per_RazonInactivo { get; set; }
         public int per_UsuarioCrea { get; set; }
@@ -30,7 +34,9 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> per_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> per_FechaModifica { get; set; }
     
-        public virtual tbUsuarios tbUsuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbUsuarios> tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        public virtual tbUsuarios tbUsuarios2 { get; set; }
     }
 }

@@ -15,8 +15,10 @@ namespace Inspinia_MVC5.Models
     public partial class tbServicios
     {
         public int serv_Id { get; set; }
-        public decimal serv_Precio { get; set; }
+        public int cserv_Id { get; set; }
+        public string serv_Titulo { get; set; }
         public string serv_Descripcion { get; set; }
+        public decimal serv_Precio { get; set; }
         public bool serv_Estado { get; set; }
         public string serv_RazonInactivo { get; set; }
         public int serv_UsuarioCrea { get; set; }
@@ -24,6 +26,7 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> serv_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> serv_FechaModifica { get; set; }
     
+        public virtual tbCategoriaServicios tbCategoriaServicios { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
     }

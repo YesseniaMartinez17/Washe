@@ -145,9 +145,11 @@
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PersonasController.cs" />
     <Compile Include="Controllers\ScaffoldingController.cs" />
+    <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\TablesController.cs" />
     <Compile Include="Controllers\UIElementsController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\WidgetsController.cs" />
     <Compile Include="Filters\Autoriza.cs" />
     <Compile Include="Filters\Validarsesion.cs" />
@@ -155,6 +157,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\cPersonasUsuarios.cs" />
+    <Compile Include="Models\cUsuarios.cs" />
     <Compile Include="Models\Helpers.cs" />
     <Compile Include="Models\Models.Context.cs">
       <AutoGen>True</AutoGen>
@@ -174,22 +178,19 @@
     <Compile Include="Models\cPersonas.cs" />
     <Compile Include="Models\ScaffoldingContext.cs" />
     <Compile Include="Models\ScaffoldingController.cs" />
+    <Compile Include="Models\ServicioExterno.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbAcciones.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbAccionRol.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbCatalogoProductos.cs">
+    <Compile Include="Models\tbCategoriaServicios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbPersonas.cs">
-      <DependentUpon>Models.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbPrecios.cs">
-      <DependentUpon>Models.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\tbProductos.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbRoles.cs">
@@ -198,13 +199,13 @@
     <Compile Include="Models\tbServicios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tbTipoVehiculo.cs">
-      <DependentUpon>Models.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\tbUsuarios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDP_Persona_tbPersonas_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_Seg_tbUsuario_Insert_Result.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -403,6 +404,7 @@
     <Content Include="Images\WashE\6.png" />
     <Content Include="Images\WashE\7.jpeg" />
     <Content Include="Images\WashE\8.jpeg" />
+    <Content Include="Images\WashE\unnamed.png" />
     <Content Include="locales\en.json" />
     <Content Include="locales\es.json" />
     <Content Include="Models\Models.Context.tt">
@@ -1282,6 +1284,7 @@
     <Content Include="Images\p_big3.jpg" />
     <Content Include="Images\zender_logo.png" />
     <Content Include="Scripts\app\General\Personas\Personas.js" />
+    <Content Include="Scripts\app\General\Servicios\MascaraS.js" />
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\Mascara.js" />
     <Content Include="Scripts\app\skin.config.min.js" />
@@ -1871,6 +1874,16 @@
     <Content Include="Views\Personas\Edit.cshtml" />
     <Content Include="Views\Personas\Index.cshtml" />
     <Content Include="Views\Acceso\mapa.cshtml" />
+    <Content Include="Views\Personas\_AddUsers.cshtml" />
+    <Content Include="Views\Usuarios\Create.cshtml" />
+    <Content Include="Views\Usuarios\Delete.cshtml" />
+    <Content Include="Views\Usuarios\Details.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Servicios\externo.cshtml" />
+    <Content Include="Views\Servicios\solicitar.cshtml" />
+    <Content Include="Views\Servicios\Mapa.cshtml" />
+    <Content Include="Views\Servicios\_Mapa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

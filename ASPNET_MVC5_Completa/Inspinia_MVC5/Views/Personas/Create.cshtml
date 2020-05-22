@@ -7,7 +7,7 @@
 
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Registrar persona</h2>
+        <h2>Datos personales.</h2>
     </div>
     <div class="col-sm-8">
         <div class="title-action">
@@ -29,18 +29,16 @@
                 </div>
                 <div class="ibox-content">
 
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm("Create", "Personas", FormMethod.Post, new { enctype = "multipart/form-data"}))
                     {
-                        @*@Html.AntiForgeryToken()*@
 
                     <div class="form-horizontal">
-                        @Html.ValidationSummary(true)
 
 
                         <div class="form-group ">
                             @Html.LabelFor(model => model.per_Nombres, new { @class = "control-label col-md-1 col-md-offset-1" })
                             <div class="col-md-4">
-                                @Html.EditorFor(model => model.per_Nombres)
+                                @Html.EditorFor(model => model.per_Nombres,new { required = "required" })
                                 @Html.ValidationMessageFor(model => model.per_Nombres)
                             </div>
 
@@ -83,40 +81,55 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <hr />
+                        <div class="col-md-12">
+                            <h3>Información de su cuenta.</h3>
+                        </div>
+                        <br /><br />
 
-                            @Html.LabelFor(model => model.per_EstadoCivil, new { @class = "control-label col-md-2" })
-                            <div class="col-md-4">
-                                @Html.DropDownList("per_EstadoCivil",null, htmlAttributes: new { @class = " required form-control" })
-                                @Html.ValidationMessageFor(model => model.per_EstadoCivil)
-                            </div>
-                            @Html.LabelFor(model => model.per_Sexo, new { @class = "control-label col-md-1" })
-                            <div class="col-md-4">
-                                @Html.DropDownList("per_Sexo", null, htmlAttributes: new { @class = "required form-control" })
-                                @Html.ValidationMessageFor(model => model.per_Sexo)
-                            </div>
+                        <div class="form-group" id="data_3">
+                            @Html.Partial("_AddUsers", new Inspinia_MVC5.Models.cPersonasUsuarios())
                         </div>
 
                         @*ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.per_EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("per_EstadoCivil", null, htmlAttributes: new { @class = "required form-control" })
-                                @Html.ValidationMessageFor(model => model.per_EstadoCivil, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.per_EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("per_EstadoCivil", null, htmlAttributes: new { @class = "required form-control" })
+                @Html.ValidationMessageFor(model => model.per_EstadoCivil, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo*@
+
                         <hr />
                         <div class="form-group">
+                            <div class="col-md-12">
+                                <h3>Previsualizar:</h3>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="divImagen" class="col-md-2">
+                                    <img id="preview" src="~/Images/WashE/unnamed.png" style="width:100%;height:"30%"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <p id="nombrep"></p>
+                                    <b><p>Nombre de usuario:</p></b>
+                                    <p id="userp">•</p>
+                                    <b><p>Email:</p></b>
+                                    <p id="emailp">•</p>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
                             <div class="col-md-10">
-                                <input type="submit" value="Registrar" class="btn btn-primary" />
+                                <input type="submit" id="btnGuardar" value="Registrar" class="btn btn-primary" />
                                 @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-white" })
                             </div>
                         </div>
                     </div>
-                    }
+                        }
 
-                </div>
+                    </div>
             </div>
         </div>
     </div>
@@ -125,6 +138,8 @@
 @section Styles {
     @Styles.Render("~/plugins/jasnyBootstrapStyles")
     @Styles.Render("~/plugins/dataPickerStyles")
+    @Styles.Render("~/Content/plugins/iCheck/iCheckStyles")
+    @Styles.Render("~/plugins/wizardStepsStyles")
 }
 
 @section Scripts {
@@ -133,9 +148,58 @@
     @Scripts.Render("~/Scripts/app/Mascara")
     @Scripts.Render("~/plugins/dataPicker")
 
+
     <script type="text/javascript">
+
+        $('#btnGuardar').click(function () {
+            var c = $('#usu_Contrasenia').val();
+            var cc = $('#usu_Contrasenia1').val();
+            if (c != cc) {
+                $('#errorclave').text('Las contraseñas no coinciden');
+                event.preventDefault();
+            }
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#file").change(function () {
+            readURL(this);
+
+        });
+        
+        $("#per_Nombres,#per_Apellidos").change(
+            function () {
+                var a = $("#per_Nombres").val();
+                var b = $("#per_Apellidos").val();
+                var c = a + " " + b;
+                $("#nombrep").text(c);
+            });
+
+        $("#usu_NombreDeUsuario").change(
+            function () {
+                var a = $("#usu_NombreDeUsuario").val();
+                $("#userp").text(a);
+            }
+        );
+        $("#per_CorreoElectronico").change(
+            function () {
+                var a = $("#per_CorreoElectronico").val();
+                $("#emailp").text(a);
+            }
+        );
+        
         $(document).ready(function () {
             $('#per_Enviar').hide();
+            $("input").prop('required', true);
         });
 
         var fecha = new Date;
@@ -165,6 +229,8 @@
             var fecha = $('#per_FechaNacimiento').val().split("/");
             var c = fecha[2] + '-' + fecha[0] + '-' + fecha[1];
             $('#per_Enviar').val(c);
+
+
         });
     </script>
 }

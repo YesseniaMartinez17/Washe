@@ -1,7 +1,10 @@
 ﻿using Inspinia_MVC5.Filters;
+using Inspinia_MVC5.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -25,16 +28,18 @@ namespace Inspinia_MVC5.Controllers
             Session["tbUsuarios"] = null;
             return RedirectToAction("Login", "Acceso");
         }
-
+        
         [HttpPost]
         public ActionResult Login(string Usuario, string clave)
         {
+            
+            var ncryptclave = Helpers.GetSHA256(clave);
             try
             {
                 using (Models.WashEEntities db = new Models.WashEEntities())
                 {
                     var vtbUsuarios = (from v in db.tbUsuarios
-                                       where v.usu_NombreDeUsuario == Usuario && v.usu_Contrasenia == clave
+                                       where v.usu_NombreDeUsuario == Usuario && v.usu_Contrasenia == ncryptclave
                                        select v).FirstOrDefault();
                     if (vtbUsuarios == null)
                     {

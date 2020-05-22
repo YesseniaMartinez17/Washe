@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.ServicioExterno>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string L1 = "";
+    decimal L2 = 0;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Solicita nuestros servicios!</h2>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Seleccione el/los vehiculos para los cuales desea solicitar nuestros servicios</h5>
+					@*<div class="ibox-tools">
+						@Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary btn-xs"})
+					</div>*@
+                </div>
+                <div class="ibox-content">
+
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+
+                                //String.Format("{0:0}", double.Parse("3.5", CultureInfo.InvariantCulture))  //3.5
+                                L1 = item.Precio.ToString("0.00");//.Replace(".00", string.Empty);  //string.Format("{0:0.00}", string.par (item.Precio)); //item.Precio + "a";
+                                L2 = decimal.Parse(L1);
+
+                            <div class="col-md-3">
+                                <div class="ibox">
+                                    @*<div class="ibox-content product-box active">*@
+                                    <div class="ibox-content product-box objetosServicios" data-value="@item.Id" data-precio="@L2" data-descripcion="@item.Descripcion">
+
+                                        <div class="product-imitation">
+                                            [ INFO ]
+                                        </div>
+                                        <div class="product-desc">
+                                            <span class="product-price">
+                                                @L2<sub>Lps.</sub>
+                                            </span>
+                                            @*<small class="text-muted">Category</small>*@
+                                            <a href="#" class="product-name">
+                                                @item.Descripcion
+                                            </a>
+                                            @*<div class="small m-t-xs">
+                                many desktop publishing packages and web page editors now.
+                            </div>*@
+                                            @*<div class="m-t text-righ">
+                                <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                            </div>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <hr />
+                    <input type="submit" id="Continuar" class="btn btn-primary" value="Continuar"/>
+
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        var id = [];
+        var desc = [];
+        var precio = [];
+
+        $('.objetosServicios').click(
+            function () {
+
+                var idObj = $(this).data("value");
+                var descObj = $(this).data("descripcion");
+                var precioObj = $(this).data("precio");
+
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass(" active");
+                    const indexR = id.indexOf(idObj);
+                    if (indexR > -1) {
+
+                        id.splice(indexR, 1);
+                        desc.splice(indexR, 1);
+                        precio.splice(indexR, 1);
+
+                        //console.log(id);
+                        //console.log(desc);
+                        //console.log(precio);
+                    }
+                } else {
+                    $(this).addClass(" active ");
+                    id.push(idObj);
+                    desc.push(descObj);
+                    precio.push(precioObj);
+                }
+                //$(location).attr('href', '/Servicios/');
+            }
+
+        );
+
+        $('#Continuar').click(
+            function () {
+                $(location).attr('href', '/Servicios/solicitar?id=' + id + '&desc=' + desc + '&precio=' + precio);
+            });
+        
+    </script>
+}

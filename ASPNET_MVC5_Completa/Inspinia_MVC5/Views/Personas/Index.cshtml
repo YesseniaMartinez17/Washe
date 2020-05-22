@@ -47,16 +47,10 @@
                                 @Html.DisplayNameFor(model => model.per_FechaNacimiento)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.per_Sexo)
-                            </th>
-                            <th>
                                 @Html.DisplayNameFor(model => model.per_Telefono)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.per_CorreoElectronico)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.per_EstadoCivil)
                             </th>
 
                             <th>Acciones</th>
@@ -78,22 +72,16 @@
                                     @Html.DisplayFor(modelItem => item.per_FechaNacimiento)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.per_Sexo)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.per_Telefono)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.per_CorreoElectronico)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.per_EstadoCivil)
-                                </td>
 
                                 <td>
 
                                     @*@Html.ActionLink("Detalles", "Details", new {id = item.per_Id} , new { @class = "btnDetails btn  btn-primary btn-sm",data_value=@item.per_Id })*@
-                                    <a type="button" class="btnDetails btn  btn-primary btn-sm" data-value="@item.per_Id" id="item.per_Id" href="#"></a>
+                                    <a type="button" class="btnDetails btn  btn-primary btn-sm" data-value="@item.per_Id" id="item.per_Id" href="#">Detalles</a>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.per_Id }, new { @class = "btn btn-white btn-sm" })
                                     @Html.ActionLink("Delete", "Delete", new { id = item.per_Id }, new { @class = "btn btn-white btn-sm" })
                                 </td>
@@ -115,20 +103,6 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                x
-                <div id="contenidoIndex">
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="Detallandos" tabindex="-1" role="dialog" aria-labelledby="DetallandoLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                x
                 <div id="contenidoIndex">
 
                 </div>
@@ -142,3 +116,5 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/app/General/Personas");
 }
+
+

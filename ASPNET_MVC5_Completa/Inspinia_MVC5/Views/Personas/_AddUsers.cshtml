@@ -1,0 +1,50 @@
+﻿@model Inspinia_MVC5.Models.cPersonasUsuarios
+
+
+@using (Html.BeginForm("Create", "Personas", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.per_Identidad, new { @class = "control-label col-md-1  col-md-offset-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.per_Identidad, new { htmlAttributes = new { @class = "mascaraIdentidad" } })
+                @Html.ValidationMessageFor(model => model.per_Identidad)
+            </div>
+
+            @Html.LabelFor(model => model.per_Telefono, new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.per_Telefono, new { htmlAttributes = new { @class = "mascaratelefono", @data_mask = "+999 9999 9999" } })
+                @Html.ValidationMessageFor(model => model.per_Telefono)
+            </div>
+        </div>*@
+    <div class="form-group">
+        <div class="col-md-1 col-md-offset-1">
+            <b><p class="control-label ">Usuario:</p></b>
+        </div>
+        <div class="col-md-4">
+            @Html.EditorFor(model => model.usu_NombreDeUsuario, new { htmlAttributes = new { @class = "" } })
+            @Html.ValidationMessageFor(model => model.usu_NombreDeUsuario)
+        </div>
+        <div class="col-md-1">
+            <b><p class="control-label ">Fotografía:</p></b>
+        </div>
+        <div class="col-md-4">
+            <input type="file" class="form-control-file" name="file" id="file" style="width: 100%;" />
+        </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1 col-md-offset-1">
+                <b><p class="control-label ">Contraseña:</p></b>
+            </div>
+            <div class="col-md-4">
+                <input type="password" name="usu_Contrasenia" id="usu_Contrasenia" class="text-box single-line" placeholder="*****" />
+            </div>
+            <div class="col-md-1">
+                <b><p class="control-label">Confirmar contraseña:</p></b>
+            </div>
+            <div class="col-md-4">
+                <input type="password" name="usu_Contrasenia1" id="usu_Contrasenia1" class="text-box single-line" placeholder="*****" />
+                <p id="errorclave" class="text-danger"></p>
+            </div>
+        </div>
+}

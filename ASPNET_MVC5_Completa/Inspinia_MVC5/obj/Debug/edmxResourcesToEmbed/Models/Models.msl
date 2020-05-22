@@ -1,74 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WashEEntities">
-    <EntitySetMapping Name="tbCatalogoProductos">
-      <EntityTypeMapping TypeName="Models.tbCatalogoProductos">
-        <MappingFragment StoreEntitySet="tbCatalogoProductos">
-          <ScalarProperty Name="cprod_Id" ColumnName="cprod_Id" />
-          <ScalarProperty Name="cprod_Descripcion" ColumnName="cprod_Descripcion" />
-          <ScalarProperty Name="cprod_UsuarioCrea" ColumnName="cprod_UsuarioCrea" />
-          <ScalarProperty Name="cprod_FechaCrea" ColumnName="cprod_FechaCrea" />
-          <ScalarProperty Name="cprod_UsuarioModifica" ColumnName="cprod_UsuarioModifica" />
-          <ScalarProperty Name="cprod_FechaModifica" ColumnName="cprod_FechaModifica" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbPrecios">
-      <EntityTypeMapping TypeName="Models.tbPrecios">
-        <MappingFragment StoreEntitySet="tbPrecios">
-          <ScalarProperty Name="prc_Id" ColumnName="prc_Id" />
-          <ScalarProperty Name="prod_Id" ColumnName="prod_Id" />
-          <ScalarProperty Name="prc_Precio" ColumnName="prc_Precio" />
-          <ScalarProperty Name="prc_PrecioAnterior" ColumnName="prc_PrecioAnterior" />
-          <ScalarProperty Name="prc_Estado" ColumnName="prc_Estado" />
-          <ScalarProperty Name="prc_RazonInactivo" ColumnName="prc_RazonInactivo" />
-          <ScalarProperty Name="prc_UsuarioCrea" ColumnName="prc_UsuarioCrea" />
-          <ScalarProperty Name="prc_FechaCrea" ColumnName="prc_FechaCrea" />
-          <ScalarProperty Name="prc_UsuarioModifica" ColumnName="prc_UsuarioModifica" />
-          <ScalarProperty Name="prc_FechaModifica" ColumnName="prc_FechaModifica" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbProductos">
-      <EntityTypeMapping TypeName="Models.tbProductos">
-        <MappingFragment StoreEntitySet="tbProductos">
-          <ScalarProperty Name="prod_Id" ColumnName="prod_Id" />
-          <ScalarProperty Name="cprod_Id" ColumnName="cprod_Id" />
-          <ScalarProperty Name="prod_Descripcion" ColumnName="prod_Descripcion" />
-          <ScalarProperty Name="prod_Codigo" ColumnName="prod_Codigo" />
-          <ScalarProperty Name="prod_Estado" ColumnName="prod_Estado" />
-          <ScalarProperty Name="prod_RazonInactivo" ColumnName="prod_RazonInactivo" />
-          <ScalarProperty Name="prod_UsuarioCrea" ColumnName="prod_UsuarioCrea" />
-          <ScalarProperty Name="prod_FechaCrea" ColumnName="prod_FechaCrea" />
-          <ScalarProperty Name="prod_UsuarioModifica" ColumnName="prod_UsuarioModifica" />
-          <ScalarProperty Name="prod_FechaModifica" ColumnName="prod_FechaModifica" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbServicios">
-      <EntityTypeMapping TypeName="Models.tbServicios">
-        <MappingFragment StoreEntitySet="tbServicios">
-          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
-          <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
-          <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
-          <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
-          <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
-          <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
-          <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
-          <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
-          <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbTipoVehiculo">
-      <EntityTypeMapping TypeName="Models.tbTipoVehiculo">
-        <MappingFragment StoreEntitySet="tbTipoVehiculo">
-          <ScalarProperty Name="tvh_Id" ColumnName="tvh_Id" />
-          <ScalarProperty Name="tvh_Descripcion" ColumnName="tvh_Descripcion" />
-          <ScalarProperty Name="tvh_Precio" ColumnName="tvh_Precio" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbAcciones">
       <EntityTypeMapping TypeName="Models.tbAcciones">
         <MappingFragment StoreEntitySet="tbAcciones">
@@ -94,19 +26,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbUsuarios">
-      <EntityTypeMapping TypeName="Models.tbUsuarios">
-        <MappingFragment StoreEntitySet="tbUsuarios">
-          <ScalarProperty Name="usu_Id" ColumnName="usu_Id" />
-          <ScalarProperty Name="usu_NombreDeUsuario" ColumnName="usu_NombreDeUsuario" />
-          <ScalarProperty Name="usu_Contrasenia" ColumnName="usu_Contrasenia" />
-          <ScalarProperty Name="usu_BloqueoActivo" ColumnName="usu_BloqueoActivo" />
-          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Habilitar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Habilitar" />
-    <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Inactivar" FunctionName="Models.Store.UDP_Persona_tbPersonas_Inactivar" />
     <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Insert" FunctionName="Models.Store.UDP_Persona_tbPersonas_Insert">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Models.UDP_Persona_tbPersonas_Insert_Result">
@@ -114,36 +33,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Update" FunctionName="Models.Store.UDP_Persona_tbPersonas_Update" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetos" FunctionName="Models.Store.SDP_Seg_GetObjetos" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetosAsignados" FunctionName="Models.Store.SDP_Seg_GetObjetosAsignados" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetObjetosDisponibles" FunctionName="Models.Store.SDP_Seg_GetObjetosDisponibles" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetReportes" FunctionName="Models.Store.SDP_Seg_GetReportes" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetRoles" FunctionName="Models.Store.SDP_Seg_GetRoles" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetRolesAsignados" FunctionName="Models.Store.SDP_Seg_GetRolesAsignados" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetRolesDisponibles" FunctionName="Models.Store.SDP_Seg_GetRolesDisponibles" />
-    <FunctionImportMapping FunctionImportName="SDP_Seg_GetUserRols" FunctionName="Models.Store.SDP_Seg_GetUserRols" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_Login" FunctionName="Models.Store.UDP_Seg_Login" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Delete" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Delete" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Insert" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbAccesoRol_Update" FunctionName="Models.Store.UDP_Seg_tbAccesoRol_Update" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbBitacoraErrores_Insert" FunctionName="Models.Store.UDP_Seg_tbBitacoraErrores_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Insert" FunctionName="Models.Store.UDP_Seg_tbObjeto_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Update" FunctionName="Models.Store.UDP_Seg_tbObjeto_Update" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbObjeto_Update_Estado" FunctionName="Models.Store.UDP_Seg_tbObjeto_Update_Estado" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Inactivar" FunctionName="Models.Store.UDP_Seg_tbRol_Inactivar" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Insert" FunctionName="Models.Store.UDP_Seg_tbRol_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRol_Update" FunctionName="Models.Store.UDP_Seg_tbRol_Update" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolEstado_Update" FunctionName="Models.Store.UDP_Seg_tbRolEstado_Update" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Delete" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Delete" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbRolesUsuario_Update" FunctionName="Models.Store.UDP_Seg_tbRolesUsuario_Update" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Estado" FunctionName="Models.Store.UDP_Seg_tbUsuario_Estado" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbUsuario_Insert" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_PasswordRestore" FunctionName="Models.Store.UDP_Seg_tbUsuario_PasswordRestore" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_PasswordUpdate" FunctionName="Models.Store.UDP_Seg_tbUsuario_PasswordUpdate" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Select" FunctionName="Models.Store.UDP_Seg_tbUsuario_Select" />
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Update" FunctionName="Models.Store.UDP_Seg_tbUsuario_Update" />
     <EntitySetMapping Name="tbPersonas">
       <EntityTypeMapping TypeName="Models.tbPersonas">
         <MappingFragment StoreEntitySet="tbPersonas">
@@ -153,15 +42,66 @@
           <ScalarProperty Name="per_UsuarioCrea" ColumnName="per_UsuarioCrea" />
           <ScalarProperty Name="per_RazonInactivo" ColumnName="per_RazonInactivo" />
           <ScalarProperty Name="per_Estado" ColumnName="per_Estado" />
-          <ScalarProperty Name="per_EstadoCivil" ColumnName="per_EstadoCivil" />
           <ScalarProperty Name="per_CorreoElectronico" ColumnName="per_CorreoElectronico" />
           <ScalarProperty Name="per_Telefono" ColumnName="per_Telefono" />
-          <ScalarProperty Name="per_Sexo" ColumnName="per_Sexo" />
           <ScalarProperty Name="per_FechaNacimiento" ColumnName="per_FechaNacimiento" />
           <ScalarProperty Name="per_Apellidos" ColumnName="per_Apellidos" />
           <ScalarProperty Name="per_Nombres" ColumnName="per_Nombres" />
           <ScalarProperty Name="per_Identidad" ColumnName="per_Identidad" />
           <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbUsuario_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Seg_tbUsuario_Insert_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbUsuarios">
+      <EntityTypeMapping TypeName="Models.tbUsuarios">
+        <MappingFragment StoreEntitySet="tbUsuarios">
+          <ScalarProperty Name="usu_Fotografia" ColumnName="usu_Fotografia" />
+          <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+          <ScalarProperty Name="usu_Contrasenia" ColumnName="usu_Contrasenia" />
+          <ScalarProperty Name="usu_NombreDeUsuario" ColumnName="usu_NombreDeUsuario" />
+          <ScalarProperty Name="usu_Id" ColumnName="usu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbCategoriaServicios">
+      <EntityTypeMapping TypeName="Models.tbCategoriaServicios">
+        <MappingFragment StoreEntitySet="tbCategoriaServicios">
+          <ScalarProperty Name="cserv_Descripcion" ColumnName="cserv_Descripcion" />
+          <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbServicios">
+      <EntityTypeMapping TypeName="Models.tbServicios">
+        <MappingFragment StoreEntitySet="tbServicios">
+          <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
+          <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
+          <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
+          <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
+          <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
+          <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
+          <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
+          <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
+          <ScalarProperty Name="serv_Titulo" ColumnName="serv_Titulo" />
+          <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
+          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ServicioExterno">
+      <EntityTypeMapping TypeName="Models.ServicioExterno">
+        <MappingFragment StoreEntitySet="ServicioExterno">
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

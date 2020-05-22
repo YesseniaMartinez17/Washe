@@ -7,15 +7,7 @@
     @*Layout = "~/Views/Shared/_Layout.cshtml";*@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
-        <h2>Details</h2>
-        <ol class="breadcrumb">
-            <li>
-                @Html.ActionLink("List", "Index")
-            </li>
-            <li class="active">
-                <strong>Details</strong>
-            </li>
-        </ol>
+        <h2>Detalles</h2>
     </div>
 </div>
 
@@ -25,85 +17,13 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
+            @Html.DisplayNameFor(model => model.per_Identidad) @Html.DisplayFor(model => model.per_Identidad)
+            <br /><br />
             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Details tbPersonas</h5>
-                </div>
                 <div class="ibox-content">
 
 
                     <dl class="dl-horizontal">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Identidad)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Identidad)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Nombres)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Nombres)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Apellidos)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Apellidos)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_FechaNacimiento)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_FechaNacimiento)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Sexo)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Sexo)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Telefono)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Telefono)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_CorreoElectronico)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_CorreoElectronico)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_EstadoCivil)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_EstadoCivil)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.per_Estado)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.per_Estado)
-                        </dd>
 
                         <dt>
                             @Html.DisplayNameFor(model => model.per_RazonInactivo)
@@ -128,29 +48,16 @@
                         <dd>
                             @Html.DisplayFor(model => model.per_FechaModifica)
                         </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.tbUsuarios.usu_NombreDeUsuario)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.tbUsuarios.usu_NombreDeUsuario)
-                        </dd>
-
-                        <dt>
-                            @Html.DisplayNameFor(model => model.tbUsuarios1.usu_NombreDeUsuario)
-                        </dt>
-
-                        <dd>
-                            @Html.DisplayFor(model => model.tbUsuarios1.usu_NombreDeUsuario)
-                        </dd>
-
                     </dl>
+                    <hr />
+                    <p><b>Nombre de usuario: </b>@ViewBag.cuenta</p>
+                    <div class="col-md-4">
+                        <p><b>Forografía: </b></p>
+                    </div>
+                    <div class="col-md-5">
+                        <img src="@Url.Action("cargarfoto", "Personas", new { id = @Html.DisplayFor(model => model.per_Id)})" style="width:100%;height:100%" />
 
-
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.per_Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-white" })
-
+                    </div>
                 </div>
             </div>
         </div>
