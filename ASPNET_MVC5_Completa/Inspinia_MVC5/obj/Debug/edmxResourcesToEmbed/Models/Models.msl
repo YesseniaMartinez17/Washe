@@ -1,31 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="WashEEntities">
-    <EntitySetMapping Name="tbAcciones">
-      <EntityTypeMapping TypeName="Models.tbAcciones">
-        <MappingFragment StoreEntitySet="tbAcciones">
-          <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
-          <ScalarProperty Name="accion_descripcion" ColumnName="accion_descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbAccionRol">
-      <EntityTypeMapping TypeName="Models.tbAccionRol">
-        <MappingFragment StoreEntitySet="tbAccionRol">
-          <ScalarProperty Name="acrol_Id" ColumnName="acrol_Id" />
-          <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
-          <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbRoles">
-      <EntityTypeMapping TypeName="Models.tbRoles">
-        <MappingFragment StoreEntitySet="tbRoles">
-          <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
-          <ScalarProperty Name="rol_Descripcion" ColumnName="rol_Descripcion" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="UDP_Persona_tbPersonas_Insert" FunctionName="Models.Store.UDP_Persona_tbPersonas_Insert">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Models.UDP_Persona_tbPersonas_Insert_Result">
@@ -33,6 +8,54 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbUsuario_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Seg_tbUsuario_Insert_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Fact_tbPedidos_Insert" FunctionName="Models.Store.UDP_Fact_tbPedidos_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Fact_tbPedidos_Insert_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Fact_tbPedidosDetalle_Insert" FunctionName="Models.Store.UDP_Fact_tbPedidosDetalle_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Fact_tbPedidosDetalle_Insert_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbPedidos">
+      <EntityTypeMapping TypeName="Models.tbPedidos">
+        <MappingFragment StoreEntitySet="tbPedidos">
+          <ScalarProperty Name="pdidos_Total" ColumnName="pdidos_Total" />
+          <ScalarProperty Name="pdidos_Lng" ColumnName="pdidos_Lng" />
+          <ScalarProperty Name="pdidos_Lat" ColumnName="pdidos_Lat" />
+          <ScalarProperty Name="pdidos_ubicacion" ColumnName="pdidos_ubicacion" />
+          <ScalarProperty Name="pdidos_RazonInactivao" ColumnName="pdidos_RazonInactivao" />
+          <ScalarProperty Name="pdidos_Fecha" ColumnName="pdidos_Fecha" />
+          <ScalarProperty Name="pdidos_estado" ColumnName="pdidos_estado" />
+          <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+          <ScalarProperty Name="pdidos_Id" ColumnName="pdidos_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbPedidosDetalle">
+      <EntityTypeMapping TypeName="Models.tbPedidosDetalle">
+        <MappingFragment StoreEntitySet="tbPedidosDetalle">
+          <ScalarProperty Name="pdet_RazonInactivo" ColumnName="pdet_RazonInactivo" />
+          <ScalarProperty Name="pdet_Estado" ColumnName="pdet_Estado" />
+          <ScalarProperty Name="pdet_PrecioActual" ColumnName="pdet_PrecioActual" />
+          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+          <ScalarProperty Name="pdidos_Id" ColumnName="pdidos_Id" />
+          <ScalarProperty Name="pdet_Id" ColumnName="pdet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tbPersonas">
       <EntityTypeMapping TypeName="Models.tbPersonas">
         <MappingFragment StoreEntitySet="tbPersonas">
@@ -52,28 +75,28 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="UDP_Seg_tbUsuario_Insert" FunctionName="Models.Store.UDP_Seg_tbUsuario_Insert">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Models.UDP_Seg_tbUsuario_Insert_Result">
-          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <EntitySetMapping Name="tbUsuarios">
-      <EntityTypeMapping TypeName="Models.tbUsuarios">
-        <MappingFragment StoreEntitySet="tbUsuarios">
-          <ScalarProperty Name="usu_Fotografia" ColumnName="usu_Fotografia" />
+    <EntitySetMapping Name="SolicitudesApartadas">
+      <EntityTypeMapping TypeName="Models.SolicitudesApartadas">
+        <MappingFragment StoreEntitySet="SolicitudesApartadas">
+          <ScalarProperty Name="usu_FechaModifica" ColumnName="usu_FechaModifica" />
+          <ScalarProperty Name="usu_UsuarioModifica" ColumnName="usu_UsuarioModifica" />
+          <ScalarProperty Name="sol_Estado" ColumnName="sol_Estado" />
+          <ScalarProperty Name="pdido_Id" ColumnName="pdido_Id" />
           <ScalarProperty Name="per_Id" ColumnName="per_Id" />
-          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
-          <ScalarProperty Name="usu_Contrasenia" ColumnName="usu_Contrasenia" />
-          <ScalarProperty Name="usu_NombreDeUsuario" ColumnName="usu_NombreDeUsuario" />
-          <ScalarProperty Name="usu_Id" ColumnName="usu_Id" />
+          <ScalarProperty Name="sol_Fecha" ColumnName="sol_Fecha" />
+          <ScalarProperty Name="sol_Id" ColumnName="sol_Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbCategoriaServicios">
       <EntityTypeMapping TypeName="Models.tbCategoriaServicios">
         <MappingFragment StoreEntitySet="tbCategoriaServicios">
+          <ScalarProperty Name="cserv_FechaModifica" ColumnName="cserv_FechaModifica" />
+          <ScalarProperty Name="cserv_UsuarioModifica" ColumnName="cserv_UsuarioModifica" />
+          <ScalarProperty Name="cserv_FechaCrea" ColumnName="cserv_FechaCrea" />
+          <ScalarProperty Name="cserv_UsuarioCrea" ColumnName="cserv_UsuarioCrea" />
+          <ScalarProperty Name="cserv_RazonInactivo" ColumnName="cserv_RazonInactivo" />
+          <ScalarProperty Name="cserv_Estado" ColumnName="cserv_Estado" />
           <ScalarProperty Name="cserv_Descripcion" ColumnName="cserv_Descripcion" />
           <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
         </MappingFragment>
@@ -96,6 +119,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbAcciones">
+      <EntityTypeMapping TypeName="Models.tbAcciones">
+        <MappingFragment StoreEntitySet="tbAcciones">
+          <ScalarProperty Name="accion_descripcion" ColumnName="accion_descripcion" />
+          <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbAccionRol">
+      <EntityTypeMapping TypeName="Models.tbAccionRol">
+        <MappingFragment StoreEntitySet="tbAccionRol">
+          <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
+          <ScalarProperty Name="accion_Id" ColumnName="accion_Id" />
+          <ScalarProperty Name="acrol_Id" ColumnName="acrol_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbRoles">
+      <EntityTypeMapping TypeName="Models.tbRoles">
+        <MappingFragment StoreEntitySet="tbRoles">
+          <ScalarProperty Name="rol_Descripcion" ColumnName="rol_Descripcion" />
+          <ScalarProperty Name="rol_Id" ColumnName="rol_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbUsuarios">
+      <EntityTypeMapping TypeName="Models.tbUsuarios">
+        <MappingFragment StoreEntitySet="tbUsuarios">
+          <ScalarProperty Name="usu_Fotografia" ColumnName="usu_Fotografia" />
+          <ScalarProperty Name="per_Id" ColumnName="per_Id" />
+          <ScalarProperty Name="rol_id" ColumnName="rol_id" />
+          <ScalarProperty Name="usu_Contrasenia" ColumnName="usu_Contrasenia" />
+          <ScalarProperty Name="usu_NombreDeUsuario" ColumnName="usu_NombreDeUsuario" />
+          <ScalarProperty Name="usu_Id" ColumnName="usu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="ServicioExterno">
       <EntityTypeMapping TypeName="Models.ServicioExterno">
         <MappingFragment StoreEntitySet="ServicioExterno">
@@ -105,5 +165,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Prod_tbCategoriaServicios_Inactivar" FunctionName="Models.Store.UDP_Prod_tbCategoriaServicios_Inactivar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Prod_tbCategoriaServicios_Inactivar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_Prod_tbCategoriaServicios_REactivar" FunctionName="Models.Store.UDP_Prod_tbCategoriaServicios_REactivar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_Prod_tbCategoriaServicios_REactivar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

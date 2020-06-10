@@ -27,13 +27,16 @@ namespace Inspinia_MVC5.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tbPedidos> tbPedidos { get; set; }
+        public virtual DbSet<tbPedidosDetalle> tbPedidosDetalle { get; set; }
+        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
+        public virtual DbSet<SolicitudesApartadas> SolicitudesApartadas { get; set; }
+        public virtual DbSet<tbCategoriaServicios> tbCategoriaServicios { get; set; }
+        public virtual DbSet<tbServicios> tbServicios { get; set; }
         public virtual DbSet<tbAcciones> tbAcciones { get; set; }
         public virtual DbSet<tbAccionRol> tbAccionRol { get; set; }
         public virtual DbSet<tbRoles> tbRoles { get; set; }
-        public virtual DbSet<tbPersonas> tbPersonas { get; set; }
         public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
-        public virtual DbSet<tbCategoriaServicios> tbCategoriaServicios { get; set; }
-        public virtual DbSet<tbServicios> tbServicios { get; set; }
         public virtual DbSet<ServicioExterno> ServicioExterno { get; set; }
     
         public virtual ObjectResult<UDP_Persona_tbPersonas_Insert_Result> UDP_Persona_tbPersonas_Insert(string per_Identidad, string per_Nombres, string per_Apellidos, Nullable<System.DateTime> per_FechaNacimiento, string per_Telefono, string per_CorreoElectronico, Nullable<int> per_UsuarioCrea, Nullable<System.DateTime> per_FechaCrea)
@@ -96,6 +99,90 @@ namespace Inspinia_MVC5.Models
                 new ObjectParameter("per_foto", typeof(byte[]));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Seg_tbUsuario_Insert_Result>("UDP_Seg_tbUsuario_Insert", usu_NombreUsuarioParameter, usu_PasswordParameter, rol_IdParameter, per_IdParameter, per_fotoParameter);
+        }
+    
+        public virtual ObjectResult<UDP_Fact_tbPedidos_Insert_Result> UDP_Fact_tbPedidos_Insert(Nullable<int> per_Id, Nullable<System.DateTime> pdidos_Fecha, string pdidos_ubicacion, string pdidos_Lat, string pdidos_Lng, Nullable<decimal> pdidos_Total)
+        {
+            var per_IdParameter = per_Id.HasValue ?
+                new ObjectParameter("per_Id", per_Id) :
+                new ObjectParameter("per_Id", typeof(int));
+    
+            var pdidos_FechaParameter = pdidos_Fecha.HasValue ?
+                new ObjectParameter("pdidos_Fecha", pdidos_Fecha) :
+                new ObjectParameter("pdidos_Fecha", typeof(System.DateTime));
+    
+            var pdidos_ubicacionParameter = pdidos_ubicacion != null ?
+                new ObjectParameter("pdidos_ubicacion", pdidos_ubicacion) :
+                new ObjectParameter("pdidos_ubicacion", typeof(string));
+    
+            var pdidos_LatParameter = pdidos_Lat != null ?
+                new ObjectParameter("pdidos_Lat", pdidos_Lat) :
+                new ObjectParameter("pdidos_Lat", typeof(string));
+    
+            var pdidos_LngParameter = pdidos_Lng != null ?
+                new ObjectParameter("pdidos_Lng", pdidos_Lng) :
+                new ObjectParameter("pdidos_Lng", typeof(string));
+    
+            var pdidos_TotalParameter = pdidos_Total.HasValue ?
+                new ObjectParameter("pdidos_Total", pdidos_Total) :
+                new ObjectParameter("pdidos_Total", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Fact_tbPedidos_Insert_Result>("UDP_Fact_tbPedidos_Insert", per_IdParameter, pdidos_FechaParameter, pdidos_ubicacionParameter, pdidos_LatParameter, pdidos_LngParameter, pdidos_TotalParameter);
+        }
+    
+        public virtual ObjectResult<UDP_Fact_tbPedidosDetalle_Insert_Result> UDP_Fact_tbPedidosDetalle_Insert(Nullable<int> pdidos_Id, Nullable<int> serv_Id, Nullable<decimal> pdet_PrecioActual)
+        {
+            var pdidos_IdParameter = pdidos_Id.HasValue ?
+                new ObjectParameter("pdidos_Id", pdidos_Id) :
+                new ObjectParameter("pdidos_Id", typeof(int));
+    
+            var serv_IdParameter = serv_Id.HasValue ?
+                new ObjectParameter("serv_Id", serv_Id) :
+                new ObjectParameter("serv_Id", typeof(int));
+    
+            var pdet_PrecioActualParameter = pdet_PrecioActual.HasValue ?
+                new ObjectParameter("pdet_PrecioActual", pdet_PrecioActual) :
+                new ObjectParameter("pdet_PrecioActual", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Fact_tbPedidosDetalle_Insert_Result>("UDP_Fact_tbPedidosDetalle_Insert", pdidos_IdParameter, serv_IdParameter, pdet_PrecioActualParameter);
+        }
+    
+        public virtual ObjectResult<UDP_Prod_tbCategoriaServicios_Inactivar_Result> UDP_Prod_tbCategoriaServicios_Inactivar(Nullable<int> id, Nullable<int> usuario, Nullable<System.DateTime> fecha, string razon)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var razonParameter = razon != null ?
+                new ObjectParameter("razon", razon) :
+                new ObjectParameter("razon", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Prod_tbCategoriaServicios_Inactivar_Result>("UDP_Prod_tbCategoriaServicios_Inactivar", idParameter, usuarioParameter, fechaParameter, razonParameter);
+        }
+    
+        public virtual ObjectResult<UDP_Prod_tbCategoriaServicios_REactivar_Result> UDP_Prod_tbCategoriaServicios_REactivar(Nullable<int> id, Nullable<int> usuario, Nullable<System.DateTime> fecha)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("Id", id) :
+                new ObjectParameter("Id", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Prod_tbCategoriaServicios_REactivar_Result>("UDP_Prod_tbCategoriaServicios_REactivar", idParameter, usuarioParameter, fechaParameter);
         }
     }
 }

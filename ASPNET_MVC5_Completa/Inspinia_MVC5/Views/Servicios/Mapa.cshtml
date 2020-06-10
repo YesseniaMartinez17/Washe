@@ -146,14 +146,15 @@
     </div>
 
 @section Scripts{
-    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyBwwVhTQqn6u7ByzzFT82hU-7hbMq4oWpo&amp&libraries=places")
+
+    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyC86enFzj2wGCWtXx8VIOL5Wm_Ymv_ya5E&libraries=places")
+    @*&libraries=places")*@
     <script type="text/javascript">
         //'use strict';
         var lat1 = 0;
         var long = 0;
         var coordenadaUsuario;
-        var lat1_Original = 0;
-        var long_Original = 0;
+
 
         $(document).ready(function () {
 
@@ -174,11 +175,6 @@
 
 
         //google.maps.event.addDomListener(window, 'load', init);
-
-
-
-
-
 
 
         function init() {
@@ -205,6 +201,7 @@
 
             var map1 = new google.maps.Map(mapElement1, mapOptions1);
 
+
             var marker = new google.maps.Marker({
                 position: coordenadaUsuario,
                 map: map1,
@@ -216,11 +213,9 @@
                 $('#longgg').text(event.latLng.lng());
             });
 
+
             var card = document.getElementById('pac-card');
             var input = document.getElementById('pac-input');
-            var types = 'changetype-address';
-
-            var strictBounds = document.getElementById('strict-bounds-selector');
 
             map1.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
@@ -260,10 +255,6 @@
                 $('#lattt').text(pos);
                 $('#longgg').text(pos1);
 
-                var lat1_Original = pos;
-                var long_Original = pos1;
-
-
 
                 marker.setVisible(true);
 
@@ -280,29 +271,32 @@
             });//autocomplete
 
 
-            var ConfigDR = {
-                map: mapElement1
-            }
+            //var ConfigDR = {
+            //    map: map1
+            //}
 
-            var ConfigDS = {
-                origin: coordenadaUsuario,
-                destination: new google.maps.LatLng(15.728550760877717, -87.90162748021238),
-                travelMode: 'DRIVING'
-            }
+            //var ConfigDS = {
+            //    origin: coordenadaUsuario,
+            //    destination: new google.maps.LatLng(15.728550760877717, -87.90162748021238),
+            //    travelMode: 'DRIVING'
+            //}
 
-            var ds = new google.maps.DirectionsService();
+            //var ds = new google.maps.DirectionsService();
 
-            var dr = new google.maps.DirectionsRenderer(
-                ConfigDR
-            );
+            //var ds = new google.maps.DirectionsService();
+            ////var dr = new google.maps.DirectionsRenderer();
+
+            //var dr = new google.maps.DirectionsRenderer(
+            //    ConfigDR
+            //);
             
-            ds.route(ConfigDS, function(result, status) {
-                if (status == 'OK') {
-                    dr.SetDirections(result);
-                } else {
-                    alert('Ruta invalida' + status);
-                }
-            });
+            //ds.route(ConfigDS, function(result, status) {
+            //    if (status == 'OK') {
+            //        dr.setDirections(result);
+            //    } else {
+            //        alert('Ruta invalida' + status);
+            //    }
+            //});
 
         }//init
 

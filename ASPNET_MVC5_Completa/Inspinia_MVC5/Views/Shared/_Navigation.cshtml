@@ -30,14 +30,36 @@
                     IN+
                 </div>
             </li>
+
+            <li class="@Html.IsSelected(controller: "Administracion")">
+                <a href="@Url.Action("CatalogosServicios", "Administracion")"><i class="fa fa-cogs""></i> <span class="nav-label" data-i18n="nav.dashboard">Administracion</span> <span class="fa arrow"></span></a>
+
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Administracion", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "CatalogosServicios")">
+                        <a href="@Url.Action("CatalogosServicios", "Administracion" )">
+                            Catalogos de servicios
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="@Html.IsSelected(controller: "Personas")">
                 <a href="@Url.Action("Index", "Personas")"><i class="fa fa-user"></i> <span class="nav-label" data-i18n="nav.metrics">Clientes</span> </a>
             </li>
 
-            <li class="@Html.IsSelected(controller: "Dashboards")">
-                <a href="@Url.Action("Dashboard_1", "Dashboards")"><i class="fa fa-compass"></i> <span class="nav-label" data-i18n="nav.dashboard">Servicios</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Dashboards", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "Dashboard_5")"><a href="@Url.Action("externo", "Servicios")">Lavado externo</a></li>
+            <li class="@Html.IsSelected(controller: "Servicios")">
+                <a href="@Url.Action("externo", "Servicios")"><i class="fa fa-compass"></i> <span class="nav-label" data-i18n="nav.dashboard">Servicios</span> <span class="fa arrow"></span></a>
+
+                <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "externo", cssClass: "in")">
+                    <li class="@Html.IsSelected(action: "externo")">
+                        <a href="@Url.Action("externo", "Servicios" )">
+                            Lavado externo
+                        </a>
+                    </li>
+                    <li class="@Html.IsSelected(action: "Pendientes")">
+                        <a href="@Url.Action("Pendientes", "Servicios")">
+                            Pendientes
+                        </a>
+                    </li>
                 </ul>
             </li>
 

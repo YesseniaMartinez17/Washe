@@ -14,7 +14,7 @@ namespace Inspinia_MVC5.Models
 
         public DateTime DatetimeNow()
         {
-            DateTime dt = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(-6)).DateTime;
+            DateTime dt = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(-7)).DateTime;
             return dt;
         }
         public static string GetSHA256(string str)

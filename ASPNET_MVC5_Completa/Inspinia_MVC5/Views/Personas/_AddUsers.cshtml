@@ -29,7 +29,18 @@
             <b><p class="control-label ">Fotografía:</p></b>
         </div>
         <div class="col-md-4">
-            <input type="file" class="form-control-file" name="file" id="file" style="width: 100%;" />
+            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                <div class="form-control" data-trigger="fileinput">
+                    <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                    <span class="fileinput-filename"></span>
+                </div>
+                <span class="input-group-addon btn btn-default btn-file">
+                    <span class="fileinput-new">Seleccione su fotografia</span>
+                    <span class="fileinput-exists">Cambiar</span>
+                    <input type="file" class="form-control-file" name="file" id="file" style="width: 100%;" />
+                </span>
+                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+            </div>
         </div>
         </div>
         <div class="form-group">

@@ -1,5 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tbPedidos">
+    <Key>
+      <PropertyRef Name="pdidos_Id" />
+    </Key>
+    <Property Name="pdidos_Id" Type="int" Nullable="false" />
+    <Property Name="per_Id" Type="int" />
+    <Property Name="pdidos_estado" Type="char" MaxLength="1" />
+    <Property Name="pdidos_Fecha" Type="datetime" />
+    <Property Name="pdidos_RazonInactivao" Type="nvarchar" MaxLength="100" />
+    <Property Name="pdidos_ubicacion" Type="nvarchar" MaxLength="100" />
+    <Property Name="pdidos_Lat" Type="nvarchar" MaxLength="50" />
+    <Property Name="pdidos_Lng" Type="nvarchar" MaxLength="50" />
+    <Property Name="pdidos_Total" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbPedidosDetalle">
+    <Key>
+      <PropertyRef Name="pdet_Id" />
+    </Key>
+    <Property Name="pdet_Id" Type="int" Nullable="false" />
+    <Property Name="pdidos_Id" Type="int" Nullable="false" />
+    <Property Name="serv_Id" Type="int" Nullable="false" />
+    <Property Name="pdet_PrecioActual" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="pdet_Estado" Type="bit" />
+    <Property Name="pdet_RazonInactivo" Type="nvarchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="tbPersonas">
     <Key>
       <PropertyRef Name="per_Id" />
@@ -18,12 +43,30 @@
     <Property Name="per_UsuarioModifica" Type="int" />
     <Property Name="per_FechaModifica" Type="datetime" />
   </EntityType>
+  <EntityType Name="SolicitudesApartadas">
+    <Key>
+      <PropertyRef Name="sol_Id" />
+    </Key>
+    <Property Name="sol_Id" Type="int" Nullable="false" />
+    <Property Name="sol_Fecha" Type="datetime" />
+    <Property Name="per_Id" Type="int" />
+    <Property Name="pdido_Id" Type="int" />
+    <Property Name="sol_Estado" Type="char" MaxLength="1" />
+    <Property Name="usu_UsuarioModifica" Type="int" />
+    <Property Name="usu_FechaModifica" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbCategoriaServicios">
     <Key>
       <PropertyRef Name="cserv_Id" />
     </Key>
     <Property Name="cserv_Id" Type="int" Nullable="false" />
     <Property Name="cserv_Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="cserv_Estado" Type="bit" />
+    <Property Name="cserv_RazonInactivo" Type="nvarchar" MaxLength="50" />
+    <Property Name="cserv_UsuarioCrea" Type="int" Nullable="false" />
+    <Property Name="cserv_FechaCrea" Type="datetime" Nullable="false" />
+    <Property Name="cserv_UsuarioModifica" Type="int" />
+    <Property Name="cserv_FechaModifica" Type="datetime" />
   </EntityType>
   <EntityType Name="tbServicios">
     <Key>
@@ -86,67 +129,55 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
     <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="Precio" Type="money" Nullable="false" />
   </EntityType>
-  <Association Name="FK__tbAccionR__accio__1BC821DD">
-    <End Role="tbAcciones" Type="Self.tbAcciones" Multiplicity="1" />
-    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+  <Association Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
+    <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="1" />
+    <End Role="tbPedidosDetalle" Type="Self.tbPedidosDetalle" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbAcciones">
-        <PropertyRef Name="accion_Id" />
+      <Principal Role="tbPedidos">
+        <PropertyRef Name="pdidos_Id" />
       </Principal>
-      <Dependent Role="tbAccionRol">
-        <PropertyRef Name="accion_Id" />
+      <Dependent Role="tbPedidosDetalle">
+        <PropertyRef Name="pdidos_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbAccionR__rol_I__1CBC4616">
-    <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
-    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+  <Association Name="FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id">
+    <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="0..1" />
+    <End Role="SolicitudesApartadas" Type="Self.SolicitudesApartadas" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbRoles">
-        <PropertyRef Name="rol_Id" />
+      <Principal Role="tbPedidos">
+        <PropertyRef Name="pdidos_Id" />
       </Principal>
-      <Dependent Role="tbAccionRol">
-        <PropertyRef Name="rol_Id" />
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="pdido_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbServici__cserv__793DFFAF">
-    <End Role="tbCategoriaServicios" Type="Self.tbCategoriaServicios" Multiplicity="1" />
-    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+  <Association Name="FK_Persona_tbPersonas_fact_tbPedidos_per_Id">
+    <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="0..1" />
+    <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbCategoriaServicios">
-        <PropertyRef Name="cserv_Id" />
+      <Principal Role="tbPersonas">
+        <PropertyRef Name="per_Id" />
       </Principal>
-      <Dependent Role="tbServicios">
-        <PropertyRef Name="cserv_Id" />
+      <Dependent Role="tbPedidos">
+        <PropertyRef Name="per_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbServici__serv___7A3223E8">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
-    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+  <Association Name="FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id">
+    <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="0..1" />
+    <End Role="SolicitudesApartadas" Type="Self.SolicitudesApartadas" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="usu_Id" />
+      <Principal Role="tbPersonas">
+        <PropertyRef Name="per_Id" />
       </Principal>
-      <Dependent Role="tbServicios">
-        <PropertyRef Name="serv_UsuarioCrea" />
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="per_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbServici__serv___7B264821">
-    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
-    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbUsuarios">
-        <PropertyRef Name="usu_Id" />
-      </Principal>
-      <Dependent Role="tbServicios">
-        <PropertyRef Name="serv_UsuarioModifica" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__tbUsuario__per_I__607251E5">
+  <Association Name="FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id">
     <End Role="tbPersonas" Type="Self.tbPersonas" Multiplicity="0..1" />
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -158,7 +189,55 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbUsuario__rol_i__05D8E0BE">
+  <Association Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
+    <End Role="tbCategoriaServicios" Type="Self.tbCategoriaServicios" Multiplicity="1" />
+    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbCategoriaServicios">
+        <PropertyRef Name="cserv_Id" />
+      </Principal>
+      <Dependent Role="tbServicios">
+        <PropertyRef Name="cserv_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="1" />
+    <End Role="tbPedidosDetalle" Type="Self.tbPedidosDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbServicios">
+        <PropertyRef Name="serv_Id" />
+      </Principal>
+      <Dependent Role="tbPedidosDetalle">
+        <PropertyRef Name="serv_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id">
+    <End Role="tbAcciones" Type="Self.tbAcciones" Multiplicity="1" />
+    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAcciones">
+        <PropertyRef Name="accion_Id" />
+      </Principal>
+      <Dependent Role="tbAccionRol">
+        <PropertyRef Name="accion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id">
+    <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
+    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbRoles">
+        <PropertyRef Name="rol_Id" />
+      </Principal>
+      <Dependent Role="tbAccionRol">
+        <PropertyRef Name="rol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbRoles_Seg_tbUsuarios_rol_id">
     <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="0..1" />
     <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -194,6 +273,79 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="SolicitudesApartadas" Type="Self.SolicitudesApartadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="usu_UsuarioModifica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbCategoriaServicios" Type="Self.tbCategoriaServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbCategoriaServicios">
+        <PropertyRef Name="cserv_UsuarioCrea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbCategoriaServicios" Type="Self.tbCategoriaServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbCategoriaServicios">
+        <PropertyRef Name="cserv_UsuarioModifica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbServicios">
+        <PropertyRef Name="serv_UsuarioCrea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
+    <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+    <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbServicios">
+        <PropertyRef Name="serv_UsuarioModifica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="UDP_Fact_tbPedidos_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="fact">
+    <Parameter Name="per_Id" Type="int" Mode="In" />
+    <Parameter Name="pdidos_Fecha" Type="datetime" Mode="In" />
+    <Parameter Name="pdidos_ubicacion" Type="nvarchar" Mode="In" />
+    <Parameter Name="pdidos_Lat" Type="nvarchar" Mode="In" />
+    <Parameter Name="pdidos_Lng" Type="nvarchar" Mode="In" />
+    <Parameter Name="pdidos_Total" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="UDP_Fact_tbPedidosDetalle_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="fact">
+    <Parameter Name="pdidos_Id" Type="int" Mode="In" />
+    <Parameter Name="serv_Id" Type="int" Mode="In" />
+    <Parameter Name="pdet_PrecioActual" Type="decimal" Mode="In" />
+  </Function>
   <Function Name="UDP_Persona_tbPersonas_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Persona">
     <Parameter Name="per_Identidad" Type="nvarchar" Mode="In" />
     <Parameter Name="per_Nombres" Type="nvarchar" Mode="In" />
@@ -204,6 +356,17 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
     <Parameter Name="per_UsuarioCrea" Type="int" Mode="In" />
     <Parameter Name="per_FechaCrea" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="UDP_Prod_tbCategoriaServicios_Inactivar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="usuario" Type="int" Mode="In" />
+    <Parameter Name="fecha" Type="datetime" Mode="In" />
+    <Parameter Name="razon" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="UDP_Prod_tbCategoriaServicios_REactivar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+    <Parameter Name="Id" Type="int" Mode="In" />
+    <Parameter Name="usuario" Type="int" Mode="In" />
+    <Parameter Name="fecha" Type="datetime" Mode="In" />
+  </Function>
   <Function Name="UDP_Seg_tbUsuario_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
     <Parameter Name="usu_NombreUsuario" Type="varchar" Mode="In" />
     <Parameter Name="usu_Password" Type="varchar" Mode="In" />
@@ -212,7 +375,10 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
     <Parameter Name="per_foto" Type="varbinary(max)" Mode="In" />
   </Function>
   <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="tbPedidos" EntityType="Self.tbPedidos" Schema="fact" store:Type="Tables" />
+    <EntitySet Name="tbPedidosDetalle" EntityType="Self.tbPedidosDetalle" Schema="fact" store:Type="Tables" />
     <EntitySet Name="tbPersonas" EntityType="Self.tbPersonas" Schema="Persona" store:Type="Tables" />
+    <EntitySet Name="SolicitudesApartadas" EntityType="Self.SolicitudesApartadas" Schema="prod" store:Type="Tables" />
     <EntitySet Name="tbCategoriaServicios" EntityType="Self.tbCategoriaServicios" Schema="prod" store:Type="Tables" />
     <EntitySet Name="tbServicios" EntityType="Self.tbServicios" Schema="prod" store:Type="Tables" />
     <EntitySet Name="tbAcciones" EntityType="Self.tbAcciones" Schema="Seg" store:Type="Tables" />
@@ -226,31 +392,43 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
     [ServicioExterno].[Precio] AS [Precio]
     FROM [prod].[ServicioExterno] AS [ServicioExterno]</DefiningQuery>
     </EntitySet>
-    <AssociationSet Name="FK__tbAccionR__accio__1BC821DD" Association="Self.FK__tbAccionR__accio__1BC821DD">
-      <End Role="tbAcciones" EntitySet="tbAcciones" />
-      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    <AssociationSet Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" Association="Self.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
+      <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbAccionR__rol_I__1CBC4616" Association="Self.FK__tbAccionR__rol_I__1CBC4616">
-      <End Role="tbRoles" EntitySet="tbRoles" />
-      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    <AssociationSet Name="FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id" Association="Self.FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id">
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbServici__cserv__793DFFAF" Association="Self.FK__tbServici__cserv__793DFFAF">
-      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
-      <End Role="tbServicios" EntitySet="tbServicios" />
+    <AssociationSet Name="FK_Persona_tbPersonas_fact_tbPedidos_per_Id" Association="Self.FK_Persona_tbPersonas_fact_tbPedidos_per_Id">
+      <End Role="tbPersonas" EntitySet="tbPersonas" />
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbServici__serv___7A3223E8" Association="Self.FK__tbServici__serv___7A3223E8">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbServicios" EntitySet="tbServicios" />
+    <AssociationSet Name="FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" Association="Self.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id">
+      <End Role="tbPersonas" EntitySet="tbPersonas" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbServici__serv___7B264821" Association="Self.FK__tbServici__serv___7B264821">
-      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-      <End Role="tbServicios" EntitySet="tbServicios" />
-    </AssociationSet>
-    <AssociationSet Name="FK__tbUsuario__per_I__607251E5" Association="Self.FK__tbUsuario__per_I__607251E5">
+    <AssociationSet Name="FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id" Association="Self.FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id">
       <End Role="tbPersonas" EntitySet="tbPersonas" />
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbUsuario__rol_i__05D8E0BE" Association="Self.FK__tbUsuario__rol_i__05D8E0BE">
+    <AssociationSet Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" Association="Self.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
+      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+      <End Role="tbServicios" EntitySet="tbServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" Association="Self.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+      <End Role="tbServicios" EntitySet="tbServicios" />
+      <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" Association="Self.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id">
+      <End Role="tbAcciones" EntitySet="tbAcciones" />
+      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id" Association="Self.FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id">
+      <End Role="tbRoles" EntitySet="tbRoles" />
+      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" Association="Self.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id">
       <End Role="tbRoles" EntitySet="tbRoles" />
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
     </AssociationSet>
@@ -261,6 +439,26 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
     <AssociationSet Name="FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbPersonas" EntitySet="tbPersonas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" Association="Self.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" Association="Self.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbServicios" EntitySet="tbServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" Association="Self.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbServicios" EntitySet="tbServicios" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

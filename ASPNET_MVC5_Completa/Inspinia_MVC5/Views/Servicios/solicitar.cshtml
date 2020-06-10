@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<Inspinia_MVC5.Models.VM_ServicioSolicitud>
+
+@{
+    //Layout = null;
     ViewBag.Title = "Listar";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
@@ -6,7 +9,10 @@
     //se va a recalcular con jQuery
     decimal totalAPagar = 0;
 }
+
+
 <style type="text/css">
+    /* Chrome, Safari, Edge, Opera */
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -99,7 +105,6 @@
         padding: 6px 12px;
     }
 </style>
-<title>Simple Map</title>
 <meta name="viewport" content="initial-scale=1.0">
 <meta charset="utf-8">
 <h2>Servicios solicitados.</h2>
@@ -114,29 +119,28 @@
                 <div class="table-responsive">
                     <table id="tblProductosSeleccionados" class="table shoping-cart-table">
                         <tbody>
-                            @for (int x = 0; x <= ViewBag.CantS - 1; x++)
+                            @foreach (var item in Model)
                             {
                                 //aqui sumamos el precio de todos los productos seleccionados, teniendo en cuenta que inicialmente
                                 //solo se haya seleccionado 1 vez el producto, no sé si realmente será asi, de lo contrario, lo multiplicas por la cantidad
                                 //de veces que se seleccionó el producto
-                                totalAPagar += Convert.ToDecimal(ViewBag.Precios[x]);
+                                totalAPagar += item.precio;//Convert.ToDecimal(ViewBag.Precios[x]);
                                 <tr>
                                     <td class="desc">
-                                        <h3>
-                                            <a href="#" class="text-navy">
-                                                @Html.Raw(ViewBag.descripcionesS[x])
-                                            </a>
+                                        <h3 class="text-navy">
+                                            @Html.DisplayFor(objmodel => item.descripcion)
                                         </h3>
                                     </td>
                                     <td>
-                                        @Html.Raw(ViewBag.Precios[x])
+                                        @Html.DisplayFor(objmodel => item.descripcion)
                                     </td>
                                     <td width="65">
-                                        <input data-precioproducto="@ViewBag.Precios[x]"
-                                               data-id="@x"
-                                               id="@x"
+                                        <input data-precioproducto="@Html.DisplayFor(objmodel => item.precio)"
+                                               data-id=@Html.DisplayFor(objmodel => item.id)
+                                               data-cantidad=1
+                                               id=@Html.DisplayFor(objmodel => item.id)
                                                value="1"
-                                               onclick="preformatear(@x)"
+                                               onclick="preformatear(@Html.DisplayFor(objmodel => item.id))"
                                                class="numco form-control"
                                                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                                type="number"
@@ -144,7 +148,7 @@
                                     </td>
                                     <td>
                                         <h4>
-                                            <p>@Html.Raw(ViewBag.Precios[x])</p>
+                                            <p>@Html.DisplayFor(objmodel => item.precio)</p>
                                         </h4>
                                     </td>
                                 </tr>
@@ -153,9 +157,6 @@
 
                         </tbody>
                     </table>
-                    <div class="ibox-content">
-                        <button class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -163,29 +164,33 @@
     <div class="col-md-3">
         <div class="ibox">
             <div class="ibox-title">
-                <h5>Cart Summary</h5>
+                <h5>Total</h5>
             </div>
             <div class="ibox-content">
                 <span>
                     Total
                 </span>
                 <h2 class="font-bold">
-                    @*@aqui mostramos el total a pagar inicialmente@*@
-                    Lps. <p id="lblTotalPagar">@totalAPagar</p>
+                    @{
+                        string s = totalAPagar.ToString("0.00");
+                    }<p id="lblTotalPagar"> @s Lps </p>
                 </h2>
                 <hr />
-                <span class="text-muted small">
-                    *For United States, France and Germany applicable sales tax will be applied
-                </span>
-                <div class="m-t-sm">
-                    <div class="btn-group">
-                        <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
-                        <a href="#" class="btn btn-white btn-sm"> Cancel</a>
-                    </div>
-                </div>
+                @*<span class="text-muted small">
+                        *For United States, France and Germany applicable sales tax will be applied
+                    </span>
+                    <div class="m-t-sm">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                            <a href="#" class="btn btn-white btn-sm"> Cancel</a>
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
+</div>
+
+<div class="col-md-12">
     <div class="ibox">
         <div class="ibox-title">
             <p>
@@ -218,20 +223,39 @@
                     <span id="place-address"></span>
                 </div>
             </div>
-            Lat: <p id="lattt"></p>
-            Long: <p id="longgg"></p>
+            <hr />
+            <label><i class="fa fa-map-marker"></i> Su ubicación: </label><p id="Ubicacion"></p>
+            <input type="submit" disabled id="confirmar" class="animado btn btn-info" data-style="zoom-in" value="Confirmar solicitud" />
+
         </div>
-        <p></p>
     </div>
 </div>
+
+<div class="sa-icon sa-success animate" style="display: block;">
+    <span class="sa-line sa-tip animateSuccessTip"></span>
+    <span class="sa-line sa-long animateSuccessLong"></span>
+
+    <div class="sa-placeholder"></div>
+    <div class="sa-fix"></div>
+</div>
+
+
+
+<input type="hidden" value="@ViewBag.Lids" id="viewl" />
 
 @*<input type="text" id="prueba" />
     <p id="kpress"></p>
     <p id="kup"></p>
     <p id="kdown"></p>*@
 
-@section Scripts {
+@section Styles {
+    @Styles.Render("~/plugins/laddaStyles")
+    @Styles.Render("~/plugins/sweetAlertStyles")
+}
 
-    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyBwwVhTQqn6u7ByzzFT82hU-7hbMq4oWpo")
+@section Scripts {
+    @Scripts.Render("~/plugins/sweetAlert")
+    @Scripts.Render("~/plugins/ladda")
+    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyC86enFzj2wGCWtXx8VIOL5Wm_Ymv_ya5E&libraries=places")
     @Scripts.Render("~/Scripts/app/General/Servicios")
 }

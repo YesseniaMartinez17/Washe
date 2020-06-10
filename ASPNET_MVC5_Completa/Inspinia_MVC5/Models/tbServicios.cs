@@ -14,6 +14,12 @@ namespace Inspinia_MVC5.Models
     
     public partial class tbServicios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbServicios()
+        {
+            this.tbPedidosDetalle = new HashSet<tbPedidosDetalle>();
+        }
+    
         public int serv_Id { get; set; }
         public int cserv_Id { get; set; }
         public string serv_Titulo { get; set; }
@@ -26,6 +32,8 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> serv_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> serv_FechaModifica { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbPedidosDetalle> tbPedidosDetalle { get; set; }
         public virtual tbCategoriaServicios tbCategoriaServicios { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }

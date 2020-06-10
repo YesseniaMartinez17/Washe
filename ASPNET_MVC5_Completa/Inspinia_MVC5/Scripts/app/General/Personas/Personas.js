@@ -1,12 +1,7 @@
 ﻿//alert("si");
 
 
-$("#btnDetalles").click(function (evento) {
-    $("#modal-content").load("/Personas/Index.cshtml");
-});
 
-$(document).ready(
-    function () {
         $(".btnDetails").click(
             function () {
                 var id = $(this).data("value");
@@ -16,10 +11,8 @@ $(document).ready(
                         //$("#ModalDetalles").show();
                     }
                 );
-            });
-        }
-);
-
-$("#target").click(function () {
-    alert("Handler for .click() called.");
-});
+            }
+        );
+//$("#target").click(function () {
+//    alert("Handler for .click() called.");
+//});

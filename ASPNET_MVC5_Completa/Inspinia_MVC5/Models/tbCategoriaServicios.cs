@@ -22,8 +22,16 @@ namespace Inspinia_MVC5.Models
     
         public int cserv_Id { get; set; }
         public string cserv_Descripcion { get; set; }
+        public Nullable<bool> cserv_Estado { get; set; }
+        public string cserv_RazonInactivo { get; set; }
+        public int cserv_UsuarioCrea { get; set; }
+        public System.DateTime cserv_FechaCrea { get; set; }
+        public Nullable<int> cserv_UsuarioModifica { get; set; }
+        public Nullable<System.DateTime> cserv_FechaModifica { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbServicios> tbServicios { get; set; }
+        public virtual tbUsuarios tbUsuarios { get; set; }
+        public virtual tbUsuarios tbUsuarios1 { get; set; }
     }
 }

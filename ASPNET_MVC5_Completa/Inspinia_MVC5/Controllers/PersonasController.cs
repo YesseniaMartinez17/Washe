@@ -41,6 +41,10 @@ namespace Inspinia_MVC5.Controllers
             return null;
         }
         //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
+
+
+
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -62,6 +66,7 @@ namespace Inspinia_MVC5.Controllers
         //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Create()
         {
+
         //    //Ddl Sexo
         //    var Sexo = new List<object> { };
         //    Sexo.Add(new { Id = "", Descripcion = "**Seleccione una opción**" });
@@ -100,10 +105,7 @@ namespace Inspinia_MVC5.Controllers
                 {
                     file.InputStream.CopyTo(ms);
                     byte[] arrayfoto = ms.GetBuffer();
-
-                    var context = new Models.WashEEntities();
                     
-
                     var list = db.UDP_Persona_tbPersonas_Insert(tbPersonas.per_Identidad
                                                                 , tbPersonas.per_Nombres
                                                                 , tbPersonas.per_Apellidos
@@ -135,7 +137,7 @@ namespace Inspinia_MVC5.Controllers
                 msj = "-2";
                 ex.Message.ToString();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Login", "Acceso");
         }
         //*♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦♦*//
         public ActionResult Edit(int? id)

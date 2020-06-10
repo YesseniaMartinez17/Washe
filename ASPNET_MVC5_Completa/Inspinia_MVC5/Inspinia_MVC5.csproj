@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccesoController.cs" />
+    <Compile Include="Controllers\AdministracionController.cs" />
     <Compile Include="Controllers\AppViewsController.cs" />
     <Compile Include="Controllers\CSSAnimationsController.cs" />
     <Compile Include="Controllers\EcommerceController.cs" />
@@ -157,6 +158,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\cCategoriasServicios.cs" />
+    <Compile Include="Models\cPedidosDetalle.cs" />
+    <Compile Include="Models\ctbPedidos.cs" />
     <Compile Include="Models\cPersonasUsuarios.cs" />
     <Compile Include="Models\cUsuarios.cs" />
     <Compile Include="Models\Helpers.cs" />
@@ -181,6 +185,9 @@
     <Compile Include="Models\ServicioExterno.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SolicitudesApartadas.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbAcciones.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -188,6 +195,12 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbCategoriaServicios.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbPedidos.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbPedidosDetalle.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbPersonas.cs">
@@ -202,12 +215,25 @@
     <Compile Include="Models\tbUsuarios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UDP_Fact_tbPedidosDetalle_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_Fact_tbPedidos_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UDP_Persona_tbPersonas_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_Prod_tbCategoriaServicios_Inactivar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_Prod_tbCategoriaServicios_REactivar_Result.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDP_Seg_tbUsuario_Insert_Result.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VM_ServicioSolicitud.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1283,7 +1309,9 @@
     <Content Include="Images\p_big2.jpg" />
     <Content Include="Images\p_big3.jpg" />
     <Content Include="Images\zender_logo.png" />
+    <Content Include="Scripts\app\General\Administracion\CategoriasServicios.js" />
     <Content Include="Scripts\app\General\Personas\Personas.js" />
+    <Content Include="Scripts\app\General\Servicios\IndexPendientes.js" />
     <Content Include="Scripts\app\General\Servicios\MascaraS.js" />
     <Content Include="Scripts\app\inspinia.js" />
     <Content Include="Scripts\app\Mascara.js" />
@@ -1707,6 +1735,7 @@
     <Content Include="Scripts\plugins\staps\jquery.steps.min.js" />
     <Content Include="Scripts\plugins\summernote\summernote.min.js" />
     <Content Include="Scripts\plugins\sweetalert\sweetalert.min.js" />
+    <Content Include="Scripts\plugins\sweetalert\sweetalert.min-o.js" />
     <Content Include="Scripts\plugins\switchery\switchery.js" />
     <Content Include="Scripts\plugins\tinycon\tinycon.min.js" />
     <Content Include="Scripts\plugins\toastr\toastr.min.js" />
@@ -1881,9 +1910,12 @@
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Servicios\externo.cshtml" />
-    <Content Include="Views\Servicios\solicitar.cshtml" />
     <Content Include="Views\Servicios\Mapa.cshtml" />
-    <Content Include="Views\Servicios\_Mapa.cshtml" />
+    <Content Include="Views\Servicios\solicitar.cshtml" />
+    <Content Include="Views\Servicios\Pendientes.cshtml" />
+    <Content Include="Views\Servicios\_PedidosDetalle.cshtml" />
+    <Content Include="Views\Administracion\CatalogosServicios.cshtml" />
+    <Content Include="Views\Administracion\_Detalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

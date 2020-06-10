@@ -12,6 +12,14 @@ namespace Inspinia_MVC5
                 "~/Scripts/app/General/Servicios/MascaraS.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Administracion").Include(
+                "~/Scripts/app/General/Administracion/CategoriasServicios.js"
+                ));
+        
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Servicios/IndexPendientes").Include(
+                "~/Scripts/app/General/Servicios/IndexPendientes.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/Scripts/app/General/Personas").Include(
                 "~/Scripts/app/General/Personas/Personas.js"
                 ));

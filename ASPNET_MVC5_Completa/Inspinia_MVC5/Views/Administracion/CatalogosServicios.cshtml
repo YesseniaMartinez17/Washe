@@ -1,0 +1,160 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.tbCategoriaServicios>
+
+@{
+    ViewBag.Title = "CatalogosServicios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style type="text/css">
+    #contenidoM{
+        background-color:white;
+    }
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Categorías de servicios</h2>
+        @*<ol class="breadcrumb">
+                <li class="active">
+                    <strong>Categorías de servicios</strong>
+                </li>
+            </ol>*@
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="ibox-content">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Listados de categorias de servicios</h5>
+                        <div class="ibox-tools">
+                            @Html.ActionLink("Registrar nuevo", "Create", null, new { @class = "btn btn-primary btn-xs" })
+                        </div>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <div class="ibox-content">
+
+                        <table class="table table-striped">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cserv_Descripcion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.cserv_Estado)
+                                </th>
+                                <th>Acciones</th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.cserv_Descripcion)
+                                    </td>
+                                    <td>
+
+                                        @if (item.cserv_Estado == true)
+                                        {
+                                            <div class="btn-success btn-circle">
+                                                <i class="fa fa-check"></i>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="btn-warning btn-circle">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <button data-id="@item.cserv_Id" class="btnDetalles btn btn-outline btn-primary btn-sm">Detalles</button>
+                                        <button data-id="@item.cserv_Id" class="btn btn-outline btn-info btn-sm">Administrar subcategorías</button>
+                                        @if (item.cserv_Estado == true)
+                                        {
+                                            <button data-id="@item.cserv_Id" data-descripcion="@item.cserv_Descripcion" class="btn btn-outline btn-warning btn-sm btnModificar">Modificar</button>
+                                            <button data-id="@item.cserv_Id" class="btn btn-outline btn-danger btn-sm btnInactivar">Inactivar registro</button>
+                                        }
+                                        else
+                                        {
+                                            <button data-id="@item.cserv_Id" data-descripcion="@item.cserv_Descripcion" class="btn btn-outline btn-warning btn-sm btn_modificar_deshabilitado">Modificar</button>
+                                            <button data-id="@item.cserv_Id" class="btn btn-outline btn-success btn-sm btnREactivar">Activar registro</button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-danger btn-sm demo4">Run example</button>
+
+
+<!-- Modal detalles -->
+
+<div class="modal fade" id="ModalDetalles" tabindex="-1" role="dialog" aria-labelledby="DetallesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="ContenidoDetalle">
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalModifica" tabindex="-1" role="dialog" aria-labelledby="ModificaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+
+        <div class="wrapper wrapper-content" id="contenidoM">
+            <div class="row">
+                <div class="col-lg-12">
+
+
+                    <div class="ibox-title">
+                        <h1>Modificar categoría</h1>
+                        @*<p>Mediante esta ventana se permite modifcar la descripción de la categoría.</p>*@
+                        <br />
+                        <br />
+                        <div class="form-group row">
+                            <label for="inptModifica" class="col-sm-2 col-form-label"><h3>Descripción: </h3></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inptModifica" name="inptModifica" />
+                            </div>
+                        </div>
+
+
+
+                            <br />
+                            <div id="contenidoModificar">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<button id="prueba">prueba</button>
+@section Styles {
+    @Styles.Render("~/plugins/sweetAlertStyles")
+    @Styles.Render("~/plugins/toastrStyles")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/toastr")
+    @Scripts.Render("~/plugins/sweetAlert")
+    @Scripts.Render("~/Scripts/app/General/Administracion")
+}

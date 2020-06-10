@@ -1,68 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="Models" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="tbAcciones">
-    <Key>
-      <PropertyRef Name="accion_Id" />
-    </Key>
-    <Property Name="accion_Id" Type="Int32" Nullable="false" />
-    <Property Name="accion_descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="tbAccionRol" Relationship="Self.FK__tbAccionR__accio__1BC821DD" FromRole="tbAcciones" ToRole="tbAccionRol" />
-  </EntityType>
-  <EntityType Name="tbAccionRol">
-    <Key>
-      <PropertyRef Name="acrol_Id" />
-    </Key>
-    <Property Name="acrol_Id" Type="Int32" Nullable="false" />
-    <Property Name="accion_Id" Type="Int32" Nullable="false" />
-    <Property Name="rol_Id" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="tbAcciones" Relationship="Self.FK__tbAccionR__accio__1BC821DD" FromRole="tbAccionRol" ToRole="tbAcciones" />
-    <NavigationProperty Name="tbRoles" Relationship="Self.FK__tbAccionR__rol_I__1CBC4616" FromRole="tbAccionRol" ToRole="tbRoles" />
-  </EntityType>
-  <EntityType Name="tbRoles">
-    <Key>
-      <PropertyRef Name="rol_Id" />
-    </Key>
-    <Property Name="rol_Id" Type="Int32" Nullable="false" />
-    <Property Name="rol_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="tbAccionRol" Relationship="Self.FK__tbAccionR__rol_I__1CBC4616" FromRole="tbRoles" ToRole="tbAccionRol" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK__tbUsuario__rol_i__05D8E0BE" FromRole="tbRoles" ToRole="tbUsuarios" />
-  </EntityType>
-  <Association Name="FK__tbAccionR__accio__1BC821DD">
-    <End Role="tbAcciones" Type="Self.tbAcciones" Multiplicity="1" />
-    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbAcciones">
-        <PropertyRef Name="accion_Id" />
-      </Principal>
-      <Dependent Role="tbAccionRol">
-        <PropertyRef Name="accion_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__tbAccionR__rol_I__1CBC4616">
-    <End Role="tbRoles" Type="Self.tbRoles" Multiplicity="1" />
-    <End Role="tbAccionRol" Type="Self.tbAccionRol" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbRoles">
-        <PropertyRef Name="rol_Id" />
-      </Principal>
-      <Dependent Role="tbAccionRol">
-        <PropertyRef Name="rol_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="WashEEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="tbAcciones" EntityType="Self.tbAcciones" />
-    <EntitySet Name="tbAccionRol" EntityType="Self.tbAccionRol" />
-    <EntitySet Name="tbRoles" EntityType="Self.tbRoles" />
-    <AssociationSet Name="FK__tbAccionR__accio__1BC821DD" Association="Self.FK__tbAccionR__accio__1BC821DD">
-      <End Role="tbAcciones" EntitySet="tbAcciones" />
-      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
-    </AssociationSet>
-    <AssociationSet Name="FK__tbAccionR__rol_I__1CBC4616" Association="Self.FK__tbAccionR__rol_I__1CBC4616">
-      <End Role="tbRoles" EntitySet="tbRoles" />
-      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
-    </AssociationSet>
     <FunctionImport Name="UDP_Persona_tbPersonas_Insert" ReturnType="Collection(Models.UDP_Persona_tbPersonas_Insert_Result)">
       <Parameter Name="per_Identidad" Mode="In" Type="String" />
       <Parameter Name="per_Nombres" Mode="In" Type="String" />
@@ -73,7 +11,6 @@
       <Parameter Name="per_UsuarioCrea" Mode="In" Type="Int32" />
       <Parameter Name="per_FechaCrea" Mode="In" Type="DateTime" />
     </FunctionImport>
-    <EntitySet Name="tbPersonas" EntityType="Models.tbPersonas" />
     <FunctionImport Name="UDP_Seg_tbUsuario_Insert" ReturnType="Collection(Models.UDP_Seg_tbUsuario_Insert_Result)">
       <Parameter Name="usu_NombreUsuario" Mode="In" Type="String" />
       <Parameter Name="usu_Password" Mode="In" Type="String" />
@@ -81,8 +18,51 @@
       <Parameter Name="per_Id" Mode="In" Type="Int32" />
       <Parameter Name="per_foto" Mode="In" Type="Binary" />
     </FunctionImport>
+    <FunctionImport Name="UDP_Fact_tbPedidos_Insert" ReturnType="Collection(Models.UDP_Fact_tbPedidos_Insert_Result)">
+      <Parameter Name="per_Id" Mode="In" Type="Int32" />
+      <Parameter Name="pdidos_Fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="pdidos_ubicacion" Mode="In" Type="String" />
+      <Parameter Name="pdidos_Lat" Mode="In" Type="String" />
+      <Parameter Name="pdidos_Lng" Mode="In" Type="String" />
+      <Parameter Name="pdidos_Total" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="UDP_Fact_tbPedidosDetalle_Insert" ReturnType="Collection(Models.UDP_Fact_tbPedidosDetalle_Insert_Result)">
+      <Parameter Name="pdidos_Id" Mode="In" Type="Int32" />
+      <Parameter Name="serv_Id" Mode="In" Type="Int32" />
+      <Parameter Name="pdet_PrecioActual" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <EntitySet Name="tbPedidos" EntityType="Models.tbPedidos" />
+    <EntitySet Name="tbPedidosDetalle" EntityType="Models.tbPedidosDetalle" />
+    <EntitySet Name="tbPersonas" EntityType="Models.tbPersonas" />
+    <EntitySet Name="SolicitudesApartadas" EntityType="Models.SolicitudesApartadas" />
+    <EntitySet Name="tbCategoriaServicios" EntityType="Models.tbCategoriaServicios" />
+    <EntitySet Name="tbServicios" EntityType="Models.tbServicios" />
+    <EntitySet Name="tbAcciones" EntityType="Models.tbAcciones" />
+    <EntitySet Name="tbAccionRol" EntityType="Models.tbAccionRol" />
+    <EntitySet Name="tbRoles" EntityType="Models.tbRoles" />
     <EntitySet Name="tbUsuarios" EntityType="Models.tbUsuarios" />
-    <AssociationSet Name="FK__tbUsuario__per_I__607251E5" Association="Models.FK__tbUsuario__per_I__607251E5">
+    <EntitySet Name="ServicioExterno" EntityType="Models.ServicioExterno" />
+    <AssociationSet Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" Association="Models.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
+      <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id" Association="Models.FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id">
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Persona_tbPersonas_fact_tbPedidos_per_Id" Association="Models.FK_Persona_tbPersonas_fact_tbPedidos_per_Id">
+      <End Role="tbPersonas" EntitySet="tbPersonas" />
+      <End Role="tbPedidos" EntitySet="tbPedidos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" Association="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+      <End Role="tbServicios" EntitySet="tbServicios" />
+      <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" Association="Models.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id">
+      <End Role="tbPersonas" EntitySet="tbPersonas" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id" Association="Models.FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id">
       <End Role="tbPersonas" EntitySet="tbPersonas" />
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
     </AssociationSet>
@@ -94,29 +74,96 @@
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbPersonas" EntitySet="tbPersonas" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbUsuario__rol_i__05D8E0BE" Association="Models.FK__tbUsuario__rol_i__05D8E0BE">
-      <End Role="tbRoles" EntitySet="tbRoles" />
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
     </AssociationSet>
-    <EntitySet Name="tbCategoriaServicios" EntityType="Models.tbCategoriaServicios" />
-    <EntitySet Name="tbServicios" EntityType="Models.tbServicios" />
-    <EntitySet Name="ServicioExterno" EntityType="Models.ServicioExterno" />
-    <AssociationSet Name="FK__tbServici__cserv__793DFFAF" Association="Models.FK__tbServici__cserv__793DFFAF">
+    <AssociationSet Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" Association="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
       <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
       <End Role="tbServicios" EntitySet="tbServicios" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbServici__serv___7A3223E8" Association="Models.FK__tbServici__serv___7A3223E8">
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica">
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+      <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbServicios" EntitySet="tbServicios" />
     </AssociationSet>
-    <AssociationSet Name="FK__tbServici__serv___7B264821" Association="Models.FK__tbServici__serv___7B264821">
+    <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
       <End Role="tbUsuarios" EntitySet="tbUsuarios" />
       <End Role="tbServicios" EntitySet="tbServicios" />
     </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" Association="Models.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id">
+      <End Role="tbAcciones" EntitySet="tbAcciones" />
+      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id" Association="Models.FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id">
+      <End Role="tbRoles" EntitySet="tbRoles" />
+      <End Role="tbAccionRol" EntitySet="tbAccionRol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" Association="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id">
+      <End Role="tbRoles" EntitySet="tbRoles" />
+      <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+    </AssociationSet>
+    <FunctionImport Name="UDP_Prod_tbCategoriaServicios_Inactivar" ReturnType="Collection(Models.UDP_Prod_tbCategoriaServicios_Inactivar_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="usuario" Mode="In" Type="Int32" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="razon" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UDP_Prod_tbCategoriaServicios_REactivar" ReturnType="Collection(Models.UDP_Prod_tbCategoriaServicios_REactivar_Result)">
+      <Parameter Name="Id" Mode="In" Type="Int32" />
+      <Parameter Name="usuario" Mode="In" Type="Int32" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="UDP_Persona_tbPersonas_Insert_Result">
     <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
   </ComplexType>
+  <ComplexType Name="UDP_Seg_tbUsuario_Insert_Result">
+    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="UDP_Fact_tbPedidosDetalle_Insert_Result">
+    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="UDP_Fact_tbPedidos_Insert_Result">
+    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="tbPedidos">
+    <Key>
+      <PropertyRef Name="pdidos_Id" />
+    </Key>
+    <Property Name="pdidos_Id" Type="Int32" Nullable="false" />
+    <Property Name="per_Id" Type="Int32" />
+    <Property Name="pdidos_estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="pdidos_Fecha" Type="DateTime" Precision="3" />
+    <Property Name="pdidos_RazonInactivao" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="pdidos_ubicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="pdidos_Lat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pdidos_Lng" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pdidos_Total" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+    <NavigationProperty Name="tbPedidosDetalle" Relationship="Models.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" FromRole="tbPedidos" ToRole="tbPedidosDetalle" />
+    <NavigationProperty Name="SolicitudesApartadas" Relationship="Models.FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id" FromRole="tbPedidos" ToRole="SolicitudesApartadas" />
+    <NavigationProperty Name="tbPersonas" Relationship="Models.FK_Persona_tbPersonas_fact_tbPedidos_per_Id" FromRole="tbPedidos" ToRole="tbPersonas" />
+  </EntityType>
+  <EntityType Name="tbPedidosDetalle">
+    <Key>
+      <PropertyRef Name="pdet_Id" />
+    </Key>
+    <Property Name="pdet_Id" Type="Int32" Nullable="false" />
+    <Property Name="pdidos_Id" Type="Int32" Nullable="false" />
+    <Property Name="serv_Id" Type="Int32" Nullable="false" />
+    <Property Name="pdet_PrecioActual" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+    <Property Name="pdet_Estado" Type="Boolean" />
+    <Property Name="pdet_RazonInactivo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbPedidos" Relationship="Models.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" FromRole="tbPedidosDetalle" ToRole="tbPedidos" />
+    <NavigationProperty Name="tbServicios" Relationship="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" FromRole="tbPedidosDetalle" ToRole="tbServicios" />
+  </EntityType>
   <EntityType Name="tbPersonas">
     <Key>
       <PropertyRef Name="per_Id" />
@@ -134,13 +181,90 @@
     <Property Name="per_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="per_UsuarioModifica" Type="Int32" />
     <Property Name="per_FechaModifica" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK__tbUsuario__per_I__607251E5" FromRole="tbPersonas" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbPedidos" Relationship="Models.FK_Persona_tbPersonas_fact_tbPedidos_per_Id" FromRole="tbPersonas" ToRole="tbPedidos" />
+    <NavigationProperty Name="SolicitudesApartadas" Relationship="Models.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" FromRole="tbPersonas" ToRole="SolicitudesApartadas" />
+    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id" FromRole="tbPersonas" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbPersonas" ToRole="tbUsuarios" />
     <NavigationProperty Name="tbUsuarios2" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbPersonas" ToRole="tbUsuarios" />
   </EntityType>
-  <ComplexType Name="UDP_Seg_tbUsuario_Insert_Result">
-    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
-  </ComplexType>
+  <EntityType Name="SolicitudesApartadas">
+    <Key>
+      <PropertyRef Name="sol_Id" />
+    </Key>
+    <Property Name="sol_Id" Type="Int32" Nullable="false" />
+    <Property Name="sol_Fecha" Type="DateTime" Precision="3" />
+    <Property Name="per_Id" Type="Int32" />
+    <Property Name="pdido_Id" Type="Int32" />
+    <Property Name="sol_Estado" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="usu_UsuarioModifica" Type="Int32" />
+    <Property Name="usu_FechaModifica" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbPedidos" Relationship="Models.FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id" FromRole="SolicitudesApartadas" ToRole="tbPedidos" />
+    <NavigationProperty Name="tbPersonas" Relationship="Models.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" FromRole="SolicitudesApartadas" ToRole="tbPersonas" />
+    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" FromRole="SolicitudesApartadas" ToRole="tbUsuarios" />
+  </EntityType>
+  <EntityType Name="tbCategoriaServicios">
+    <Key>
+      <PropertyRef Name="cserv_Id" />
+    </Key>
+    <Property Name="cserv_Id" Type="Int32" Nullable="false" />
+    <Property Name="cserv_Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cserv_Estado" Type="Boolean" />
+    <Property Name="cserv_RazonInactivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cserv_UsuarioCrea" Type="Int32" Nullable="false" />
+    <Property Name="cserv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="cserv_UsuarioModifica" Type="Int32" />
+    <Property Name="cserv_FechaModifica" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbCategoriaServicios" ToRole="tbServicios" />
+    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" FromRole="tbCategoriaServicios" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" FromRole="tbCategoriaServicios" ToRole="tbUsuarios" />
+  </EntityType>
+  <EntityType Name="tbServicios">
+    <Key>
+      <PropertyRef Name="serv_Id" />
+    </Key>
+    <Property Name="serv_Id" Type="Int32" Nullable="false" />
+    <Property Name="cserv_Id" Type="Int32" Nullable="false" />
+    <Property Name="serv_Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="serv_Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="serv_Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="serv_Estado" Type="Boolean" Nullable="false" />
+    <Property Name="serv_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="serv_UsuarioCrea" Type="Int32" Nullable="false" />
+    <Property Name="serv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="serv_UsuarioModifica" Type="Int32" />
+    <Property Name="serv_FechaModifica" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="tbPedidosDetalle" Relationship="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" FromRole="tbServicios" ToRole="tbPedidosDetalle" />
+    <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbServicios" ToRole="tbCategoriaServicios" />
+    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" FromRole="tbServicios" ToRole="tbUsuarios" />
+    <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" FromRole="tbServicios" ToRole="tbUsuarios" />
+  </EntityType>
+  <EntityType Name="tbAcciones">
+    <Key>
+      <PropertyRef Name="accion_Id" />
+    </Key>
+    <Property Name="accion_Id" Type="Int32" Nullable="false" />
+    <Property Name="accion_descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbAccionRol" Relationship="Models.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" FromRole="tbAcciones" ToRole="tbAccionRol" />
+  </EntityType>
+  <EntityType Name="tbAccionRol">
+    <Key>
+      <PropertyRef Name="acrol_Id" />
+    </Key>
+    <Property Name="acrol_Id" Type="Int32" Nullable="false" />
+    <Property Name="accion_Id" Type="Int32" Nullable="false" />
+    <Property Name="rol_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbAcciones" Relationship="Models.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" FromRole="tbAccionRol" ToRole="tbAcciones" />
+    <NavigationProperty Name="tbRoles" Relationship="Models.FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id" FromRole="tbAccionRol" ToRole="tbRoles" />
+  </EntityType>
+  <EntityType Name="tbRoles">
+    <Key>
+      <PropertyRef Name="rol_Id" />
+    </Key>
+    <Property Name="rol_Id" Type="Int32" Nullable="false" />
+    <Property Name="rol_Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tbAccionRol" Relationship="Models.FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id" FromRole="tbRoles" ToRole="tbAccionRol" />
+    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" FromRole="tbRoles" ToRole="tbUsuarios" />
+  </EntityType>
   <EntityType Name="tbUsuarios">
     <Key>
       <PropertyRef Name="usu_Id" />
@@ -151,14 +275,87 @@
     <Property Name="rol_id" Type="Int32" />
     <Property Name="per_Id" Type="Int32" />
     <Property Name="usu_Fotografia" Type="Binary" MaxLength="Max" FixedLength="false" />
-    <NavigationProperty Name="tbPersonas" Relationship="Models.FK__tbUsuario__per_I__607251E5" FromRole="tbUsuarios" ToRole="tbPersonas" />
+    <NavigationProperty Name="tbPersonas" Relationship="Models.FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id" FromRole="tbUsuarios" ToRole="tbPersonas" />
     <NavigationProperty Name="tbPersonas1" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbPersonas" />
     <NavigationProperty Name="tbPersonas2" Relationship="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbPersonas" />
-    <NavigationProperty Name="tbRoles" Relationship="Models.FK__tbUsuario__rol_i__05D8E0BE" FromRole="tbUsuarios" ToRole="tbRoles" />
-    <NavigationProperty Name="tbServicios" Relationship="Models.FK__tbServici__serv___7A3223E8" FromRole="tbUsuarios" ToRole="tbServicios" />
-    <NavigationProperty Name="tbServicios1" Relationship="Models.FK__tbServici__serv___7B264821" FromRole="tbUsuarios" ToRole="tbServicios" />
+    <NavigationProperty Name="SolicitudesApartadas" Relationship="Models.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" FromRole="tbUsuarios" ToRole="SolicitudesApartadas" />
+    <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbCategoriaServicios" />
+    <NavigationProperty Name="tbCategoriaServicios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbCategoriaServicios" />
+    <NavigationProperty Name="tbServicios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbServicios" />
+    <NavigationProperty Name="tbServicios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbServicios" />
+    <NavigationProperty Name="tbRoles" Relationship="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" FromRole="tbUsuarios" ToRole="tbRoles" />
   </EntityType>
-  <Association Name="FK__tbUsuario__per_I__607251E5">
+  <EntityType Name="ServicioExterno">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Descripcion" />
+      <PropertyRef Name="Precio" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+  </EntityType>
+  <Association Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
+    <End Type="Models.tbPedidos" Role="tbPedidos" Multiplicity="1" />
+    <End Type="Models.tbPedidosDetalle" Role="tbPedidosDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbPedidos">
+        <PropertyRef Name="pdidos_Id" />
+      </Principal>
+      <Dependent Role="tbPedidosDetalle">
+        <PropertyRef Name="pdidos_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id">
+    <End Type="Models.tbPedidos" Role="tbPedidos" Multiplicity="0..1" />
+    <End Type="Models.SolicitudesApartadas" Role="SolicitudesApartadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbPedidos">
+        <PropertyRef Name="pdidos_Id" />
+      </Principal>
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="pdido_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Persona_tbPersonas_fact_tbPedidos_per_Id">
+    <End Type="Models.tbPersonas" Role="tbPersonas" Multiplicity="0..1" />
+    <End Type="Models.tbPedidos" Role="tbPedidos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbPersonas">
+        <PropertyRef Name="per_Id" />
+      </Principal>
+      <Dependent Role="tbPedidos">
+        <PropertyRef Name="per_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+    <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="1" />
+    <End Type="Models.tbPedidosDetalle" Role="tbPedidosDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbServicios">
+        <PropertyRef Name="serv_Id" />
+      </Principal>
+      <Dependent Role="tbPedidosDetalle">
+        <PropertyRef Name="serv_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id">
+    <End Type="Models.tbPersonas" Role="tbPersonas" Multiplicity="0..1" />
+    <End Type="Models.SolicitudesApartadas" Role="SolicitudesApartadas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbPersonas">
+        <PropertyRef Name="per_Id" />
+      </Principal>
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="per_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id">
     <End Type="Models.tbPersonas" Role="tbPersonas" Multiplicity="0..1" />
     <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -194,56 +391,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbUsuario__rol_i__05D8E0BE">
-    <End Type="Models.tbRoles" Role="tbRoles" Multiplicity="0..1" />
-    <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="*" />
+  <Association Name="FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica">
+    <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="Models.SolicitudesApartadas" Role="SolicitudesApartadas" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="tbRoles">
-        <PropertyRef Name="rol_Id" />
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
       </Principal>
-      <Dependent Role="tbUsuarios">
-        <PropertyRef Name="rol_id" />
+      <Dependent Role="SolicitudesApartadas">
+        <PropertyRef Name="usu_UsuarioModifica" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="tbCategoriaServicios">
-    <Key>
-      <PropertyRef Name="cserv_Id" />
-    </Key>
-    <Property Name="cserv_Id" Type="Int32" Nullable="false" />
-    <Property Name="cserv_Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="tbServicios" Relationship="Models.FK__tbServici__cserv__793DFFAF" FromRole="tbCategoriaServicios" ToRole="tbServicios" />
-  </EntityType>
-  <EntityType Name="tbServicios">
-    <Key>
-      <PropertyRef Name="serv_Id" />
-    </Key>
-    <Property Name="serv_Id" Type="Int32" Nullable="false" />
-    <Property Name="cserv_Id" Type="Int32" Nullable="false" />
-    <Property Name="serv_Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="serv_Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="serv_Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="serv_Estado" Type="Boolean" Nullable="false" />
-    <Property Name="serv_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-    <Property Name="serv_UsuarioCrea" Type="Int32" Nullable="false" />
-    <Property Name="serv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="serv_UsuarioModifica" Type="Int32" />
-    <Property Name="serv_FechaModifica" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK__tbServici__cserv__793DFFAF" FromRole="tbServicios" ToRole="tbCategoriaServicios" />
-    <NavigationProperty Name="tbUsuarios" Relationship="Models.FK__tbServici__serv___7A3223E8" FromRole="tbServicios" ToRole="tbUsuarios" />
-    <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK__tbServici__serv___7B264821" FromRole="tbServicios" ToRole="tbUsuarios" />
-  </EntityType>
-  <EntityType Name="ServicioExterno">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="Descripcion" />
-      <PropertyRef Name="Precio" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-    <Property Name="Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-  </EntityType>
-  <Association Name="FK__tbServici__cserv__793DFFAF">
+  <Association Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
     <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="1" />
     <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -255,7 +415,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbServici__serv___7A3223E8">
+  <Association Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
+    <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+    <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbCategoriaServicios">
+        <PropertyRef Name="cserv_UsuarioCrea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica">
+    <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+    <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbUsuarios">
+        <PropertyRef Name="usu_Id" />
+      </Principal>
+      <Dependent Role="tbCategoriaServicios">
+        <PropertyRef Name="cserv_UsuarioModifica" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
     <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
     <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -267,7 +451,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tbServici__serv___7B264821">
+  <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
     <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
     <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
     <ReferentialConstraint>
@@ -279,4 +463,46 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id">
+    <End Type="Models.tbAcciones" Role="tbAcciones" Multiplicity="1" />
+    <End Type="Models.tbAccionRol" Role="tbAccionRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbAcciones">
+        <PropertyRef Name="accion_Id" />
+      </Principal>
+      <Dependent Role="tbAccionRol">
+        <PropertyRef Name="accion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id">
+    <End Type="Models.tbRoles" Role="tbRoles" Multiplicity="1" />
+    <End Type="Models.tbAccionRol" Role="tbAccionRol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbRoles">
+        <PropertyRef Name="rol_Id" />
+      </Principal>
+      <Dependent Role="tbAccionRol">
+        <PropertyRef Name="rol_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seg_tbRoles_Seg_tbUsuarios_rol_id">
+    <End Type="Models.tbRoles" Role="tbRoles" Multiplicity="0..1" />
+    <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbRoles">
+        <PropertyRef Name="rol_Id" />
+      </Principal>
+      <Dependent Role="tbUsuarios">
+        <PropertyRef Name="rol_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="UDP_Prod_tbCategoriaServicios_Inactivar_Result">
+    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="UDP_Prod_tbCategoriaServicios_REactivar_Result">
+    <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+  </ComplexType>
 </Schema>
