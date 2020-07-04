@@ -18,6 +18,7 @@ namespace Inspinia_MVC5.Models
         public tbServicios()
         {
             this.tbPedidosDetalle = new HashSet<tbPedidosDetalle>();
+            this.tbSuscripciones = new HashSet<tbSuscripciones>();
         }
     
         public int serv_Id { get; set; }
@@ -25,6 +26,7 @@ namespace Inspinia_MVC5.Models
         public string serv_Titulo { get; set; }
         public string serv_Descripcion { get; set; }
         public decimal serv_Precio { get; set; }
+        public string serv_Directorio { get; set; }
         public bool serv_Estado { get; set; }
         public string serv_RazonInactivo { get; set; }
         public int serv_UsuarioCrea { get; set; }
@@ -37,5 +39,7 @@ namespace Inspinia_MVC5.Models
         public virtual tbCategoriaServicios tbCategoriaServicios { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbSuscripciones> tbSuscripciones { get; set; }
     }
 }

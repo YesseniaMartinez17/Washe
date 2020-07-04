@@ -35,11 +35,9 @@
                 <a href="@Url.Action("CatalogosServicios", "Administracion")"><i class="fa fa-cogs""></i> <span class="nav-label" data-i18n="nav.dashboard">Administracion</span> <span class="fa arrow"></span></a>
 
                 <ul class="nav nav-second-level collapse @Html.IsSelected(controller: "Administracion", cssClass: "in")">
-                    <li class="@Html.IsSelected(action: "CatalogosServicios")">
-                        <a href="@Url.Action("CatalogosServicios", "Administracion" )">
-                            Catalogos de servicios
-                        </a>
-                    </li>
+                    <li class="@Html.IsSelected(action: "CatalogosServicios")"><a href="@Url.Action("CatalogosServicios", "Administracion" )">Catalogos de servicios</a></li>
+                    <li class="@Html.IsSelected(action: "AdministrarSubcategorias")"><a href="@Url.Action("AdministrarSubcategorias", "Administracion" )">Servicios</a></li>
+                    <li class="@Html.IsSelected(action: "Suscripciones")"><a href="@Url.Action("Suscripciones", "Administracion" )">Suscripciones</a></li>
                 </ul>
             </li>
             <li class="@Html.IsSelected(controller: "Personas")">

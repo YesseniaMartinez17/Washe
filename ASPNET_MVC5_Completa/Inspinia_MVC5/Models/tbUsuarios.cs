@@ -24,6 +24,8 @@ namespace Inspinia_MVC5.Models
             this.tbCategoriaServicios1 = new HashSet<tbCategoriaServicios>();
             this.tbServicios = new HashSet<tbServicios>();
             this.tbServicios1 = new HashSet<tbServicios>();
+            this.tbSuscripciones = new HashSet<tbSuscripciones>();
+            this.tbSuscripciones1 = new HashSet<tbSuscripciones>();
         }
     
         public int usu_Id { get; set; }
@@ -44,10 +46,14 @@ namespace Inspinia_MVC5.Models
         public virtual ICollection<tbCategoriaServicios> tbCategoriaServicios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbCategoriaServicios> tbCategoriaServicios1 { get; set; }
+        public virtual tbRoles tbRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbServicios> tbServicios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbServicios> tbServicios1 { get; set; }
-        public virtual tbRoles tbRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbSuscripciones> tbSuscripciones { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbSuscripciones> tbSuscripciones1 { get; set; }
     }
 }

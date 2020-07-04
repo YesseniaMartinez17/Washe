@@ -37,7 +37,6 @@ C:\Users\Axel Omar\Downloads\inspinia\ASPNET_MVC5_Full_Version\Inspinia_MVC5\obj
 C:\Users\Axel Omar\Downloads\inspinia\ASPNET_MVC5_Full_Version\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csproj.CopyComplete
 C:\Users\Axel Omar\Downloads\inspinia\ASPNET_MVC5_Full_Version\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.dll
 C:\Users\Axel Omar\Downloads\inspinia\ASPNET_MVC5_Full_Version\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.pdb
-C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\EntityFramework.xml
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\Inspinia_MVC5.dll.config
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\Inspinia_MVC5.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\Inspinia_MVC5.pdb
@@ -55,6 +54,7 @@ C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\System.Web.WebPages.Razor.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\WebGrease.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\Antlr3.Runtime.pdb
+C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\EntityFramework.xml
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\EntityFramework.SqlServer.xml
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\Newtonsoft.Json.xml
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\System.Web.Helpers.xml
@@ -71,8 +71,8 @@ C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.resources.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.Deployment.resources.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\bin\pl\System.Web.WebPages.Razor.resources.dll
+C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csprojAssemblyReference.cache
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csproj.CoreCompileInputs.cache
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csproj.CopyComplete
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.dll
 C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.pdb
-C:\Users\Axel Omar\Documents\GitHub\Washe\ASPNET_MVC5_Completa\Inspinia_MVC5\obj\Debug\Inspinia_MVC5.csprojAssemblyReference.cache

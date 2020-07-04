@@ -8,14 +8,39 @@ namespace Inspinia_MVC5
 
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Servicios/externo").Include(
+                "~/Scripts/app/General/Servicios/Externo.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/app/FuncionesGenerales").Include(
+                "~/Scripts/app/General/General.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/Scripts/app/General/Servicios").Include(
                 "~/Scripts/app/General/Servicios/MascaraS.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/plugins/Mask").Include(
+                "~/Scripts/plugins/Mask/jquery.mask.js"
+                ,"~/Scripts/plugins/Mask/jquery.mask.min.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Scripts/app/General/Administracion").Include(
                 "~/Scripts/app/General/Administracion/CategoriasServicios.js"
                 ));
-        
+
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Administracion/AgregarServicio").Include(
+                "~/Scripts/app/General/Administracion/AgregarServicio.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/Administracion/Suscripciones").Include(
+                "~/Scripts/app/General/Administracion/Suscripciones.js"
+                )); 
+
+            bundles.Add(new ScriptBundle("~/Scripts/app/General/SubCategorias").Include(
+                "~/Scripts/app/General/Administracion/SubCategorias.js"
+                ));
+
             bundles.Add(new ScriptBundle("~/Scripts/app/General/Servicios/IndexPendientes").Include(
                 "~/Scripts/app/General/Servicios/IndexPendientes.js"
                 ));

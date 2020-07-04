@@ -80,14 +80,32 @@
           <Property Name="serv_Id" Type="int" Nullable="false" />
           <Property Name="cserv_Id" Type="int" Nullable="false" />
           <Property Name="serv_Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="serv_Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="serv_Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="serv_Precio" Type="money" Nullable="false" />
+          <Property Name="serv_Directorio" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="serv_Estado" Type="bit" Nullable="false" />
-          <Property Name="serv_RazonInactivo" Type="nvarchar" MaxLength="30" />
+          <Property Name="serv_RazonInactivo" Type="nvarchar" MaxLength="50" />
           <Property Name="serv_UsuarioCrea" Type="int" Nullable="false" />
           <Property Name="serv_FechaCrea" Type="datetime" Nullable="false" />
           <Property Name="serv_UsuarioModifica" Type="int" />
           <Property Name="serv_FechaModifica" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbSuscripciones">
+          <Key>
+            <PropertyRef Name="sus_Id" />
+          </Key>
+          <Property Name="sus_Id" Type="int" Nullable="false" />
+          <Property Name="sus_Descripcion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="sus_Precio" Type="money" Nullable="false" />
+          <Property Name="sus_CantidadMaximaSolicitudes" Type="int" Nullable="false" />
+          <Property Name="serv_Id" Type="int" Nullable="false" />
+          <Property Name="sus_MesesVigencia" Type="int" Nullable="false" />
+          <Property Name="sus_Estado" Type="bit" Nullable="false" />
+          <Property Name="sus_RazonInactivo" Type="nvarchar" MaxLength="50" />
+          <Property Name="sus_UsuarioCrea" Type="int" Nullable="false" />
+          <Property Name="sus_FechaCrea" Type="datetime" Nullable="false" />
+          <Property Name="sus_UsuarioModifica" Type="int" />
+          <Property Name="sus_FechaModifica" Type="datetime" />
         </EntityType>
         <EntityType Name="tbAcciones">
           <Key>
@@ -129,11 +147,55 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             <PropertyRef Name="Id" />
             <PropertyRef Name="Descripcion" />
             <PropertyRef Name="Precio" />
+            <PropertyRef Name="Titulo" />
+            <PropertyRef Name="Directorio" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Categoria" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Precio" Type="money" Nullable="false" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Directorio" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Estado" Type="bit" Nullable="false" />
+          <Property Name="Categoria" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK__tbSuscrip__serv___78D3EB5B">
+          <End Role="tbServicios" Type="Self.tbServicios" Multiplicity="1" />
+          <End Role="tbSuscripciones" Type="Self.tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbServicios">
+              <PropertyRef Name="serv_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="serv_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbSuscrip__sus_U__7ABC33CD">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbSuscripciones" Type="Self.tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="sus_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbSuscrip__sus_U__7BB05806">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbSuscripciones" Type="Self.tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="sus_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
           <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="1" />
           <End Role="tbPedidosDetalle" Type="Self.tbPedidosDetalle" Multiplicity="*" />
@@ -372,6 +434,64 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <Parameter Name="usuario" Type="int" Mode="In" />
           <Parameter Name="fecha" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="UDP_prod_tbServicios_Habilitar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="serv_Id" Type="int" Mode="In" />
+          <Parameter Name="usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbServicios_Inhabilitar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="serv_Id" Type="int" Mode="In" />
+          <Parameter Name="serv_RazonInactivo" Type="nvarchar" Mode="In" />
+          <Parameter Name="usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbServicios_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="cserv_Id" Type="int" Mode="In" />
+          <Parameter Name="serv_Titulo" Type="nvarchar" Mode="In" />
+          <Parameter Name="serv_Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="serv_Precio" Type="decimal" Mode="In" />
+          <Parameter Name="serv_Directorio" Type="nvarchar" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="usuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbServicios_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="serv_Id" Type="int" Mode="In" />
+          <Parameter Name="serv_Titulo" Type="nvarchar" Mode="In" />
+          <Parameter Name="serv_Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="serv_Precio" Type="decimal" Mode="In" />
+          <Parameter Name="serv_Directorio" Type="nvarchar" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="usuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbSuscripciones_Habilitar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="sus_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbSuscripciones_Inhabilitar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="sus_Id" Type="int" Mode="In" />
+          <Parameter Name="Usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="sus_RazonInactivo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbSuscripciones_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="serv_Id" Type="int" Mode="In" />
+          <Parameter Name="serv_Precio" Type="decimal" Mode="In" />
+          <Parameter Name="serv_Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="mesesVigencia" Type="int" Mode="In" />
+          <Parameter Name="Usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="sus_Cant" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UDP_prod_tbSuscripciones_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="prod">
+          <Parameter Name="sus_Id" Type="int" Mode="In" />
+          <Parameter Name="serv_Precio" Type="decimal" Mode="In" />
+          <Parameter Name="serv_Descripcion" Type="nvarchar" Mode="In" />
+          <Parameter Name="mesesVigencia" Type="int" Mode="In" />
+          <Parameter Name="sus_Cant" Type="int" Mode="In" />
+          <Parameter Name="Usuario" Type="int" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="UDP_Seg_tbUsuario_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="Seg">
           <Parameter Name="usu_NombreUsuario" Type="varchar" Mode="In" />
           <Parameter Name="usu_Password" Type="varchar" Mode="In" />
@@ -386,6 +506,7 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <EntitySet Name="SolicitudesApartadas" EntityType="Self.SolicitudesApartadas" Schema="prod" store:Type="Tables" />
           <EntitySet Name="tbCategoriaServicios" EntityType="Self.tbCategoriaServicios" Schema="prod" store:Type="Tables" />
           <EntitySet Name="tbServicios" EntityType="Self.tbServicios" Schema="prod" store:Type="Tables" />
+          <EntitySet Name="tbSuscripciones" EntityType="Self.tbSuscripciones" Schema="prod" store:Type="Tables" />
           <EntitySet Name="tbAcciones" EntityType="Self.tbAcciones" Schema="Seg" store:Type="Tables" />
           <EntitySet Name="tbAccionRol" EntityType="Self.tbAccionRol" Schema="Seg" store:Type="Tables" />
           <EntitySet Name="tbRoles" EntityType="Self.tbRoles" Schema="Seg" store:Type="Tables" />
@@ -394,9 +515,25 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             <DefiningQuery>SELECT 
     [ServicioExterno].[Id] AS [Id], 
     [ServicioExterno].[Descripcion] AS [Descripcion], 
-    [ServicioExterno].[Precio] AS [Precio]
+    [ServicioExterno].[Precio] AS [Precio], 
+    [ServicioExterno].[Titulo] AS [Titulo], 
+    [ServicioExterno].[Directorio] AS [Directorio], 
+    [ServicioExterno].[Estado] AS [Estado], 
+    [ServicioExterno].[Categoria] AS [Categoria]
     FROM [prod].[ServicioExterno] AS [ServicioExterno]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__tbSuscrip__serv___78D3EB5B" Association="Self.FK__tbSuscrip__serv___78D3EB5B">
+            <End Role="tbServicios" EntitySet="tbServicios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbSuscrip__sus_U__7ABC33CD" Association="Self.FK__tbSuscrip__sus_U__7ABC33CD">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbSuscrip__sus_U__7BB05806" Association="Self.FK__tbSuscrip__sus_U__7BB05806">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
           <AssociationSet Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" Association="Self.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
             <End Role="tbPedidos" EntitySet="tbPedidos" />
             <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
@@ -506,7 +643,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <EntitySet Name="tbPersonas" EntityType="Models.tbPersonas" />
           <EntitySet Name="SolicitudesApartadas" EntityType="Models.SolicitudesApartadas" />
           <EntitySet Name="tbCategoriaServicios" EntityType="Models.tbCategoriaServicios" />
-          <EntitySet Name="tbServicios" EntityType="Models.tbServicios" />
           <EntitySet Name="tbAcciones" EntityType="Models.tbAcciones" />
           <EntitySet Name="tbAccionRol" EntityType="Models.tbAccionRol" />
           <EntitySet Name="tbRoles" EntityType="Models.tbRoles" />
@@ -523,10 +659,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <AssociationSet Name="FK_Persona_tbPersonas_fact_tbPedidos_per_Id" Association="Models.FK_Persona_tbPersonas_fact_tbPedidos_per_Id">
             <End Role="tbPersonas" EntitySet="tbPersonas" />
             <End Role="tbPedidos" EntitySet="tbPedidos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" Association="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
-            <End Role="tbServicios" EntitySet="tbServicios" />
-            <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
           </AssociationSet>
           <AssociationSet Name="FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" Association="Models.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id">
             <End Role="tbPersonas" EntitySet="tbPersonas" />
@@ -548,10 +680,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             <End Role="tbUsuarios" EntitySet="tbUsuarios" />
             <End Role="SolicitudesApartadas" EntitySet="SolicitudesApartadas" />
           </AssociationSet>
-          <AssociationSet Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" Association="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
-            <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
-            <End Role="tbServicios" EntitySet="tbServicios" />
-          </AssociationSet>
           <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
             <End Role="tbUsuarios" EntitySet="tbUsuarios" />
             <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
@@ -559,14 +687,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica">
             <End Role="tbUsuarios" EntitySet="tbUsuarios" />
             <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
-            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-            <End Role="tbServicios" EntitySet="tbServicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
-            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
-            <End Role="tbServicios" EntitySet="tbServicios" />
           </AssociationSet>
           <AssociationSet Name="FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" Association="Models.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id">
             <End Role="tbAcciones" EntitySet="tbAcciones" />
@@ -590,6 +710,94 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             <Parameter Name="Id" Mode="In" Type="Int32" />
             <Parameter Name="usuario" Mode="In" Type="Int32" />
             <Parameter Name="fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="tbServicios" EntityType="Models.tbServicios" />
+          <AssociationSet Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" Association="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+            <End Role="tbServicios" EntitySet="tbServicios" />
+            <End Role="tbPedidosDetalle" EntitySet="tbPedidosDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" Association="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
+            <End Role="tbCategoriaServicios" EntitySet="tbCategoriaServicios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbServicios" EntitySet="tbServicios" />
+          </AssociationSet>
+          <FunctionImport Name="UDP_prod_tbServicios_Update" ReturnType="Collection(Models.UDP_prod_tbServicios_Update_Result)">
+            <Parameter Name="serv_Id" Mode="In" Type="Int32" />
+            <Parameter Name="serv_Titulo" Mode="In" Type="String" />
+            <Parameter Name="serv_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="serv_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="serv_Directorio" Mode="In" Type="String" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="usuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbServicios_Habilitar" ReturnType="Collection(Models.UDP_prod_tbServicios_Habilitar_Result)">
+            <Parameter Name="serv_Id" Mode="In" Type="Int32" />
+            <Parameter Name="usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbServicios_Inhabilitar" ReturnType="Collection(Models.UDP_prod_tbServicios_Inhabilitar_Result)">
+            <Parameter Name="serv_Id" Mode="In" Type="Int32" />
+            <Parameter Name="serv_RazonInactivo" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="tbSuscripciones" EntityType="Models.tbSuscripciones" />
+          <AssociationSet Name="FK__tbSuscrip__serv___78D3EB5B" Association="Models.FK__tbSuscrip__serv___78D3EB5B">
+            <End Role="tbServicios" EntitySet="tbServicios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbSuscrip__sus_U__7ABC33CD" Association="Models.FK__tbSuscrip__sus_U__7ABC33CD">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbSuscrip__sus_U__7BB05806" Association="Models.FK__tbSuscrip__sus_U__7BB05806">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbSuscripciones" EntitySet="tbSuscripciones" />
+          </AssociationSet>
+          <FunctionImport Name="UDP_prod_tbSuscripciones_Habilitar" ReturnType="Collection(Models.UDP_prod_tbSuscripciones_Habilitar_Result)">
+            <Parameter Name="sus_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbSuscripciones_Inhabilitar" ReturnType="Collection(Models.UDP_prod_tbSuscripciones_Inhabilitar_Result)">
+            <Parameter Name="sus_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="sus_RazonInactivo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbSuscripciones_Update" ReturnType="Collection(Models.UDP_prod_tbSuscripciones_Update_Result)">
+            <Parameter Name="sus_Id" Mode="In" Type="Int32" />
+            <Parameter Name="serv_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="serv_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="mesesVigencia" Mode="In" Type="Int32" />
+            <Parameter Name="sus_Cant" Mode="In" Type="Int32" />
+            <Parameter Name="Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbServicios_Insert" ReturnType="Collection(Models.UDP_prod_tbServicios_Insert_Result)">
+            <Parameter Name="cserv_Id" Mode="In" Type="Int32" />
+            <Parameter Name="serv_Titulo" Mode="In" Type="String" />
+            <Parameter Name="serv_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="serv_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="serv_Directorio" Mode="In" Type="String" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="usuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UDP_prod_tbSuscripciones_Insert" ReturnType="Collection(Models.UDP_prod_tbSuscripciones_Insert_Result)">
+            <Parameter Name="serv_Id" Mode="In" Type="Int32" />
+            <Parameter Name="serv_Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="serv_Descripcion" Mode="In" Type="String" />
+            <Parameter Name="mesesVigencia" Mode="In" Type="Int32" />
+            <Parameter Name="Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="sus_Cant" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="UDP_Persona_tbPersonas_Insert_Result">
@@ -684,29 +892,9 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <Property Name="cserv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="cserv_UsuarioModifica" Type="Int32" />
           <Property Name="cserv_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbCategoriaServicios" ToRole="tbServicios" />
           <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" FromRole="tbCategoriaServicios" ToRole="tbUsuarios" />
           <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" FromRole="tbCategoriaServicios" ToRole="tbUsuarios" />
-        </EntityType>
-        <EntityType Name="tbServicios">
-          <Key>
-            <PropertyRef Name="serv_Id" />
-          </Key>
-          <Property Name="serv_Id" Type="Int32" Nullable="false" />
-          <Property Name="cserv_Id" Type="Int32" Nullable="false" />
-          <Property Name="serv_Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="serv_Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="serv_Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="serv_Estado" Type="Boolean" Nullable="false" />
-          <Property Name="serv_RazonInactivo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="serv_UsuarioCrea" Type="Int32" Nullable="false" />
-          <Property Name="serv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="serv_UsuarioModifica" Type="Int32" />
-          <Property Name="serv_FechaModifica" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbPedidosDetalle" Relationship="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" FromRole="tbServicios" ToRole="tbPedidosDetalle" />
-          <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbServicios" ToRole="tbCategoriaServicios" />
-          <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" FromRole="tbServicios" ToRole="tbUsuarios" />
-          <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" FromRole="tbServicios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbCategoriaServicios" ToRole="tbServicios" />
         </EntityType>
         <EntityType Name="tbAcciones">
           <Key>
@@ -751,19 +939,29 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <NavigationProperty Name="SolicitudesApartadas" Relationship="Models.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" FromRole="tbUsuarios" ToRole="SolicitudesApartadas" />
           <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbCategoriaServicios" />
           <NavigationProperty Name="tbCategoriaServicios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbCategoriaServicios" />
+          <NavigationProperty Name="tbRoles" Relationship="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" FromRole="tbUsuarios" ToRole="tbRoles" />
           <NavigationProperty Name="tbServicios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" FromRole="tbUsuarios" ToRole="tbServicios" />
           <NavigationProperty Name="tbServicios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" FromRole="tbUsuarios" ToRole="tbServicios" />
-          <NavigationProperty Name="tbRoles" Relationship="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" FromRole="tbUsuarios" ToRole="tbRoles" />
+          <NavigationProperty Name="tbSuscripciones" Relationship="Models.FK__tbSuscrip__sus_U__7ABC33CD" FromRole="tbUsuarios" ToRole="tbSuscripciones" />
+          <NavigationProperty Name="tbSuscripciones1" Relationship="Models.FK__tbSuscrip__sus_U__7BB05806" FromRole="tbUsuarios" ToRole="tbSuscripciones" />
         </EntityType>
         <EntityType Name="ServicioExterno">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Descripcion" />
             <PropertyRef Name="Precio" />
+            <PropertyRef Name="Titulo" />
+            <PropertyRef Name="Directorio" />
+            <PropertyRef Name="Estado" />
+            <PropertyRef Name="Categoria" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Directorio" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Estado" Type="Boolean" Nullable="false" />
+          <Property Name="Categoria" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id">
           <End Type="Models.tbPedidos" Role="tbPedidos" Multiplicity="1" />
@@ -798,18 +996,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             </Principal>
             <Dependent Role="tbPedidos">
               <PropertyRef Name="per_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
-          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="1" />
-          <End Type="Models.tbPedidosDetalle" Role="tbPedidosDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbServicios">
-              <PropertyRef Name="serv_Id" />
-            </Principal>
-            <Dependent Role="tbPedidosDetalle">
-              <PropertyRef Name="serv_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -873,18 +1059,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
-          <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="1" />
-          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbCategoriaServicios">
-              <PropertyRef Name="cserv_Id" />
-            </Principal>
-            <Dependent Role="tbServicios">
-              <PropertyRef Name="cserv_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea">
           <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
           <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="*" />
@@ -906,30 +1080,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
             </Principal>
             <Dependent Role="tbCategoriaServicios">
               <PropertyRef Name="cserv_UsuarioModifica" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
-          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
-          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUsuarios">
-              <PropertyRef Name="usu_Id" />
-            </Principal>
-            <Dependent Role="tbServicios">
-              <PropertyRef Name="serv_UsuarioCrea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
-          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
-          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbUsuarios">
-              <PropertyRef Name="usu_Id" />
-            </Principal>
-            <Dependent Role="tbServicios">
-              <PropertyRef Name="serv_UsuarioModifica" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -973,6 +1123,156 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="UDP_Prod_tbCategoriaServicios_REactivar_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="tbServicios">
+          <Key>
+            <PropertyRef Name="serv_Id" />
+          </Key>
+          <Property Name="serv_Id" Type="Int32" Nullable="false" />
+          <Property Name="cserv_Id" Type="Int32" Nullable="false" />
+          <Property Name="serv_Titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="serv_Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="serv_Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="serv_Directorio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="serv_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="serv_RazonInactivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="serv_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="serv_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="serv_UsuarioModifica" Type="Int32" />
+          <Property Name="serv_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbPedidosDetalle" Relationship="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" FromRole="tbServicios" ToRole="tbPedidosDetalle" />
+          <NavigationProperty Name="tbCategoriaServicios" Relationship="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" FromRole="tbServicios" ToRole="tbCategoriaServicios" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" FromRole="tbServicios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" FromRole="tbServicios" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbSuscripciones" Relationship="Models.FK__tbSuscrip__serv___78D3EB5B" FromRole="tbServicios" ToRole="tbSuscripciones" />
+        </EntityType>
+        <Association Name="FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id">
+          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="1" />
+          <End Type="Models.tbPedidosDetalle" Role="tbPedidosDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbServicios">
+              <PropertyRef Name="serv_Id" />
+            </Principal>
+            <Dependent Role="tbPedidosDetalle">
+              <PropertyRef Name="serv_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id">
+          <End Type="Models.tbCategoriaServicios" Role="tbCategoriaServicios" Multiplicity="1" />
+          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCategoriaServicios">
+              <PropertyRef Name="cserv_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="cserv_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbServicios">
+              <PropertyRef Name="serv_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="UDP_prod_tbServicios_Update_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbServicios_Inhabilitar_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbServicios_Habilitar_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="tbSuscripciones">
+          <Key>
+            <PropertyRef Name="sus_Id" />
+          </Key>
+          <Property Name="sus_Id" Type="Int32" Nullable="false" />
+          <Property Name="sus_Descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="sus_Precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="sus_CantidadMaximaSolicitudes" Type="Int32" Nullable="false" />
+          <Property Name="serv_Id" Type="Int32" Nullable="false" />
+          <Property Name="sus_MesesVigencia" Type="Int32" Nullable="false" />
+          <Property Name="sus_Estado" Type="Boolean" Nullable="false" />
+          <Property Name="sus_RazonInactivo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sus_UsuarioCrea" Type="Int32" Nullable="false" />
+          <Property Name="sus_FechaCrea" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="sus_UsuarioModifica" Type="Int32" />
+          <Property Name="sus_FechaModifica" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tbServicios" Relationship="Models.FK__tbSuscrip__serv___78D3EB5B" FromRole="tbSuscripciones" ToRole="tbServicios" />
+          <NavigationProperty Name="tbUsuarios" Relationship="Models.FK__tbSuscrip__sus_U__7ABC33CD" FromRole="tbSuscripciones" ToRole="tbUsuarios" />
+          <NavigationProperty Name="tbUsuarios1" Relationship="Models.FK__tbSuscrip__sus_U__7BB05806" FromRole="tbSuscripciones" ToRole="tbUsuarios" />
+        </EntityType>
+        <Association Name="FK__tbSuscrip__serv___78D3EB5B">
+          <End Type="Models.tbServicios" Role="tbServicios" Multiplicity="1" />
+          <End Type="Models.tbSuscripciones" Role="tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbServicios">
+              <PropertyRef Name="serv_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="serv_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbSuscrip__sus_U__7ABC33CD">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="1" />
+          <End Type="Models.tbSuscripciones" Role="tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="sus_UsuarioCrea" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbSuscrip__sus_U__7BB05806">
+          <End Type="Models.tbUsuarios" Role="tbUsuarios" Multiplicity="0..1" />
+          <End Type="Models.tbSuscripciones" Role="tbSuscripciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="usu_Id" />
+            </Principal>
+            <Dependent Role="tbSuscripciones">
+              <PropertyRef Name="sus_UsuarioModifica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="UDP_prod_tbSuscripciones_Habilitar_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbSuscripciones_Inhabilitar_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbSuscripciones_Update_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbSuscripciones_Insert_Result">
+          <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="UDP_prod_tbServicios_Insert_Result">
           <Property Type="String" Name="MensajeError" Nullable="true" MaxLength="100" />
         </ComplexType>
         </Schema>
@@ -1082,23 +1382,6 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbServicios">
-            <EntityTypeMapping TypeName="Models.tbServicios">
-              <MappingFragment StoreEntitySet="tbServicios">
-                <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
-                <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
-                <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
-                <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
-                <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
-                <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
-                <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
-                <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
-                <ScalarProperty Name="serv_Titulo" ColumnName="serv_Titulo" />
-                <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
-                <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbAcciones">
             <EntityTypeMapping TypeName="Models.tbAcciones">
               <MappingFragment StoreEntitySet="tbAcciones">
@@ -1139,6 +1422,10 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <EntitySetMapping Name="ServicioExterno">
             <EntityTypeMapping TypeName="Models.ServicioExterno">
               <MappingFragment StoreEntitySet="ServicioExterno">
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Directorio" ColumnName="Directorio" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1155,6 +1442,98 @@ advertencia 6002: La tabla o vista 'WashE.prod.ServicioExterno' no tiene definid
           <FunctionImportMapping FunctionImportName="UDP_Prod_tbCategoriaServicios_REactivar" FunctionName="Models.Store.UDP_Prod_tbCategoriaServicios_REactivar" >
             <ResultMapping>
               <ComplexTypeMapping TypeName="Models.UDP_Prod_tbCategoriaServicios_REactivar_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbServicios">
+            <EntityTypeMapping TypeName="Models.tbServicios">
+              <MappingFragment StoreEntitySet="tbServicios">
+                <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
+                <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
+                <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
+                <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
+                <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
+                <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
+                <ScalarProperty Name="serv_Directorio" ColumnName="serv_Directorio" />
+                <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
+                <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
+                <ScalarProperty Name="serv_Titulo" ColumnName="serv_Titulo" />
+                <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
+                <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Update" FunctionName="Models.Store.UDP_prod_tbServicios_Update" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Update_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Habilitar" FunctionName="Models.Store.UDP_prod_tbServicios_Habilitar" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Habilitar_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Inhabilitar" FunctionName="Models.Store.UDP_prod_tbServicios_Inhabilitar" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Inhabilitar_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="tbSuscripciones">
+            <EntityTypeMapping TypeName="Models.tbSuscripciones">
+              <MappingFragment StoreEntitySet="tbSuscripciones">
+                <ScalarProperty Name="sus_FechaModifica" ColumnName="sus_FechaModifica" />
+                <ScalarProperty Name="sus_UsuarioModifica" ColumnName="sus_UsuarioModifica" />
+                <ScalarProperty Name="sus_FechaCrea" ColumnName="sus_FechaCrea" />
+                <ScalarProperty Name="sus_UsuarioCrea" ColumnName="sus_UsuarioCrea" />
+                <ScalarProperty Name="sus_RazonInactivo" ColumnName="sus_RazonInactivo" />
+                <ScalarProperty Name="sus_Estado" ColumnName="sus_Estado" />
+                <ScalarProperty Name="sus_MesesVigencia" ColumnName="sus_MesesVigencia" />
+                <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+                <ScalarProperty Name="sus_CantidadMaximaSolicitudes" ColumnName="sus_CantidadMaximaSolicitudes" />
+                <ScalarProperty Name="sus_Precio" ColumnName="sus_Precio" />
+                <ScalarProperty Name="sus_Descripcion" ColumnName="sus_Descripcion" />
+                <ScalarProperty Name="sus_Id" ColumnName="sus_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Habilitar" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Habilitar" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Habilitar_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Inhabilitar" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Inhabilitar" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Inhabilitar_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Update" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Update" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Update_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Insert" FunctionName="Models.Store.UDP_prod_tbServicios_Insert" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Insert_Result">
+                <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Insert" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Insert" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Insert_Result">
                 <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
               </ComplexTypeMapping>
             </ResultMapping>

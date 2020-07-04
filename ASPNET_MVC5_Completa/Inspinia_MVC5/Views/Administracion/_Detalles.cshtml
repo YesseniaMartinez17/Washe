@@ -16,26 +16,28 @@
                     <p><b>Fecha modificación: </b>@Model.cserv_FechaModifica</p>
                     if (Model.cserv_Estado == false)
                     {
-                    }
                         <p><b>Razón de inactivación: </b>@Model.cserv_RazonInactivo</p>
+                    }
                 }
 
             </div>
 
-            <h3>Servicios pertenecientes a esta categoría: </h3>
-            <div class="ibox-content">
-                @{int cont = 0; }
-                @foreach (var obj in Model.tbServicios)
-                {
-                    cont++;
-                    <p>
-                        @cont
-                        .
-                        @obj.serv_Descripcion
-                    </p>
+                @{
+                    if (Model.tbServicios.Count > 0)
+                    {
+                        <hr><h3>Servicios pertenecientes a esta categoría: </h3>
+                        int cont = 0;
+                        foreach (var obj in Model.tbServicios)
+                        {
+                            cont++;
+                            <p>
+                                @cont
+                                .
+                                @obj.serv_Descripcion
+                            </p>
+                        }
+                    }
                 }
-
-            </div>
         </div>
     </div>
 </div>

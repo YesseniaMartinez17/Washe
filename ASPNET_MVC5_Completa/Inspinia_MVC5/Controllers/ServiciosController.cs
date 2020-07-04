@@ -18,9 +18,46 @@ namespace Inspinia_MVC5.Controllers
         // GET: /Servicios/
         public ActionResult externo()
         {
+
             var tbservicios = db.ServicioExterno;/*.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1)*/
             return View(tbservicios.ToList());
         }
+
+        ////http://localhost:58893/Servicios/adquirirSuscripcion/1
+
+        public ActionResult adquirirSuscripcion(int id)
+        {
+            var tbsus = db.tbSuscripciones.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1).ToList();
+            //var tbpersonas = db.tbPersonas.Include(t => t.tbUsuarios).Include(t => t.tbUsuarios1);
+            List<tbSuscripciones> lst;
+            lst = (
+                    from p in db.tbSuscripciones
+                    select p).ToList();
+
+            string idsServ = (from l in lst select l.serv_Id).ToString();
+            int idServInt = Convert.ToInt32(idsServ);
+            ViewBag.descServ = (from x in db.tbServicios where x.serv_Id == idServInt select x.serv_Descripcion);
+
+            return View(tbsus);
+        }
+
+        // GET: /Servicios/
+        public ActionResult externodetalles(int id)
+        {
+            var tbservicios = (from x in db.ServicioExterno where x.Id == id select x).ToList();
+
+            var suscripciones = (from y in db.tbSuscripciones where y.serv_Id == id select y);
+            if(suscripciones.Count() > 1)
+            {
+                ViewBag.suscripcionValida = true;
+            }
+            else
+            {
+                ViewBag.suscripcionValida = false;
+            }
+                return PartialView(tbservicios);
+        }
+
 
         // GET: /Servicios/Details/5
         public ActionResult Details(int? id)
@@ -193,9 +230,7 @@ namespace Inspinia_MVC5.Controllers
             //ViewBag.serv_UsuarioCrea = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario");
             //ViewBag.serv_UsuarioModifica = new SelectList(db.tbUsuarios, "usu_Id", "usu_NombreDeUsuario");
         }
-
-
-
+        
         public ActionResult _PedidosDetalle(int? id)
         {
             //var cliente = (

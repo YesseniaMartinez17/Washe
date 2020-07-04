@@ -13,6 +13,7 @@
     </div>
 </div>
 
+@Html.AntiForgeryToken()
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
@@ -23,123 +24,87 @@
                         <h5>Seleccione el/los vehiculos para los cuales desea solicitar nuestros servicios</h5>
                     </div>
                 </div>
-                    <div class="ibox-content">
+                <div class="ibox-content">
 
-                        <div class="row">
-                            @foreach (var item in Model)
-                            {
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            L1 = item.Precio.ToString("0.00");
+                            L2 = decimal.Parse(L1);
 
-                                //String.Format("{0:0}", double.Parse("3.5", CultureInfo.InvariantCulture))  //3.5
-                                L1 = item.Precio.ToString("0.00");//.Replace(".00", string.Empty);  //string.Format("{0:0.00}", string.par (item.Precio)); //item.Precio + "a";
-                                L2 = decimal.Parse(L1);
+                            <div class="col-md-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box objetosServicios" data-value="@item.Id" data-precio="@L2" data-descripcion="@item.Descripcion">
 
-                                <div class="col-md-3">
-                                    <div class="ibox">
-                                        @*<div class="ibox-content product-box active">*@
-                                        <div class="ibox-content product-box objetosServicios" data-value="@item.Id" data-precio="@L2" data-descripcion="@item.Descripcion">
-
-                                            <div class="product-imitation">
-                                                [ INFO ]
-                                            </div>
-                                            <div class="product-desc">
-                                                <span class="product-price">
-                                                    @L2<sub>Lps.</sub>
-                                                </span>
-                                                @*<small class="text-muted">Category</small>*@
-                                                <a href="#" class="product-name">
-                                                    @item.Descripcion
-                                                </a>
-                                                @*<div class="small m-t-xs">
-                                        many desktop publishing packages and web page editors now.
-                                    </div>*@
-                                                @*<div class="m-t text-righ">
-                                        <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                    </div>*@
-                                            </div>
+                                        <div class="product-imitation">
+                                            [ INFO ]
+                                        </div>
+                                        <div class="product-desc">
+                                            <span class="product-price">
+                                                <i data-Id="@item.Id" data-desc="@item.Descripcion" data-imgsrc="@item.Directorio" class="fa fa-info-circle info Idetalles"></i>
+                                                @L2<sub>Lps.</sub>
+                                            </span>
+                                            <a href="#" class="product-name">
+                                                @item.Titulo
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
-                            }
-                        </div>
-                        <hr />
-                        <div id="confirmar" style="visibility:hidden;">
-                            <input type="submit" id="Continuar" class="btn btn-primary" value="Continuar" />
-                        </div>
+                            </div>
+                        }
+                    </div>
+                    <hr />
+                    <div id="confirmar" style="visibility:hidden;">
+                        <input type="submit" id="Continuar" class="btn btn-primary" value="Continuar" />
                     </div>
                 </div>
+            </div>
         </div>
     </div>
- </div>
+</div>
+
+
+<div class="modal fade" id="ModalDetalles" tabindex="-1" role="dialog" aria-labelledby="AgregarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div id="ContenidoDetalles">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
+<div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'buynow',
+
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '1'
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+  }).render('#paypal-button-container');
+</script>
 @section Scripts{
-    <script type="text/javascript">
-        var id = [];
-        var desc = [];
-        var precio = [];
-
-
-        $('.objetosServicios').click(
-            function () {
-
-                var idObj = $(this).data("value");
-                var descObj = $(this).data("descripcion");
-                var precioObj = $(this).data("precio");
-
-                if ($(this).hasClass("active")) {
-                    $(this).removeClass(" active");
-                    const indexR = id.indexOf(idObj);
-                    if (indexR > -1) {
-
-                        id.splice(indexR, 1);
-                        desc.splice(indexR, 1);
-                        precio.splice(indexR, 1);
-
-                        //console.log(id);
-                        //console.log(desc);
-                        //console.log(precio);
-                    }
-                } else {
-                    $(this).addClass(" active ");
-                    id.push(idObj);
-                    desc.push(descObj);
-                    precio.push(precioObj);
-                }
-                //$(location).attr('href', '/Servicios/');
-                if (id.length < 1) {
-                    $('#confirmar').addClass("animated fadeOut");
-                    setTimeout(
-                        function () {
-                            $('#confirmar').css("visibility", "hidden");
-                        }, 300);
-                    //ocultar($('#confirmar'));
-
-                } else if (id.length == 1) {
-                    $('#confirmar').css("visibility", "visible");
-                    $('#confirmar').addClass("animated fadeIn");
-                    setTimeout(
-                        function () {
-                            $('#confirmar').removeClass();
-                        }, 300);
-                }
-            }
-
-        );
-
-        @*$('#Continuar').click(
-            function () {
-                var url = "@Url.Action("solicitar", "Servicios")";
-                var data = { id: id };
-                $.post(url, data);//.done()
-            }).done(
-            function () {
-                window.location = "Servicios/solicitar";
-            }
-            );*@
-        $('#Continuar').click(
-            function () {
-                $(location).attr('href', '/Servicios/solicitar?id=' + id);//+ '&desc=' + desc + '&precio=' + precio);
-            });        
-    </script>
+    @Scripts.Render("~/Scripts/app/General/Servicios/externo")
 }

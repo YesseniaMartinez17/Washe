@@ -1,24 +1,26 @@
 ﻿var idG = 0;
 $(document).ready(
     function () {
-        //alert();
-    }
-);
-
-$('.btnDetalles').click(
-    function () {
-        var id = $(this).data("id");
-        $('#ContenidoDetalle').load("/Administracion/_Detalles/" + id,
-            function () {
-                $("#ModalDetalles").modal("show");
-            });
+        obtenerdata();
     }
 );
 //.attr href
 
-$('.btnInactivar').click(
-    function () {
-        var id = $(this).data("id");
+function detalles(id) {
+    //var id = $(btnDetalle).data("id");
+    $('#ContenidoDetalle').load("/Administracion/_Detalles/" + id,
+        function () {
+            $("#ModalDetalles").modal("show");
+        });
+}
+
+
+
+
+
+
+
+function inactivar(id) {
         idG = id;
         swal({
             title: "Confirmar."
@@ -36,8 +38,6 @@ $('.btnInactivar').click(
                     })
                         .then((value) => {
                             if (value.length > 10) {
-
-                                //alert('el id es:' + id);
                                 //post(value);
                                 
                                 const token = $("[name='__RequestVerificationToken']").val();
@@ -55,6 +55,7 @@ $('.btnInactivar').click(
                                 ).done(
                                     () =>   {
                                         toastr.success('El registro fue inhabilitado de forma exitosa', 'Éxito');
+                                        obtenerdata();
                                             }
                                 ).fail(
                                         () => {
@@ -69,26 +70,23 @@ $('.btnInactivar').click(
 
 
                             } else {
-                                toastr.fail('Inactivación anulada', 'Razón inactivación invalida.');
+                                toastr.error('Inactivación anulada', 'Razón inactivación invalida.');
                             }
                             //swal('You typed:' + value);
                         });
                 } else {
                     ////swal("Your imaginary file is safe!");
                 }
-            });
+        });
     }
-);
 
 
 //toastr.success('Without any options', 'Simple notification!')
 
-$(".btnREactivar").click(
-    function () {
-        var id = $(this).data("id");
+    function REactivar(id) {
         swal(
             {
-                title: "Desea reactivar este registro?"
+                title: "Desea habilitar este registro?"
                 , text: "(El registro estara nuevamente disponible)"
                 , buttons: {
                     cancel: "Cancelar"
@@ -113,6 +111,7 @@ $(".btnREactivar").click(
                         //
                         () => {
                             toastr.success('El registro fue habilitado de forma exitosa', 'Éxito');
+                            obtenerdata();
                         }
                     ).fail(
                         () => {
@@ -123,7 +122,6 @@ $(".btnREactivar").click(
             }    
         );
     }
-);
 
 $('.demo4').click(function () {
     swal("Write something here:", {
@@ -134,21 +132,6 @@ $('.demo4').click(function () {
         });
 });
 
-
-
-$('#btnConfirmarInact').click(
-    function() {
-        alert($('#inptInactivacion').val());
-    }
-);
-
-
-$('#prueba').click(
-    () => {
-        alert(idG);
-    }
-);
-
 function validarForanea() {
     var token = '@Html.AntiForgeryToken()';
     token = $(token).val();
@@ -157,12 +140,17 @@ function validarForanea() {
 
 
 
+$('#ModalModifica').on("hidden.bs.modal", function ()
+    {
+        $('.modaleditarbtn').remove();
+    }
+);
 
-$('.btnModificar').click(
-    function () {
-        const id = $(this).data("id");
-        const desc = $(this).data("descripcion");
-        const inpt = $('#inptModifica');
+function Modificar(id) {
+        //const desc = $(id).data("descripcion");
+        //const inpt = $('#inptModifica');
+        //console.log(desc);
+        //console.log(id);
         var footer = document.createElement('input');
         footer.setAttribute("type","button");
         footer.setAttribute("value", "Confirmar");
@@ -175,14 +163,9 @@ $('.btnModificar').click(
         $('#contenidoModificar').append(footer);
 
         $('#ModalModifica').modal("show");
-    }
-);
+        obtenerdata();
+}
 
-
-$('#ModalModifica').on("hidden.bs.modal", function () {
-        $('.modaleditarbtn').remove();
-    }
-);
 
 $('.modaleditarbtn').click(
     function () {
@@ -191,9 +174,107 @@ $('.modaleditarbtn').click(
 );
 
 
-$('.btn_modificar_deshabilitado').click(
+
+
+function obtenerdata() {
+    fetch("/Administracion/obtenerdata")
+    .then(
+        function (data) {
+            return data.json();
+        }
+    ).then(
+        function (dataJson) {
+            //
+            let listado = "";
+            let conteo = dataJson.length;
+            var cols = "";
+            for (let x = 0; x < conteo; x++) {
+                cols += '<tr>';
+                cols += '<td>' + dataJson[x].cserv_Descripcion + '</td>'
+
+                if (dataJson[x].cserv_Estado == true) {
+                    cols += `<td><div class="btn-success btn-circle">
+                            <i class="fa fa-check"></i>
+                            </div></td>`;
+                }else{
+                    cols += `<td><div class="btn-warning btn-circle">
+                                    <i class="fa fa-times"></i>
+                                    </div></td>`;
+                }
+
+                let id = dataJson[x].cserv_Id;
+                cols += `
+                        <td>
+                            <button data-id="` + id + `" onclick="detalles(`+id+`)" class="btnDetalles btn btn-outline btn-primary btn-sm">Detalles</button>
+                            <button data-id="` + id + `"  class="btn btn-outline btn-info btn-sm">Administrar subcategorías</button>
+                        `;
+                if (dataJson[x].cserv_Estado == true) {
+                    cols += `
+                                <button data-id="` + id + `" onclick="Modificar(` + id +`)"  data-descripcion="` + dataJson[x].cserv_Descripcion +`" class="btn btn-outline btn-warning btn-sm btnModificar">Modificar</button>
+                                <button data-id="` + id + `" onclick="inactivar(`+id+`)" class="btn btn-outline btn-danger btn-sm btnInactivar">Inactivar registro</button><td>`;
+                }
+                else
+                {
+                    cols += `
+                    <button data-id="` + id + `" onclick="inptdeshabilitado()" data-descripcion="` + dataJson[x].cserv_Descripcion +`" class="btn btn-outline btn-warning btn-sm">Modificar</button>
+                    <button data-id="` + id + `" onclick="REactivar(` + id +`)"  class="btn btn-outline btn-success btn-sm btnREactivar">Activar registro</button></td>`;
+                }
+                cols += '</tr>';
+                //if (dataJson[x] !== undefined) {
+                //    listado += "<p>" + dataJson[x].cserv_Descripcion + "</p>";
+                //}                
+
+            }
+            console.log(cols);
+
+
+            $('#tablainicial tr').remove();
+            $('#tablainicial').append(cols);
+
+
+
+
+            //let frase = "pato";
+            //var cols = '<td>' + frase + '</td><td>more data</td >';
+            //$('#tablainicial').append('<tr>' + cols + '</tr >');
+        }
+    )
+}
+
+
+$('#pruebarellena').click(
     () => {
-        toastr.warning('', 'No se puede modificar un registro deshabilitado');
-        $(this).focusout();
+        obtenerdata();
     }
 );
+
+
+//let frase = "pato";
+//$('#tablainicial').append('<tr><td>' + frase + '</td><td>more data</td ></tr >');
+
+//@if (item.cserv_Estado == true) {
+//    <div class="btn-success btn-circle">
+//        <i class="fa fa-check"></i>
+//    </div>
+//}
+//else {
+//    <div class="btn-warning btn-circle">
+//        <i class="fa fa-times"></i>
+//    </div>
+//}
+
+
+
+
+//$('.btn_modificar_deshabilitado').click(
+//    () => {
+//        toastr.warning('', 'No se puede modificar un registro deshabilitado');
+//        $(this).focusout();
+//    }
+//);
+
+
+function inptdeshabilitado() {
+    toastr.warning('', 'No se puede modificar un registro deshabilitado');
+    obtenerdata();
+}

@@ -212,6 +212,9 @@
     <Compile Include="Models\tbServicios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbSuscripciones.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbUsuarios.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
@@ -228,6 +231,30 @@
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDP_Prod_tbCategoriaServicios_REactivar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbServicios_Habilitar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbServicios_Inhabilitar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbServicios_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbServicios_Update_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbSuscripciones_Habilitar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbSuscripciones_Inhabilitar_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbSuscripciones_Insert_Result.cs">
+      <DependentUpon>Models.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UDP_prod_tbSuscripciones_Update_Result.cs">
       <DependentUpon>Models.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UDP_Seg_tbUsuario_Insert_Result.cs">
@@ -1309,8 +1336,13 @@
     <Content Include="Images\p_big2.jpg" />
     <Content Include="Images\p_big3.jpg" />
     <Content Include="Images\zender_logo.png" />
+    <Content Include="Scripts\app\General\Administracion\AgregarServicio.js" />
     <Content Include="Scripts\app\General\Administracion\CategoriasServicios.js" />
+    <Content Include="Scripts\app\General\Administracion\SubCategorias.js" />
+    <Content Include="Scripts\app\General\Administracion\Suscripciones.js" />
+    <Content Include="Scripts\app\General\General.js" />
     <Content Include="Scripts\app\General\Personas\Personas.js" />
+    <Content Include="Scripts\app\General\Servicios\Externo.js" />
     <Content Include="Scripts\app\General\Servicios\IndexPendientes.js" />
     <Content Include="Scripts\app\General\Servicios\MascaraS.js" />
     <Content Include="Scripts\app\inspinia.js" />
@@ -1715,6 +1747,8 @@
     <Content Include="Scripts\plugins\ladda\ladda.jquery.min.js" />
     <Content Include="Scripts\plugins\ladda\ladda.min.js" />
     <Content Include="Scripts\plugins\ladda\spin.min.js" />
+    <Content Include="Scripts\plugins\Mask\jquery.mask.js" />
+    <Content Include="Scripts\plugins\Mask\jquery.mask.min.js" />
     <Content Include="Scripts\plugins\masonary\masonry.pkgd.min.js" />
     <Content Include="Scripts\plugins\metisMenu\metisMenu.min.js" />
     <Content Include="Scripts\plugins\morris\morris.js" />
@@ -1916,6 +1950,13 @@
     <Content Include="Views\Servicios\_PedidosDetalle.cshtml" />
     <Content Include="Views\Administracion\CatalogosServicios.cshtml" />
     <Content Include="Views\Administracion\_Detalles.cshtml" />
+    <Content Include="Views\Administracion\AdministrarSubcategorias.cshtml" />
+    <Content Include="Views\Administracion\_DetalleServicios.cshtml" />
+    <Content Include="Views\Administracion\AgregarServicio.cshtml" />
+    <Content Include="Views\Administracion\Suscripciones.cshtml" />
+    <Content Include="Views\Administracion\DetallesSuscripcion.cshtml" />
+    <Content Include="Views\Servicios\externodetalles.cshtml" />
+    <Content Include="Views\Servicios\adquirirSuscripcion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

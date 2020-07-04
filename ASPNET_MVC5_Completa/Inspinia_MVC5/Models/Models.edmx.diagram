@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="Models.tbPersonas" Width="1.5" PointX="8.25" PointY="8" />
         <EntityTypeShape EntityType="Models.SolicitudesApartadas" Width="1.5" PointX="12.75" PointY="10" />
         <EntityTypeShape EntityType="Models.tbCategoriaServicios" Width="1.5" PointX="8.25" PointY="4.125" />
-        <EntityTypeShape EntityType="Models.tbServicios" Width="1.5" PointX="10.5" PointY="3.25" />
         <EntityTypeShape EntityType="Models.tbAcciones" Width="1.5" PointX="0.75" PointY="4.5" />
         <EntityTypeShape EntityType="Models.tbAccionRol" Width="1.5" PointX="3" PointY="7.375" />
         <EntityTypeShape EntityType="Models.tbRoles" Width="1.5" PointX="0.75" PointY="7.375" />
@@ -19,20 +18,25 @@
         <AssociationConnector Association="Models.FK_fact_tbPedidos_fact_tbPedidosDetalle_pdidos_Id" />
         <AssociationConnector Association="Models.FK_fact_tbPedidos_prod_SolicitudesApartadas_pdido_Id" />
         <AssociationConnector Association="Models.FK_Persona_tbPersonas_fact_tbPedidos_per_Id" />
-        <AssociationConnector Association="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" />
         <AssociationConnector Association="Models.FK_Persona_tbPersonas_prod_SolicitudesApartadas_per_Id" />
         <AssociationConnector Association="Models.FK_Persona_tbPersonas_Seg_tbUsuarios_per_Id" />
         <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioCrea" />
         <AssociationConnector Association="Models.FK_Seg_tbUsuarios_Persona_tbPersonas_per_UsuarioModifica" />
         <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_SolicitudesApartadas_usu_UsuarioModifica" />
-        <AssociationConnector Association="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" />
         <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioCrea" />
         <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbCategoriaServicios_cserv_UsuarioModifica" />
-        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" />
-        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" />
         <AssociationConnector Association="Models.FK_Seg_tbAcciones_Seg_tbAccionRol_accion_Id" />
         <AssociationConnector Association="Models.FK_Seg_tbRoles_Seg_tbAccionRol_rol_Id" />
         <AssociationConnector Association="Models.FK_Seg_tbRoles_Seg_tbUsuarios_rol_id" />
+        <EntityTypeShape EntityType="Models.tbServicios" Width="1.5" PointX="10.5" PointY="3.125" />
+        <AssociationConnector Association="Models.FK_prod_tbServicios_fact_tbPedidosDetalle_serv_Id" />
+        <AssociationConnector Association="Models.FK_prod_tbCategoriaServicios_prod_tbServicios_cserv_Id" />
+        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioCrea" />
+        <AssociationConnector Association="Models.FK_Seg_tbUsuarios_prod_tbServicios_serv_UsuarioModifica" />
+        <EntityTypeShape EntityType="Models.tbSuscripciones" Width="1.5" PointX="15.75" PointY="5" />
+        <AssociationConnector Association="Models.FK__tbSuscrip__serv___78D3EB5B" />
+        <AssociationConnector Association="Models.FK__tbSuscrip__sus_U__7ABC33CD" />
+        <AssociationConnector Association="Models.FK__tbSuscrip__sus_U__7BB05806" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

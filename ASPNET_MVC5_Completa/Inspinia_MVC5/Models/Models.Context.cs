@@ -32,12 +32,13 @@ namespace Inspinia_MVC5.Models
         public virtual DbSet<tbPersonas> tbPersonas { get; set; }
         public virtual DbSet<SolicitudesApartadas> SolicitudesApartadas { get; set; }
         public virtual DbSet<tbCategoriaServicios> tbCategoriaServicios { get; set; }
-        public virtual DbSet<tbServicios> tbServicios { get; set; }
         public virtual DbSet<tbAcciones> tbAcciones { get; set; }
         public virtual DbSet<tbAccionRol> tbAccionRol { get; set; }
         public virtual DbSet<tbRoles> tbRoles { get; set; }
         public virtual DbSet<tbUsuarios> tbUsuarios { get; set; }
         public virtual DbSet<ServicioExterno> ServicioExterno { get; set; }
+        public virtual DbSet<tbServicios> tbServicios { get; set; }
+        public virtual DbSet<tbSuscripciones> tbSuscripciones { get; set; }
     
         public virtual ObjectResult<UDP_Persona_tbPersonas_Insert_Result> UDP_Persona_tbPersonas_Insert(string per_Identidad, string per_Nombres, string per_Apellidos, Nullable<System.DateTime> per_FechaNacimiento, string per_Telefono, string per_CorreoElectronico, Nullable<int> per_UsuarioCrea, Nullable<System.DateTime> per_FechaCrea)
         {
@@ -183,6 +184,214 @@ namespace Inspinia_MVC5.Models
                 new ObjectParameter("fecha", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_Prod_tbCategoriaServicios_REactivar_Result>("UDP_Prod_tbCategoriaServicios_REactivar", idParameter, usuarioParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbServicios_Update_Result> UDP_prod_tbServicios_Update(Nullable<int> serv_Id, string serv_Titulo, string serv_Descripcion, Nullable<decimal> serv_Precio, string serv_Directorio, Nullable<System.DateTime> fecha, Nullable<int> usuario)
+        {
+            var serv_IdParameter = serv_Id.HasValue ?
+                new ObjectParameter("serv_Id", serv_Id) :
+                new ObjectParameter("serv_Id", typeof(int));
+    
+            var serv_TituloParameter = serv_Titulo != null ?
+                new ObjectParameter("serv_Titulo", serv_Titulo) :
+                new ObjectParameter("serv_Titulo", typeof(string));
+    
+            var serv_DescripcionParameter = serv_Descripcion != null ?
+                new ObjectParameter("serv_Descripcion", serv_Descripcion) :
+                new ObjectParameter("serv_Descripcion", typeof(string));
+    
+            var serv_PrecioParameter = serv_Precio.HasValue ?
+                new ObjectParameter("serv_Precio", serv_Precio) :
+                new ObjectParameter("serv_Precio", typeof(decimal));
+    
+            var serv_DirectorioParameter = serv_Directorio != null ?
+                new ObjectParameter("serv_Directorio", serv_Directorio) :
+                new ObjectParameter("serv_Directorio", typeof(string));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbServicios_Update_Result>("UDP_prod_tbServicios_Update", serv_IdParameter, serv_TituloParameter, serv_DescripcionParameter, serv_PrecioParameter, serv_DirectorioParameter, fechaParameter, usuarioParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbServicios_Habilitar_Result> UDP_prod_tbServicios_Habilitar(Nullable<int> serv_Id, Nullable<int> usuario, Nullable<System.DateTime> fecha)
+        {
+            var serv_IdParameter = serv_Id.HasValue ?
+                new ObjectParameter("serv_Id", serv_Id) :
+                new ObjectParameter("serv_Id", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbServicios_Habilitar_Result>("UDP_prod_tbServicios_Habilitar", serv_IdParameter, usuarioParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbServicios_Inhabilitar_Result> UDP_prod_tbServicios_Inhabilitar(Nullable<int> serv_Id, string serv_RazonInactivo, Nullable<int> usuario, Nullable<System.DateTime> fecha)
+        {
+            var serv_IdParameter = serv_Id.HasValue ?
+                new ObjectParameter("serv_Id", serv_Id) :
+                new ObjectParameter("serv_Id", typeof(int));
+    
+            var serv_RazonInactivoParameter = serv_RazonInactivo != null ?
+                new ObjectParameter("serv_RazonInactivo", serv_RazonInactivo) :
+                new ObjectParameter("serv_RazonInactivo", typeof(string));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbServicios_Inhabilitar_Result>("UDP_prod_tbServicios_Inhabilitar", serv_IdParameter, serv_RazonInactivoParameter, usuarioParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbSuscripciones_Habilitar_Result> UDP_prod_tbSuscripciones_Habilitar(Nullable<int> sus_Id, Nullable<int> usuario, Nullable<System.DateTime> fecha)
+        {
+            var sus_IdParameter = sus_Id.HasValue ?
+                new ObjectParameter("sus_Id", sus_Id) :
+                new ObjectParameter("sus_Id", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbSuscripciones_Habilitar_Result>("UDP_prod_tbSuscripciones_Habilitar", sus_IdParameter, usuarioParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbSuscripciones_Inhabilitar_Result> UDP_prod_tbSuscripciones_Inhabilitar(Nullable<int> sus_Id, Nullable<int> usuario, Nullable<System.DateTime> fecha, string sus_RazonInactivo)
+        {
+            var sus_IdParameter = sus_Id.HasValue ?
+                new ObjectParameter("sus_Id", sus_Id) :
+                new ObjectParameter("sus_Id", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var sus_RazonInactivoParameter = sus_RazonInactivo != null ?
+                new ObjectParameter("sus_RazonInactivo", sus_RazonInactivo) :
+                new ObjectParameter("sus_RazonInactivo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbSuscripciones_Inhabilitar_Result>("UDP_prod_tbSuscripciones_Inhabilitar", sus_IdParameter, usuarioParameter, fechaParameter, sus_RazonInactivoParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbSuscripciones_Update_Result> UDP_prod_tbSuscripciones_Update(Nullable<int> sus_Id, Nullable<decimal> serv_Precio, string serv_Descripcion, Nullable<int> mesesVigencia, Nullable<int> sus_Cant, Nullable<int> usuario, Nullable<System.DateTime> fecha)
+        {
+            var sus_IdParameter = sus_Id.HasValue ?
+                new ObjectParameter("sus_Id", sus_Id) :
+                new ObjectParameter("sus_Id", typeof(int));
+    
+            var serv_PrecioParameter = serv_Precio.HasValue ?
+                new ObjectParameter("serv_Precio", serv_Precio) :
+                new ObjectParameter("serv_Precio", typeof(decimal));
+    
+            var serv_DescripcionParameter = serv_Descripcion != null ?
+                new ObjectParameter("serv_Descripcion", serv_Descripcion) :
+                new ObjectParameter("serv_Descripcion", typeof(string));
+    
+            var mesesVigenciaParameter = mesesVigencia.HasValue ?
+                new ObjectParameter("mesesVigencia", mesesVigencia) :
+                new ObjectParameter("mesesVigencia", typeof(int));
+    
+            var sus_CantParameter = sus_Cant.HasValue ?
+                new ObjectParameter("sus_Cant", sus_Cant) :
+                new ObjectParameter("sus_Cant", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbSuscripciones_Update_Result>("UDP_prod_tbSuscripciones_Update", sus_IdParameter, serv_PrecioParameter, serv_DescripcionParameter, mesesVigenciaParameter, sus_CantParameter, usuarioParameter, fechaParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbServicios_Insert_Result> UDP_prod_tbServicios_Insert(Nullable<int> cserv_Id, string serv_Titulo, string serv_Descripcion, Nullable<decimal> serv_Precio, string serv_Directorio, Nullable<System.DateTime> fecha, Nullable<int> usuario)
+        {
+            var cserv_IdParameter = cserv_Id.HasValue ?
+                new ObjectParameter("cserv_Id", cserv_Id) :
+                new ObjectParameter("cserv_Id", typeof(int));
+    
+            var serv_TituloParameter = serv_Titulo != null ?
+                new ObjectParameter("serv_Titulo", serv_Titulo) :
+                new ObjectParameter("serv_Titulo", typeof(string));
+    
+            var serv_DescripcionParameter = serv_Descripcion != null ?
+                new ObjectParameter("serv_Descripcion", serv_Descripcion) :
+                new ObjectParameter("serv_Descripcion", typeof(string));
+    
+            var serv_PrecioParameter = serv_Precio.HasValue ?
+                new ObjectParameter("serv_Precio", serv_Precio) :
+                new ObjectParameter("serv_Precio", typeof(decimal));
+    
+            var serv_DirectorioParameter = serv_Directorio != null ?
+                new ObjectParameter("serv_Directorio", serv_Directorio) :
+                new ObjectParameter("serv_Directorio", typeof(string));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbServicios_Insert_Result>("UDP_prod_tbServicios_Insert", cserv_IdParameter, serv_TituloParameter, serv_DescripcionParameter, serv_PrecioParameter, serv_DirectorioParameter, fechaParameter, usuarioParameter);
+        }
+    
+        public virtual ObjectResult<UDP_prod_tbSuscripciones_Insert_Result> UDP_prod_tbSuscripciones_Insert(Nullable<int> serv_Id, Nullable<decimal> serv_Precio, string serv_Descripcion, Nullable<int> mesesVigencia, Nullable<int> usuario, Nullable<System.DateTime> fecha, Nullable<int> sus_Cant)
+        {
+            var serv_IdParameter = serv_Id.HasValue ?
+                new ObjectParameter("serv_Id", serv_Id) :
+                new ObjectParameter("serv_Id", typeof(int));
+    
+            var serv_PrecioParameter = serv_Precio.HasValue ?
+                new ObjectParameter("serv_Precio", serv_Precio) :
+                new ObjectParameter("serv_Precio", typeof(decimal));
+    
+            var serv_DescripcionParameter = serv_Descripcion != null ?
+                new ObjectParameter("serv_Descripcion", serv_Descripcion) :
+                new ObjectParameter("serv_Descripcion", typeof(string));
+    
+            var mesesVigenciaParameter = mesesVigencia.HasValue ?
+                new ObjectParameter("mesesVigencia", mesesVigencia) :
+                new ObjectParameter("mesesVigencia", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var fechaParameter = fecha.HasValue ?
+                new ObjectParameter("fecha", fecha) :
+                new ObjectParameter("fecha", typeof(System.DateTime));
+    
+            var sus_CantParameter = sus_Cant.HasValue ?
+                new ObjectParameter("sus_Cant", sus_Cant) :
+                new ObjectParameter("sus_Cant", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UDP_prod_tbSuscripciones_Insert_Result>("UDP_prod_tbSuscripciones_Insert", serv_IdParameter, serv_PrecioParameter, serv_DescripcionParameter, mesesVigenciaParameter, usuarioParameter, fechaParameter, sus_CantParameter);
         }
     }
 }

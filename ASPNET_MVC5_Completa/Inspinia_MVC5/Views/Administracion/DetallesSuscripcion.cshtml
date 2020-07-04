@@ -1,0 +1,51 @@
+﻿@model Inspinia_MVC5.Models.tbSuscripciones
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="ibox-title">
+            <h5>Información de auditoria</h5>
+        </div>
+        <p>
+            <b text-right>Registro agregado por el usuario:</b>
+            @Model.tbUsuarios.usu_NombreDeUsuario
+        </p>
+        <p>
+            <b text-right>Registro agregado la fecha:</b>
+            @Model.sus_FechaCrea
+        </p>
+        @{
+            if (Model.sus_Estado == false)
+            {
+                <p>
+                    <b class="text-right">Razón de la inactivación:</b>
+                    @Model.sus_RazonInactivo
+                </p>
+            }
+
+            if (Model.sus_UsuarioModifica != null)
+            {
+                <p>
+                    <b class="text-right">Usuario que realizo la ultima modificación:</b>
+                    @Model.tbUsuarios1.usu_NombreDeUsuario
+                </p>
+                <p>
+                    <b class="text-right">Fecha de la ultima modificación:</b>
+                    @Model.sus_FechaModifica
+                </p>
+            }
+        }
+        <div class="ibox-title">
+            <h5>Información general:</h5>
+        </div>
+        <p>
+            <b class="text-right">Vigencia mensual maxima: </b>
+            @Model.sus_MesesVigencia
+        </p>
+        <p>
+            <b class="text-right">Cantidad maxima de solicitudes por suscripción: </b>
+            @Model.sus_CantidadMaximaSolicitudes
+        </p>
+    </div>
+</div>

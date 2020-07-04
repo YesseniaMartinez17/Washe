@@ -7,8 +7,8 @@
 
 
 <style type="text/css">
-    #contenidoM{
-        background-color:white;
+    #contenidoM {
+        background-color: white;
     }
 </style>
 
@@ -24,21 +24,22 @@
 </div>
 
 
+
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <div class="ibox-content">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Listados de categorias de servicios</h5>
-                        <div class="ibox-tools">
-                            @Html.ActionLink("Registrar nuevo", "Create", null, new { @class = "btn btn-primary btn-xs" })
-                        </div>
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Listados de categorias de servicios</h5>
+                    <div class="ibox-tools">
+                        @Html.ActionLink("Registrar nuevo", "Create", null, new { @class = "btn btn-primary btn-xs" })
                     </div>
-                    @Html.AntiForgeryToken()
-                    <div class="ibox-content">
+                </div>
+                @Html.AntiForgeryToken()
+                <div class="ibox-content">
 
-                        <table class="table table-striped">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.cserv_Descripcion)
@@ -48,47 +49,11 @@
                                 </th>
                                 <th>Acciones</th>
                             </tr>
+                        </thead>
+                        <tbody id="tablainicial"></tbody>
 
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.cserv_Descripcion)
-                                    </td>
-                                    <td>
-
-                                        @if (item.cserv_Estado == true)
-                                        {
-                                            <div class="btn-success btn-circle">
-                                                <i class="fa fa-check"></i>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="btn-warning btn-circle">
-                                                <i class="fa fa-times"></i>
-                                            </div>
-                                        }
-
-                                    </td>
-                                    <td>
-                                        <button data-id="@item.cserv_Id" class="btnDetalles btn btn-outline btn-primary btn-sm">Detalles</button>
-                                        <button data-id="@item.cserv_Id" class="btn btn-outline btn-info btn-sm">Administrar subcategorías</button>
-                                        @if (item.cserv_Estado == true)
-                                        {
-                                            <button data-id="@item.cserv_Id" data-descripcion="@item.cserv_Descripcion" class="btn btn-outline btn-warning btn-sm btnModificar">Modificar</button>
-                                            <button data-id="@item.cserv_Id" class="btn btn-outline btn-danger btn-sm btnInactivar">Inactivar registro</button>
-                                        }
-                                        else
-                                        {
-                                            <button data-id="@item.cserv_Id" data-descripcion="@item.cserv_Descripcion" class="btn btn-outline btn-warning btn-sm btn_modificar_deshabilitado">Modificar</button>
-                                            <button data-id="@item.cserv_Id" class="btn btn-outline btn-success btn-sm btnREactivar">Activar registro</button>
-                                        }
-                                    </td>
-                                </tr>
-                            }
-
-                        </table>
+                    </table>
+                    <div id="contenidojson">
 
                     </div>
                 </div>
@@ -96,10 +61,6 @@
         </div>
     </div>
 </div>
-<button class="btn btn-danger btn-sm demo4">Run example</button>
-
-
-<!-- Modal detalles -->
 
 <div class="modal fade" id="ModalDetalles" tabindex="-1" role="dialog" aria-labelledby="DetallesLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,19 +96,16 @@
 
 
 
-                            <br />
-                            <div id="contenidoModificar">
-                            </div>
+                        <br />
+                        <div id="contenidoModificar">
                         </div>
                     </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-<button id="prueba">prueba</button>
 @section Styles {
     @Styles.Render("~/plugins/sweetAlertStyles")
     @Styles.Render("~/plugins/toastrStyles")

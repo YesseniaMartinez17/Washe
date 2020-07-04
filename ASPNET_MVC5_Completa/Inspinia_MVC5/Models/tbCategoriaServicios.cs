@@ -29,9 +29,9 @@ namespace Inspinia_MVC5.Models
         public Nullable<int> cserv_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> cserv_FechaModifica { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbServicios> tbServicios { get; set; }
         public virtual tbUsuarios tbUsuarios { get; set; }
         public virtual tbUsuarios tbUsuarios1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbServicios> tbServicios { get; set; }
     }
 }

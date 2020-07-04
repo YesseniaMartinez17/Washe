@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Inspinia_MVC5.Models.ServicioExterno>
+
+
+
+<b>Descripción del servicio:</b>
+<p id="descripcionDetalles"></p>
+<div class="text-center">
+    <img width="55%" height="70%" src="" id="fotografiaDetalleSuscripcion" />
+</div>
+<br />
+@if(ViewBag.suscripcionValida == true)
+{
+    <input type="button" class="btn btn-outline btn-success" value="Comprar suscripción" />
+}

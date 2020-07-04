@@ -1,0 +1,48 @@
+﻿@model Inspinia_MVC5.Models.tbServicios
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h1>Información de auditoria:</h1>
+                </div>
+                <div>
+                    <b></b>
+
+                    <b>Fecha inserción:</b>
+                    @*@Model.cserv_Id*@
+                    @Model.serv_FechaCrea
+                    <br />
+                    <b>Registro insertado por el usuario: </b>
+                    @Model.tbUsuarios.usu_NombreDeUsuario
+                    <br />
+                    @*@Model.cserv_Id*@
+
+
+
+                    @if (Model.serv_UsuarioModifica != null)
+                    {
+                        <b>Modificación mas reciente realizada por el usuario: </b>
+                        @Model.tbUsuarios1.usu_NombreDeUsuario
+                        <br />
+                        <b>Fecha última modificación:</b>
+                        @Model.serv_FechaModifica
+                        <br />
+                        if (Model.serv_Estado == false)
+                        {
+                            <b>Razón de inactivación: </b>
+                            @Model.serv_RazonInactivo
+                        }
+                    }
+                    <hr />
+                    <b>Fotografía: </b>
+                    <br />
+                    <br />
+                    <img src="@Model.serv_Directorio" style="width:100%;height:100%" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

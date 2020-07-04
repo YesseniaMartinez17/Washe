@@ -102,23 +102,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbServicios">
-      <EntityTypeMapping TypeName="Models.tbServicios">
-        <MappingFragment StoreEntitySet="tbServicios">
-          <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
-          <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
-          <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
-          <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
-          <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
-          <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
-          <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
-          <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
-          <ScalarProperty Name="serv_Titulo" ColumnName="serv_Titulo" />
-          <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
-          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbAcciones">
       <EntityTypeMapping TypeName="Models.tbAcciones">
         <MappingFragment StoreEntitySet="tbAcciones">
@@ -159,6 +142,10 @@
     <EntitySetMapping Name="ServicioExterno">
       <EntityTypeMapping TypeName="Models.ServicioExterno">
         <MappingFragment StoreEntitySet="ServicioExterno">
+          <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Directorio" ColumnName="Directorio" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
           <ScalarProperty Name="Precio" ColumnName="Precio" />
           <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -175,6 +162,98 @@
     <FunctionImportMapping FunctionImportName="UDP_Prod_tbCategoriaServicios_REactivar" FunctionName="Models.Store.UDP_Prod_tbCategoriaServicios_REactivar">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Models.UDP_Prod_tbCategoriaServicios_REactivar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbServicios">
+      <EntityTypeMapping TypeName="Models.tbServicios">
+        <MappingFragment StoreEntitySet="tbServicios">
+          <ScalarProperty Name="serv_FechaModifica" ColumnName="serv_FechaModifica" />
+          <ScalarProperty Name="serv_UsuarioModifica" ColumnName="serv_UsuarioModifica" />
+          <ScalarProperty Name="serv_FechaCrea" ColumnName="serv_FechaCrea" />
+          <ScalarProperty Name="serv_UsuarioCrea" ColumnName="serv_UsuarioCrea" />
+          <ScalarProperty Name="serv_RazonInactivo" ColumnName="serv_RazonInactivo" />
+          <ScalarProperty Name="serv_Estado" ColumnName="serv_Estado" />
+          <ScalarProperty Name="serv_Directorio" ColumnName="serv_Directorio" />
+          <ScalarProperty Name="serv_Precio" ColumnName="serv_Precio" />
+          <ScalarProperty Name="serv_Descripcion" ColumnName="serv_Descripcion" />
+          <ScalarProperty Name="serv_Titulo" ColumnName="serv_Titulo" />
+          <ScalarProperty Name="cserv_Id" ColumnName="cserv_Id" />
+          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Update" FunctionName="Models.Store.UDP_prod_tbServicios_Update">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Update_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Habilitar" FunctionName="Models.Store.UDP_prod_tbServicios_Habilitar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Habilitar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Inhabilitar" FunctionName="Models.Store.UDP_prod_tbServicios_Inhabilitar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Inhabilitar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="tbSuscripciones">
+      <EntityTypeMapping TypeName="Models.tbSuscripciones">
+        <MappingFragment StoreEntitySet="tbSuscripciones">
+          <ScalarProperty Name="sus_FechaModifica" ColumnName="sus_FechaModifica" />
+          <ScalarProperty Name="sus_UsuarioModifica" ColumnName="sus_UsuarioModifica" />
+          <ScalarProperty Name="sus_FechaCrea" ColumnName="sus_FechaCrea" />
+          <ScalarProperty Name="sus_UsuarioCrea" ColumnName="sus_UsuarioCrea" />
+          <ScalarProperty Name="sus_RazonInactivo" ColumnName="sus_RazonInactivo" />
+          <ScalarProperty Name="sus_Estado" ColumnName="sus_Estado" />
+          <ScalarProperty Name="sus_MesesVigencia" ColumnName="sus_MesesVigencia" />
+          <ScalarProperty Name="serv_Id" ColumnName="serv_Id" />
+          <ScalarProperty Name="sus_CantidadMaximaSolicitudes" ColumnName="sus_CantidadMaximaSolicitudes" />
+          <ScalarProperty Name="sus_Precio" ColumnName="sus_Precio" />
+          <ScalarProperty Name="sus_Descripcion" ColumnName="sus_Descripcion" />
+          <ScalarProperty Name="sus_Id" ColumnName="sus_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Habilitar" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Habilitar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Habilitar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Inhabilitar" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Inhabilitar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Inhabilitar_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Update" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Update">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Update_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbServicios_Insert" FunctionName="Models.Store.UDP_prod_tbServicios_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbServicios_Insert_Result">
+          <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="UDP_prod_tbSuscripciones_Insert" FunctionName="Models.Store.UDP_prod_tbSuscripciones_Insert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Models.UDP_prod_tbSuscripciones_Insert_Result">
           <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
         </ComplexTypeMapping>
       </ResultMapping>
