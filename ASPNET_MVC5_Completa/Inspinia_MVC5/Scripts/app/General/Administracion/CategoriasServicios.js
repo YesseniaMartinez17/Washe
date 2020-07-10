@@ -147,8 +147,8 @@ $('#ModalModifica').on("hidden.bs.modal", function ()
 );
 
 function Modificar(id) {
-        //const desc = $(id).data("descripcion");
-        //const inpt = $('#inptModifica');
+        const desc = $(id).data("descripcion");
+        const inpt = $('#inptModifica');
         //console.log(desc);
         //console.log(id);
         var footer = document.createElement('input');
@@ -206,7 +206,6 @@ function obtenerdata() {
                 cols += `
                         <td>
                             <button data-id="` + id + `" onclick="detalles(`+id+`)" class="btnDetalles btn btn-outline btn-primary btn-sm">Detalles</button>
-                            <button data-id="` + id + `"  class="btn btn-outline btn-info btn-sm">Administrar subcategorías</button>
                         `;
                 if (dataJson[x].cserv_Estado == true) {
                     cols += `
